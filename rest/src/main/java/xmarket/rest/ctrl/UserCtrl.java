@@ -1,6 +1,6 @@
 package xmarket.rest.ctrl;
 
-import xmarket.server.entity.transfer.UserProtos;
+import xmarket.server.entity.transfer.User;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ public class UserCtrl {
         return "测试成功";
     }
     @RequestMapping("/proto/read")
-    public ResponseEntity<UserProtos.User> protoRead() {
-        return ResponseEntity.ok(UserProtos.User.newBuilder().setId(1).setName("zhangsan").build());
+    public ResponseEntity<User.Register> protoRead() {
+        return ResponseEntity.ok(User.Register.newBuilder().setUsername("小王").setPassword("sdnskdks").setPhone("182003855656546").build());
     }
     @RequestMapping("/proto/write")
-    public ResponseEntity<UserProtos.User> protoRead(RequestEntity<UserProtos.User> requestEntity) {
+    public ResponseEntity<User.Register> protoRead(RequestEntity<User.Register> requestEntity) {
         return ResponseEntity.ok(requestEntity.getBody());
     }
 }

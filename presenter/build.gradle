@@ -40,4 +40,5 @@ dependencies {
     compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
     //---------------------mongo-------------------------------
     //compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
