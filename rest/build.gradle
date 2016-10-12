@@ -1,0 +1,7 @@
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    compile project(':presenter')
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

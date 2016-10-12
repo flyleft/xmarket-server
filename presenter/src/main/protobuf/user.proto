@@ -1,0 +1,23 @@
+/*
+syntax = "proto3";
+package xmarket.server.entity.transfer;
+
+option java_package = "xmarket.server.entity.transfer";
+option java_outer_classname = "User";
+option java_multiple_files = true;
+
+message Register {
+    string username = 1;
+    string password = 2;
+    string phone = 3;
+}*/
+syntax = "proto3";
+package com.github.zhangkaitao.pb;
+
+option java_package = "com.github.zhangkaitao.pb";
+option java_outer_classname = "UserProtos";
+
+message User {
+     int64 id = 1;
+     string name = 2;
+}

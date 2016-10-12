@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/snapshot" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}")
+        classpath "com.google.protobuf:protobuf-gradle-plugin:${protobufPlugin}"
+    }
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+apply plugin: 'com.google.protobuf'
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/protobuf'
+        }
+    }
+    test {
+        proto {
+            srcDir 'src/test/protobuf'
+        }
+    }
+}
+protobuf {
+    generatedFilesBaseDir = "$projectDir/src/"
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.1.0-build2'
+    }
+}
+dependencies {
+    //--------------------JDK工具------------------------------
+    compile 'org.projectlombok:lombok:1.16.10'
+    //--------------------protobuf-----------------------------
+    compile "com.google.protobuf:protobuf-java:${protobufVersion}"
+    compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+    //---------------------mongo-------------------------------
+    //compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+}

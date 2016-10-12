@@ -1,0 +1,6 @@
+rootProject.name = 'xmarket-server'
+include 'presenter'
+include 'rest'
+include 'web'
+include 'application'
+
