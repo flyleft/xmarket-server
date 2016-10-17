@@ -45,5 +45,6 @@ subprojects{
         springBootVersion = '1.4.1.RELEASE'
         springVersion='4.3.3.RELEASE'
         swaggerVersion='2.6.0'
+        resteasyVersion='2.2.0-RELEASE'
     }
 }
