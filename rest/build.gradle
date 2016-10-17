@@ -3,5 +3,7 @@ targetCompatibility = 1.8
 dependencies {
     compile project(':presenter')
     compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

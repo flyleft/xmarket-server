@@ -15,9 +15,6 @@ targetCompatibility = 1.8
 dependencies {
     //--------------------JDK工具------------------------------
     compile 'org.projectlombok:lombok:1.16.10'
-    //--------------------protobuf-----------------------------
-    compile "com.google.protobuf:protobuf-java:${protobufVersion}"
-    compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
     //---------------------mongo-------------------------------
     //compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.11'
