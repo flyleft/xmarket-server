@@ -46,5 +46,6 @@ subprojects{
         springVersion='4.3.3.RELEASE'
         swaggerVersion='2.6.0'
         resteasyVersion='2.2.0-RELEASE'
+        javaxRsApiVersion='2.1-m01'
     }
 }

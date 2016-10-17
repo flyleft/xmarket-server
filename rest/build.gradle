@@ -6,5 +6,6 @@ dependencies {
     compile "io.springfox:springfox-swagger2:${swaggerVersion}"
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     compile "com.paypal.springboot:resteasy-spring-boot-starter:${resteasyVersion}"
+    compile "javax.ws.rs:javax.ws.rs-api:${javaxRsApiVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

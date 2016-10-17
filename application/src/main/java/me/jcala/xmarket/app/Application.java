@@ -1,4 +1,4 @@
-package xmarket.application;
+package me.jcala.xmarket.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -11,7 +11,7 @@ import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan({"xmarket.rest","xmarket.application"})
+@ComponentScan({"me.jcala.xmarket"})
 public class Application extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -20,9 +20,5 @@ public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
-	}
-	@Bean
-	public ProtobufHttpMessageConverter protobufHttpMessageConverter(){
-		return new ProtobufHttpMessageConverter();
 	}
 }
