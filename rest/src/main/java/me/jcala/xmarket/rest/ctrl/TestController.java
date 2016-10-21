@@ -4,12 +4,11 @@ import io.swagger.annotations.*;
 import me.jcala.xmarket.pre.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api("跟用户有关的api")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/rest/user")
 public class TestController {
 
     @ApiOperation("获取用户信息")
