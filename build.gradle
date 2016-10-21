@@ -30,7 +30,6 @@ allprojects{
         compile.exclude group: 'org.apache.tomcat.embed'
         compile.exclude group: 'org.apache.tomcat'
         compile.exclude group: 'org.apache.struts'
-        compile.exclude group: 'com.fasterxml'
         compile.exclude group: 'org.hibernate'
         compile.exclude group: 'org.glassfish'
         compile.exclude group: 'dom4j'
