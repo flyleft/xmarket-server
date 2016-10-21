@@ -18,7 +18,7 @@ public class WebRestConfig {
         config.addAllowedOrigin("http://localhost:80");
         config.addAllowedHeader("Origin, X-Requested-With, Content-Type, Accept");
         config.addAllowedMethod("POST, GET, DELETE, PUT");
-        source.registerCorsConfiguration("/rest/**", config);
+        source.registerCorsConfiguration("/**", config);
         final FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
