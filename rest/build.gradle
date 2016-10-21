@@ -7,25 +7,25 @@ dependencies {
         exclude group: 'com.fasterxml.jackson.core'
     }
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-    compile ("com.paypal.springboot:resteasy-spring-boot-starter:${resteasyVersion}"){
-        exclude group: 'com.fasterxml.jackson.core'
-        exclude group: 'com.fasterxml.jackson.module'
-        exclude group: 'com.fasterxml.jackson.jaxrs'
-        exclude group: 'org.apache.httpcomponents'
-        exclude group: 'org.javassist'
-        exclude group: 'org.jboss.logging'
-        exclude group: 'org.springframework.boot'
-        exclude group: 'org.springframework.plugin'
-    }
-    compile 'org.javassist:javassist:3.20.0-GA'
-    compile 'org.jboss.logging:jboss-logging:3.3.0.Final'
-    compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.8.3'
-    compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.3'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.3'
-    compile 'org.apache.httpcomponents:httpcore:4.4.5'
-    compile 'org.apache.httpcomponents:httpclient:4.5.2'
-    compile "javax.ws.rs:javax.ws.rs-api:${javaxRsApiVersion}"
+//    compile "javax.ws.rs:javax.ws.rs-api:${javaxRsApiVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+/*compile ("com.paypal.springboot:resteasy-spring-boot-starter:${resteasyVersion}"){
+       exclude group: 'com.fasterxml.jackson.core'
+       exclude group: 'com.fasterxml.jackson.module'
+       exclude group: 'com.fasterxml.jackson.jaxrs'
+       exclude group: 'org.apache.httpcomponents'
+       exclude group: 'org.javassist'
+       exclude group: 'org.jboss.logging'
+       exclude group: 'org.springframework.boot'
+       exclude group: 'org.springframework.plugin'
+   }
+   compile 'org.javassist:javassist:3.20.0-GA'
+   compile 'org.jboss.logging:jboss-logging:3.3.0.Final'
+   compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.8.3'
+   compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3'
+   compile 'com.fasterxml.jackson.core:jackson-databind:2.8.3'
+   compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.3'
+   compile 'com.fasterxml.jackson.core:jackson-core:2.8.3'
+   compile 'org.apache.httpcomponents:httpcore:4.4.5'
+   compile 'org.apache.httpcomponents:httpclient:4.5.2'*/
