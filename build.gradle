@@ -34,6 +34,8 @@ allprojects{
         compile.exclude group: 'org.glassfish'
         compile.exclude group: 'dom4j'
         compile.exclude group: 'c3p0'
+        compile.exclude module: "commons-logging"
+        compile.exclude module: "jboss-logging"
     }}
 subprojects{
     apply plugin: 'java'

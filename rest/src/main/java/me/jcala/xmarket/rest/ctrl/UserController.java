@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("跟用户有关的api")
 @RestController
 @RequestMapping("/rest/user")
-public class TestController {
+public class UserController {
 
-    @ApiOperation("获取用户信息")
+    @ApiOperation("测试user的echo")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType="path",name="id",dataType="int",required=true,value="Pet的ID",defaultValue="1")})
     @ApiResponses({
@@ -19,10 +19,12 @@ public class TestController {
             @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
     })
     @GetMapping(value = "echo",produces =  "application/json;charset=UTF-8")
-    public User getUserInfoById() {
+    public User echo() {
         User user=new User();
         user.setUsername("jcala");
         user.setPassword("md5");
         return user;
     }
+
+
 }
