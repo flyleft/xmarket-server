@@ -3,6 +3,8 @@ package me.jcala.xmarket.rest.ctrl;
 import io.swagger.annotations.*;
 import me.jcala.xmarket.pre.entity.Result;
 import me.jcala.xmarket.pre.entity.User;
+import me.jcala.xmarket.pre.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rest/user")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     @ApiOperation("测试user的echo")
     @ApiImplicitParams({
@@ -30,6 +35,7 @@ public class UserController {
 
     @PostMapping(value = "echo",produces =  "application/json;charset=UTF-8")
     public Result<String> login(){
+        userService.login("");
         return new Result<>();
     }
 

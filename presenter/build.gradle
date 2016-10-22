@@ -22,5 +22,4 @@ dependencies {
     compile "org.mongodb:bson:${mongoVersion}"
     compile "org.mongodb:mongodb-driver:${mongoVersion}"
     compile "org.mongodb:mongodb-driver-core:${mongoVersion}"
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }

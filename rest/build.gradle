@@ -7,8 +7,35 @@ dependencies {
         exclude group: 'com.fasterxml.jackson.core'
     }
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*     compile "javax.ws.rs:javax.ws.rs-api:${javaxRsApiVersion}"
        compile ("com.paypal.springboot:resteasy-spring-boot-starter:${resteasyVersion}"){
        exclude group: 'com.fasterxml.jackson.core'
