@@ -16,6 +16,11 @@ dependencies {
     //--------------------JDK工具------------------------------
     compile 'org.projectlombok:lombok:1.16.10'
     //---------------------mongo-------------------------------
-    //compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+    compile ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"){
+        exclude group: 'org.mongodb'
+    }
+    compile "org.mongodb:bson:${mongoVersion}"
+    compile "org.mongodb:mongodb-driver:${mongoVersion}"
+    compile "org.mongodb:mongodb-driver-core:${mongoVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

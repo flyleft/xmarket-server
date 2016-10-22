@@ -1,8 +1,10 @@
 package me.jcala.xmarket.rest.ctrl;
 
 import io.swagger.annotations.*;
+import me.jcala.xmarket.pre.entity.Result;
 import me.jcala.xmarket.pre.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +28,9 @@ public class UserController {
         return user;
     }
 
+    @PostMapping(value = "echo",produces =  "application/json;charset=UTF-8")
+    public Result<String> login(){
+        return new Result<>();
+    }
 
 }

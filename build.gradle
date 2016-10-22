@@ -47,5 +47,6 @@ subprojects{
         swaggerVersion='2.6.0'
         resteasyVersion='2.2.0-RELEASE'
         javaxRsApiVersion='2.1-m01'
+        mongoVersion='3.4.0-rc1'
     }
 }
