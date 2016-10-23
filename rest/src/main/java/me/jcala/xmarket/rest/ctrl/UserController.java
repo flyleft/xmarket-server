@@ -33,7 +33,7 @@ public class UserController {
         return user;
     }
 
-    @PostMapping(value = "echo",produces =  "application/json;charset=UTF-8")
+    @GetMapping(value = "echo1",produces =  "application/json;charset=UTF-8")
     public Result<String> login(){
         userService.login("");
         return new Result<>();
