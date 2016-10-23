@@ -1,4 +1,6 @@
 rootProject.name = 'xmarket-server'
-include 'presenter'
-include 'rest'
-include 'application'
+include 'xmarket-dao-mongo'
+include 'xmarket-service'
+include 'xmarket-api'
+include 'xmarket-application'
+
