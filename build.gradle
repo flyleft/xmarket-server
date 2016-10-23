@@ -1,49 +1,4 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
-    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-}
 buildscript {
-    ext {
-        springBootPluginVersion = '1.4.1.RELEASE'
-        springBootVersion = '1.4.1.RELEASE'
-        protobufVersion='3.1.0'
-    }
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url "http://repo.spring.io/snapshot" }
-    }
-}
-allprojects{
-    group 'me.jcala'
-    version '1.0-SNAPSHOT'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url "http://repo.spring.io/snapshot" }
-    }
-    configurations {
-        compile.exclude group: 'log4j', module: 'log4j'
-        compile.exclude module: "spring-boot-starter-tomcat"
-        compile.exclude module: "undertow-websockets-jsr"
-        compile.exclude group: 'net.minidev'
-        compile.exclude group: 'org.apache.tomcat.embed'
-        compile.exclude group: 'org.apache.tomcat'
-        compile.exclude group: 'org.apache.struts'
-        compile.exclude group: 'org.hibernate'
-        compile.exclude group: 'org.glassfish'
-        compile.exclude group: 'dom4j'
-        compile.exclude group: 'c3p0'
-        compile.exclude module: "commons-logging"
-    }}
-subprojects{
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
     ext {
         springBootPluginVersion = '1.4.1.RELEASE'
         springBootVersion = '1.4.1.RELEASE'
@@ -53,4 +8,76 @@ subprojects{
         javaxRsApiVersion='2.1-m01'
         mongoVersion='3.4.0-rc1'
     }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/snapshot" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.dependsOn(processResources)
+jar {
+    baseName = 'jcalaBlog'
+    version =  '0.1.0'
+}
+configurations {
+    compile.exclude group: 'log4j', module: 'log4j'
+    compile.exclude module: "spring-boot-starter-tomcat"
+    compile.exclude module: "undertow-websockets-jsr"
+    compile.exclude group: 'net.minidev'
+    compile.exclude group: 'org.apache.tomcat.embed'
+    compile.exclude group: 'org.apache.tomcat'
+    compile.exclude group: 'org.apache.struts'
+    compile.exclude group: 'org.hibernate'
+    compile.exclude group: 'org.glassfish'
+    compile.exclude group: 'dom4j'
+    compile.exclude group: 'c3p0'
+    compile.exclude module: "commons-logging"
+}
+bootRun {
+    systemProperties = System.properties
+    addResources = true
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/release" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/snapshot" }
+}
+
+dependencies {
+    compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}"){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
+    //--------------------JDK工具------------------------------
+    compile 'org.projectlombok:lombok:1.16.10'
+    //---------------------mongo-------------------------------
+    compile ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"){
+        exclude group: 'org.mongodb'
+    }
+    compile "org.mongodb:bson:${mongoVersion}"
+    compile "org.mongodb:mongodb-driver:${mongoVersion}"
+    compile "org.mongodb:mongodb-driver-core:${mongoVersion}"
+    //--------------------springFox----------------------------
+    compile ("io.springfox:springfox-swagger2:${swaggerVersion}"){
+        exclude group: 'com.fasterxml.jackson.core'
+    }
+    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    //--------------------单元测试-------------------------------
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
