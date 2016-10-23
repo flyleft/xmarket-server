@@ -22,7 +22,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @Configuration
 @EnableSwagger2
 @ComponentScan("me.jcala.xmarket.api.ctrl")
-@Import(ServiceConfig.class)
+@Import(MongoConfig.class)
 public class SwaggerConfig {
     private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.api.ctrl";
     @Bean

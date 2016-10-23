@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories(basePackages = "me.jcala.xmarket.dao.mongo.repository")
 @ComponentScan("me.jcala.xmarket.mongo.repository")
-public interface MongoConfig {
+public class MongoConfig {
 
 }
