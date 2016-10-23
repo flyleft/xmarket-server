@@ -1,6 +1,6 @@
-package me.jcala.xmarket.dao.mongo.service;
+package me.jcala.xmarket.ser.service.inter;
 
-import me.jcala.xmarket.dao.mongo.entity.Result;
+import me.jcala.xmarket.ser.dto.Result;
 
 public interface UserService {
 

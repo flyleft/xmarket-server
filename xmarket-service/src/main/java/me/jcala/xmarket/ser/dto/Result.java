@@ -1,4 +1,4 @@
-package me.jcala.xmarket.dao.mongo.entity;
+package me.jcala.xmarket.ser.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

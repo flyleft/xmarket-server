@@ -1,4 +1,4 @@
-package me.jcala.xmarket.dao.mongo.entity;
+package me.jcala.xmarket.mongo.dao;
 
 /**
  * 封装消息的javabean

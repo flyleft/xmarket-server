@@ -1,8 +1,10 @@
 package me.jcala.xmarket.api.conf;
 
 import me.jcala.xmarket.api.annotation.SwaggerIgnore;
-import me.jcala.xmarket.dao.mongo.config.MongoConfig;
+import me.jcala.xmarket.mongo.config.MongoConfig;
+import me.jcala.xmarket.ser.conf.ServiceConfig;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -19,7 +21,8 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 
 @Configuration
 @EnableSwagger2
-@Import(MongoConfig.class)
+@ComponentScan("me.jcala.xmarket.api.ctrl")
+@Import(ServiceConfig.class)
 public class SwaggerConfig {
     private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.api.ctrl";
     @Bean

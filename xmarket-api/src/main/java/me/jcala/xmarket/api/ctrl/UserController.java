@@ -1,9 +1,9 @@
 package me.jcala.xmarket.api.ctrl;
 
 import io.swagger.annotations.*;
-import me.jcala.xmarket.dao.mongo.entity.Result;
-import me.jcala.xmarket.dao.mongo.entity.User;
-import me.jcala.xmarket.dao.mongo.service.UserService;
+import me.jcala.xmarket.ser.dto.Result;
+import me.jcala.xmarket.mongo.dao.User;
+import me.jcala.xmarket.ser.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

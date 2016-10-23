@@ -1,6 +1,6 @@
-package me.jcala.xmarket.dao.mongo.repository;
+package me.jcala.xmarket.mongo.repository;
 
-import me.jcala.xmarket.dao.mongo.entity.User;
+import me.jcala.xmarket.mongo.dao.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
