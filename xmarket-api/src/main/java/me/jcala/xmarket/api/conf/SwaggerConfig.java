@@ -17,12 +17,11 @@ import static com.google.common.base.Predicates.or;
 import static springfox.documentation.builders.PathSelectors.regex;
 import static springfox.documentation.builders.RequestHandlerSelectors.withClassAnnotation;
 
-//@ImportResource(value = "application.xml")
 @Configuration
 @EnableSwagger2
 @Import(MongoConfig.class)
 public class SwaggerConfig {
-    private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.rest.ctrl";
+    private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.api.ctrl";
     @Bean
     public Docket merchantStoreApi() {
         return new Docket(DocumentationType.SWAGGER_2)

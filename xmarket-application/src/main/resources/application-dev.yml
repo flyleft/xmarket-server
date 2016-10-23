@@ -1,0 +1,28 @@
+server:
+    port: 80
+    compression:
+        min-response-size: 512
+        enabled: true
+        mime-types: text/html,text/css,text/javascript,application/javascript,image/gif,image/png,image/jpg,application/javascript
+    undertow:
+        io-threads: 4
+        worker-threads: 10
+        buffer-size: 16384
+        accesslog:
+            enabled: true
+            dir: /home/jcala/blog/log/server_log
+            pattern: combined
+logging:
+    config: classpath:logback-spring.xml
+    path: /home/jcala/blog/log/spring_log
+spring:
+    http:
+        encoding.charset: UTF-8
+        encoding.force: false
+        multipart:
+          max-file-size: 3MB
+          max-request-size: 10MB
+    data.mongodb:
+        database: xmarket
+        host: 127.0.0.1
+        port: 27017
