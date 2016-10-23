@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.service.inter;
 
 
-import me.jcala.xmarket.server.entity.Result;
+import me.jcala.xmarket.server.dto.Result;
 
 public interface UserService {
 

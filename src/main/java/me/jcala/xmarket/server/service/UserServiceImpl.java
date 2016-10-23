@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.service;
 
-import me.jcala.xmarket.server.entity.Result;
-import me.jcala.xmarket.server.entity.User;
+import me.jcala.xmarket.server.dto.Result;
+import me.jcala.xmarket.server.dao.User;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
