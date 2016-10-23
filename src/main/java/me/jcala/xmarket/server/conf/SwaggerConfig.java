@@ -19,7 +19,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.api.ctrl";
+    private static final String SWAGGER_SCAN_BASE_PACKAGE = "me.jcala.xmarket.server.ctrl";
     @Bean
     public Docket merchantStoreApi() {
         return new Docket(DocumentationType.SWAGGER_2)
