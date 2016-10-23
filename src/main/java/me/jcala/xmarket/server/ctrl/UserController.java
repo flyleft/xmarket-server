@@ -5,13 +5,11 @@ import me.jcala.xmarket.server.dto.Result;
 import me.jcala.xmarket.server.dao.User;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api("跟用户有关的api")
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -32,9 +30,10 @@ public class UserController {
         return user;
     }
 
-    @GetMapping(value = "echo1",produces =  "application/json;charset=UTF-8")
-    public Result<String> login(){
-        userService.login("");
+
+    @PostMapping(value = "/{username}",produces="application/json;charset=UTF-8",consumes = "application/json")
+    public Result<String> login(@PathVariable("username") String username){
+
         return new Result<>();
     }
 

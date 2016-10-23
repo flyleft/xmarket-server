@@ -11,16 +11,19 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserRepository userRepository;
+
     @Override
-    public Result<String> login(String password) {
-        List<User> userList=userRepository.findAll();
-        for (User user:userList){
-            System.out.println(user);
-        }
+    public Result<String> login(String username,String password) {
+
         return null;
     }
 
+    public Result<String> register(User user){
+
+       return null;
+    }
 
 }

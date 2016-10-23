@@ -6,5 +6,5 @@ import me.jcala.xmarket.server.dto.Result;
 public interface UserService {
 
     //用户登录
-    Result<String> login(String password);
+    Result<String> login(String username,String password);
 }
