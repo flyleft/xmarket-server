@@ -1,6 +1,7 @@
-package me.jcala.xmarket.server.dao;
+package me.jcala.xmarket.server.entity.dao;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 @Setter
 @ToString
+@Builder
 public class User {
     @Id
     private String id;

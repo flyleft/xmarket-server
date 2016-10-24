@@ -8,6 +8,6 @@ public interface RestIni {
     int fail=0;
     String loginPassErr="密码错误";
     String loginUmErr="该用户不存在";
-    String RegisterPhoneErr="该手机号已被注册";
-    String RegisterUmErr="该用户已经存在";
+    String RegisterPhoneExist="该手机号已被注册";
+    String RegisterUmExist="该用户已经存在";
 }

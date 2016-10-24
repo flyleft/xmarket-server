@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.dto;
+package me.jcala.xmarket.server.entity.dto;
 
 import lombok.*;
 

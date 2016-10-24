@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.dao;
+package me.jcala.xmarket.server.entity.dao;
 
 import java.util.List;
 

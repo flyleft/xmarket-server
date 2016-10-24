@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.repository;
 
-import me.jcala.xmarket.server.dao.User;
+import me.jcala.xmarket.server.entity.dao.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -13,5 +13,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     long countByUsernameAndPassword(@Param("username") String name,
                                    @Param("password") String pass);
+
+    long countByPhone(String phone);
 
 }
