@@ -1,6 +1,7 @@
 package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.*;
+import me.jcala.xmarket.server.conf.RestIni;
 import me.jcala.xmarket.server.dto.Result;
 import me.jcala.xmarket.server.dao.User;
 import me.jcala.xmarket.server.service.inter.UserService;
@@ -31,10 +32,9 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/{username}",produces="application/json;charset=UTF-8",consumes = "application/json")
-    public Result<String> login(@PathVariable("username") String username){
-
-        return new Result<>();
+    @PostMapping(value = "/login",produces="application/json;charset=UTF-8")
+    public Result<String> login(String username,String password){
+        return userService.login(username,password);
     }
 
 }
