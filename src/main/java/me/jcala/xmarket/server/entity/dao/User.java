@@ -1,10 +1,7 @@
 package me.jcala.xmarket.server.entity.dao;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -15,8 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "user")
 @Getter
 @Setter
-@ToString
-@Builder
+@NoArgsConstructor
 public class User {
     @Id
     private String id;

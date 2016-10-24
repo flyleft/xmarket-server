@@ -5,12 +5,15 @@ import me.jcala.xmarket.server.entity.dao.User;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     UserRepository userRepository;
 
@@ -39,13 +42,11 @@ public class UserServiceImpl implements UserService {
             result.setMsg(RestIni.RegisterPhoneExist);
             return result;
         }else {
-            userRepository.save(
-                    User.builder()
-                            .username(username)
-                            .password(password)
-                            .phone(phone)
-                            .build()
-            );
+            User user=new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setPhone(phone);
+            userRepository.save(user);
             result.setCode(RestIni.success);
             return result;
         }
