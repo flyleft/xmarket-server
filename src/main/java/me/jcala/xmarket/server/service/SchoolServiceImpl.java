@@ -20,7 +20,7 @@ public class SchoolServiceImpl implements SchoolService{
     @Override
     public Result<List<String>> gainSchoolNameList() {
         Result<List<String>> result=new Result<>();
-        List<String> schoolNameList=repository.streamAll()
+        List<String> schoolNameList=repository.findAllBy()
                                               .filter(x -> x.getName()!=null&&x.getName().length()>0)
                                               .map(School::getName)
                                               .collect(Collectors.toList());

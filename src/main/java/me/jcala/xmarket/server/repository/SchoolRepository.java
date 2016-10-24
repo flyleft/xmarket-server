@@ -8,5 +8,6 @@ import java.util.stream.Stream;
 @Repository
 public interface SchoolRepository extends MongoRepository<School,String>{
 
-    Stream<School> streamAll();//获取所有school名字列表
+    Stream<School> findAllBy();//获取所有school名字列表
+    
 }
