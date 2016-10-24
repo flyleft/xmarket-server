@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 全局异常处理类
  */
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class CtrlExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CtrlExceptionHandler.class);
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
