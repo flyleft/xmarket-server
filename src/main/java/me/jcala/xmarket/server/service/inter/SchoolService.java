@@ -9,6 +9,6 @@ import java.util.List;
  * 与学校有关的service
  */
 public interface SchoolService {
-    Result<List<String>> gainSchoolNameList() throws Exception;
-    List<DealItem> gainLatestDealList() throws Exception;
+    Result<List<String>> gainSchoolNameList() throws RuntimeException;
+    List<DealItem> gainLatestDealList() throws RuntimeException;
 }

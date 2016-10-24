@@ -5,19 +5,16 @@ import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public Result<String> login(String username,String password) throws Exception{
+    public Result<String> login(String username,String password) throws RuntimeException{
         long num=userRepository.countByUsernameAndPassword(username,password);
         Result<String> result=new Result<>();
         if (num>0){
@@ -32,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> register(String username, String password, String phone) throws Exception{
+    public Result<String> register(String username, String password, String phone) throws RuntimeException{
         Result<String> result=new Result<>();
         if (userRepository.countUserByUsername(username)>0){
            result.setMsg(RestIni.RegisterUmExist);
@@ -49,5 +46,10 @@ public class UserServiceImpl implements UserService {
             result.setCode(RestIni.success);
             return result;
         }
+    }
+
+    @Override
+    public Result<String> updateSchool(String username, String school) throws RuntimeException {
+        return null;
     }
 }

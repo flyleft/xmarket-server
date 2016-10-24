@@ -18,7 +18,7 @@ public class SchoolServiceImpl implements SchoolService{
     private SchoolRepository repository;
 
     @Override
-    public Result<List<String>> gainSchoolNameList() throws Exception{
+    public Result<List<String>> gainSchoolNameList() throws RuntimeException{
         Result<List<String>> result=new Result<>();
         List<String> schoolNameList=repository.findAllBy()
                                               .filter(x -> x.getName()!=null&&x.getName().length()>0)
@@ -30,7 +30,7 @@ public class SchoolServiceImpl implements SchoolService{
     }
 
     @Override
-    public List<DealItem> gainLatestDealList() throws Exception {
+    public List<DealItem> gainLatestDealList() throws RuntimeException {
         return null;
     }
 }

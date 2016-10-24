@@ -18,7 +18,7 @@ public class CtrlExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CtrlExceptionHandler.class);
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public Result<String> exceptionHandler(RuntimeException e) {
