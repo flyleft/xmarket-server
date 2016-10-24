@@ -22,13 +22,13 @@ public class UserController {
             @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
     })
     @PostMapping(value = "/login",produces="application/json;charset=UTF-8")
-    public Result<String> login(String username,String password){
+    public Result<String> login(String username,String password) throws Exception{
         return userService.login(username,password);
     }
 
    @ApiOperation("用户注册")
    @PostMapping(value = "/register",produces="application/json;charset=UTF-8")
-    public Result<String> register(String username,String password,String phone){
+    public Result<String> register(String username,String password,String phone) throws Exception{
        return userService.register(username,password,phone);
    }
 }

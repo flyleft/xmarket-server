@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.service;
 
-import me.jcala.xmarket.server.entity.dao.DealItem;
-import me.jcala.xmarket.server.entity.dao.School;
+import me.jcala.xmarket.server.entity.document.DealItem;
+import me.jcala.xmarket.server.entity.document.School;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.SchoolRepository;
 import me.jcala.xmarket.server.service.inter.SchoolService;
@@ -18,7 +18,7 @@ public class SchoolServiceImpl implements SchoolService{
     private SchoolRepository repository;
 
     @Override
-    public Result<List<String>> gainSchoolNameList() {
+    public Result<List<String>> gainSchoolNameList() throws Exception{
         Result<List<String>> result=new Result<>();
         List<String> schoolNameList=repository.findAllBy()
                                               .filter(x -> x.getName()!=null&&x.getName().length()>0)
@@ -30,7 +30,7 @@ public class SchoolServiceImpl implements SchoolService{
     }
 
     @Override
-    public List<DealItem> gainLatestDealList() {
+    public List<DealItem> gainLatestDealList() throws Exception {
         return null;
     }
 }

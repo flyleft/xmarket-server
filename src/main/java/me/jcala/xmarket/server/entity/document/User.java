@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.entity.dao;
+package me.jcala.xmarket.server.entity.document;
 
 
 import lombok.*;

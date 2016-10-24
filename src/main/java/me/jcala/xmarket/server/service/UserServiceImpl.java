@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.service;
 
 import me.jcala.xmarket.server.conf.RestIni;
-import me.jcala.xmarket.server.entity.dao.User;
+import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public Result<String> login(String username,String password) {
+    public Result<String> login(String username,String password) throws Exception{
         long num=userRepository.countByUsernameAndPassword(username,password);
         Result<String> result=new Result<>();
         if (num>0){
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> register(String username, String password, String phone) {
+    public Result<String> register(String username, String password, String phone) throws Exception{
         Result<String> result=new Result<>();
         if (userRepository.countUserByUsername(username)>0){
            result.setMsg(RestIni.RegisterUmExist);

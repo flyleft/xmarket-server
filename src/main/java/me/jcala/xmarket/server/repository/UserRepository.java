@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.repository;
 
-import me.jcala.xmarket.server.entity.dao.User;
+import me.jcala.xmarket.server.entity.document.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

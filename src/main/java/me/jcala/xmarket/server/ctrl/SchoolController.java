@@ -1,6 +1,7 @@
 package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
+    @ApiOperation("获取学校名称列表")
     @GetMapping(value = "/names",produces = "application/json;charset=UTF-8")
-    public Result<List<String>> getSchoolNameList(){
+    public Result<List<String>> getSchoolNameList() throws Exception{
         return schoolService.gainSchoolNameList();
     }
 }
