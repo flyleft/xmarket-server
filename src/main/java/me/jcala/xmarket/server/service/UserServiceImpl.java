@@ -13,7 +13,6 @@ import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
             result.setMsg(RestIni.RegisterPhoneExist);
             return result;
         }else {
-            userRepository.save(
+            userRepository.insert(
                     new UserBuilder()
                             .username(username)
                             .password(password)
@@ -68,11 +67,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
-        User user=new User();
-        user.setUsername(username);
+        Result<String> result=new Result<>();
+        User user=userRepository.findOne(username);
         user.setSchool(school);
         userRepository.save(user);
-        return null;
+        result.setCode(1);
+        return result;
     }
 
     @Override
