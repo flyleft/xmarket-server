@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.ctrl;
 
-import me.jcala.xmarket.server.conf.RestIni;
+import me.jcala.xmarket.server.profile.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

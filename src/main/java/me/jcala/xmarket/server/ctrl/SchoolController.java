@@ -3,7 +3,7 @@ package me.jcala.xmarket.server.ctrl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.service.inter.SchoolService;
+import me.jcala.xmarket.server.service.admin.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/school")
 public class SchoolController {
-    private SchoolService schoolService;
+    private SystemService schoolService;
 
     @Autowired
-    public SchoolController(SchoolService schoolService) {
+    public SchoolController(SystemService schoolService) {
         this.schoolService = schoolService;
     }
 

@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.service;
 
-import me.jcala.xmarket.server.conf.RestIni;
+import me.jcala.xmarket.server.profile.RestIni;
 import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.UserRepository;
