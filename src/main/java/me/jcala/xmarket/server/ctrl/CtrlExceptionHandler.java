@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 全局异常处理类
  */
 @ControllerAdvice
-public class CtrlExceptionHandler {
+class CtrlExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CtrlExceptionHandler.class);
 

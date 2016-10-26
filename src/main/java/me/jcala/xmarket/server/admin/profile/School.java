@@ -15,7 +15,7 @@ public class School {
         schoolList.add("电子科技大学(清水河校区)");
     }
 
-    private List<String> getSchoolList(){
+    public List<String> getSchoolList(){
         addSchool();
         return this.schoolList;
     }
