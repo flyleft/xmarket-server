@@ -17,10 +17,14 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public Result<List<String>> gainSchoolNameList() throws RuntimeException{
-        List<String> strings=schoolRepository.findAllBy()
-                                             .map(school -> school.getName())
-                                             .collect(Collectors.toList());
-        return new ResultBuilder<List<String>>().Code(1).data(strings).build();
+        //new ResultBuilder<List<String>>().Code(1).data(strings).build();
+        return null;
     }
 
+    public void init(){
+        initSchool();
+    }
+    private void initSchool(){
+
+    }
 }
