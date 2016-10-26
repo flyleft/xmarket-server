@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.ctrl.admin;
+package me.jcala.xmarket.server.admin.ctrl;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminController {
 
-    
+
 
 }

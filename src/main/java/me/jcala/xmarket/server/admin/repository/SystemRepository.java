@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.repository.admin;
+package me.jcala.xmarket.server.admin.repository;
 
 import me.jcala.xmarket.server.entity.document.admin.System;
 import org.springframework.data.mongodb.repository.MongoRepository;

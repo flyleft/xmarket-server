@@ -1,8 +1,8 @@
-package me.jcala.xmarket.server.service.admin;
+package me.jcala.xmarket.server.admin.service;
 
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.entity.dto.ResultBuilder;
-import me.jcala.xmarket.server.repository.admin.SystemRepository;
+import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

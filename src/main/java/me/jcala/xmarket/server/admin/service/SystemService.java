@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.service.admin;
+package me.jcala.xmarket.server.admin.service;
 
 import me.jcala.xmarket.server.entity.dto.Result;
 

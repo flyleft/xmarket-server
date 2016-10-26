@@ -3,7 +3,7 @@ package me.jcala.xmarket.server.ctrl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.service.admin.SystemService;
+import me.jcala.xmarket.server.admin.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
