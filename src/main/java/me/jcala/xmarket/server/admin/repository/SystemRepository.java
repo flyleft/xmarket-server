@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface SystemRepository extends MongoRepository<SystemBean,String>{
 
-    Optional<SystemBean> findByName(String name);
+    SystemBean findByName(String name);
 }

@@ -25,9 +25,4 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
-    @ApiOperation("获取学校名称列表")
-    @GetMapping(value = "/names",produces = "application/json;charset=UTF-8")
-    public Result<List<String>> getSchoolNameList() throws RuntimeException{
-        return null;
-    }
 }

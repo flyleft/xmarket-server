@@ -1,17 +1,33 @@
 package me.jcala.xmarket.server.service;
 
-import me.jcala.xmarket.server.profile.RestIni;
+import me.jcala.xmarket.server.admin.entity.SystemBean;
+import me.jcala.xmarket.server.admin.profile.SysColName;
+import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.document.User;
+import me.jcala.xmarket.server.entity.document.UserBuilder;
+import me.jcala.xmarket.server.entity.dto.ResultBuilder;
+import me.jcala.xmarket.server.exception.SysDataException;
+import me.jcala.xmarket.server.profile.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
+
+    private UserRepository userRepository;
+
+    private SystemRepository systemRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository) {
+        this.userRepository = userRepository;
+        this.systemRepository = systemRepository;
+    }
 
     @Override
     public Result<String> login(String username,String password) throws RuntimeException{
@@ -38,11 +54,13 @@ public class UserServiceImpl implements UserService {
             result.setMsg(RestIni.RegisterPhoneExist);
             return result;
         }else {
-            User user=new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setPhone(phone);
-            userRepository.save(user);
+            userRepository.save(
+                    new UserBuilder()
+                            .username(username)
+                            .password(password)
+                            .phone(phone)
+                            .build()
+            );
             result.setCode(RestIni.success);
             return result;
         }
@@ -55,5 +73,18 @@ public class UserServiceImpl implements UserService {
         user.setSchool(school);
         userRepository.save(user);
         return null;
+    }
+
+    @Override
+    public Result<List<String>> gainSchoolList() throws RuntimeException {
+        String name= SysColName.COL_SCHOOL.name().toLowerCase();
+        SystemBean bean=systemRepository.findByName(name);
+        if (bean==null||bean.getSchools()==null){
+            new SysDataException().error();
+        }
+        return new ResultBuilder<List<String>>().Code(RestIni.success)
+                                                .data(bean.getSchools())
+                                                .build();
+
     }
 }
