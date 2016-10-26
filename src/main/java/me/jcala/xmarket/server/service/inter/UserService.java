@@ -9,5 +9,5 @@ public interface UserService {
 
     Result<String> register(String username,String password,String phone) throws RuntimeException;//用户注册
 
-    Result<String> updateSchool(String username,String school) throws RuntimeException;//
+    Result<String> updateUserSchool(String username,String school) throws RuntimeException;//
 }

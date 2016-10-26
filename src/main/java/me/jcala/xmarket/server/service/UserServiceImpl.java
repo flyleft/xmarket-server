@@ -49,7 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> updateSchool(String username, String school) throws RuntimeException {
+    public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
+        User user=new User();
+        user.setUsername(username);
+        user.setSchool(school);
+        userRepository.save(user);
         return null;
     }
 }

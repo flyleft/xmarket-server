@@ -10,6 +10,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 public class School {
     @Id
-    private String id;
     private String name;//唯一不可重复
 }

@@ -5,6 +5,7 @@ import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +31,10 @@ public class UserController {
    @PostMapping(value = "/register",produces="application/json;charset=UTF-8")
     public Result<String> register(String username,String password,String phone) throws RuntimeException{
        return userService.register(username,password,phone);
+   }
+    @ApiOperation("设置用户学校信息")
+    @PutMapping(value = "/school",produces="application/json;charset=UTF-8")
+   public Result<String> updateUserSchool(String username,String school){
+       return userService.updateUserSchool(username,school);
    }
 }
