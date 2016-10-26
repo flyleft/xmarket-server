@@ -66,6 +66,9 @@ dependencies {
     //--------------------JDK工具------------------------------
     compile 'org.projectlombok:lombok:1.16.10'
     //---------------------mongo-------------------------------
+    compile ("org.mongodb.morphia:morphia:1.2.1"){
+        exclude group: 'org.mongodb'
+    }
     compile ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"){
         exclude group: 'org.mongodb'
     }
