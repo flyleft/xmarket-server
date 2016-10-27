@@ -17,4 +17,5 @@ public interface UserService {
     Result<List<String>> gainSchoolList() throws RuntimeException;//获取学校的列表
 
     Result<String> updateInfo(User user)throws RuntimeException;//更新用户信息
+    
 }

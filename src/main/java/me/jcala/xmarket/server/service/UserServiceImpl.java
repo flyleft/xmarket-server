@@ -7,14 +7,16 @@ import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.ResultBuilder;
 import me.jcala.xmarket.server.exception.SysDataException;
-import me.jcala.xmarket.server.profile.RestIni;
+import me.jcala.xmarket.server.exception.UserException;
+import me.jcala.xmarket.server.utils.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.repository.CustomRepository;
+import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,11 +25,11 @@ public class UserServiceImpl implements UserService {
 
     private SystemRepository systemRepository;
 
-    private CustomRepository customRepository;
+    private CustomRepositoryImpl customRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
-                           CustomRepository customRepository) {
+                           CustomRepositoryImpl customRepository) {
         this.userRepository = userRepository;
         this.systemRepository = systemRepository;
         this.customRepository = customRepository;
@@ -83,8 +85,7 @@ public class UserServiceImpl implements UserService {
         String name= SysColName.COL_SCHOOL.name().toLowerCase();
         SystemBean bean=systemRepository.findByName(name);
         if (bean==null||bean.getSchools()==null){
-            new SysDataException().error();
-            return new Result<>();
+            throw new SysDataException("sys集合数据不完整,请检查或者重新初始化");
         }
         return new ResultBuilder<List<String>>().Code(RestIni.success)
                                                 .data(bean.getSchools())
@@ -93,7 +94,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<String> updateInfo(User user) throws RuntimeException {
-
+       Optional<User> userOptional=userRepository.findByUsername(user.getUsername());
+        if (!userOptional.isPresent()){
+            throw new UserException("该用户不存在");
+        }
         return null;
     }
 }

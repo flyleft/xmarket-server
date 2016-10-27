@@ -1,25 +1,10 @@
 package me.jcala.xmarket.server.repository;
 
-import me.jcala.xmarket.server.entity.document.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Repository;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
+/**
+ * 通过MongoTemplate实现MongoRepository难以实现的操作
+ */
+public interface CustomRepository {
+    void updateUserSchool(String username, String school) throws RuntimeException;//通过username更新所在学校的信息
 
-@Repository
-public class CustomRepository {
-    private MongoTemplate template;
-
-    @Autowired
-    public CustomRepository(MongoTemplate template) {
-        this.template = template;
-    }
-
-    public void updateUserSchool(String username, String school){
-        template.updateFirst(new Query(where("username").is(username)),
-                new Update().set("school",school), User.class);
-    }
 }

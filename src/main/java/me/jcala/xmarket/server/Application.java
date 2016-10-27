@@ -33,18 +33,4 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
 
-    /**
-     * 跨域过滤器
-     */
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST","DELETE"));
-        source.registerCorsConfiguration("/**", configuration);
-        return new CorsFilter(source);
-    }
 }

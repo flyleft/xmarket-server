@@ -44,7 +44,9 @@ public class UserController {
         return userService.gainSchoolList();
     }
 
+    @ApiOperation("修改用户信息")
     public Result<String> updateUSerInfo(User user) throws RuntimeException{
+
         return null;
     }
 }

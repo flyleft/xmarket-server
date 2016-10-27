@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.ctrl;
 
-import me.jcala.xmarket.server.profile.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.utils.ResultStrFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,15 +18,12 @@ class CtrlExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CtrlExceptionHandler.class);
 
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public Result<String> exceptionHandler(RuntimeException e) {
+    public Result<String> exceptionHandlerProd(RuntimeException e) {
         LOGGER.warn(e.getLocalizedMessage());
-        Result<String> result=new Result<>();
-        result.setCode(RestIni.serverErr);
-        result.setMsg(RestIni.serverErrMsg);
-        return result;
+        return  ResultStrFactory.INSTANCE().getError();
     }
-
 }
