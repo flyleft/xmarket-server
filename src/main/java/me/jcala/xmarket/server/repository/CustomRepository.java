@@ -6,5 +6,5 @@ package me.jcala.xmarket.server.repository;
  */
 public interface CustomRepository {
     void updateUserSchool(String username, String school) throws RuntimeException;//通过username更新所在学校的信息
-
+    void updateUserPassword(String username,String password) throws RuntimeException;//修改用户密码
 }

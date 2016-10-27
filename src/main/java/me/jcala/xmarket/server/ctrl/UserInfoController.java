@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("跟用户有关的api")
+@Api("跟用户信息有关的api")
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+public class UserInfoController {
 
     @Autowired
     private UserService userService;
@@ -44,9 +44,9 @@ public class UserController {
         return userService.gainSchoolList();
     }
 
-    @ApiOperation("修改用户信息")
-    public Result<String> updateUSerInfo(User user) throws RuntimeException{
-
-        return null;
+    @ApiOperation("修改用户密码")
+    @PutMapping(value = "/pass",produces = "application/json;charset=UTF-8")
+    public Result<String> updateUserPassword(String username,String oldPass,String newPass) throws RuntimeException{
+        return userService.modifyPassword(username,oldPass,newPass);
     }
 }

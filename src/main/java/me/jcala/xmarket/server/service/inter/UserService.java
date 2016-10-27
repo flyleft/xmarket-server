@@ -1,7 +1,6 @@
 package me.jcala.xmarket.server.service.inter;
 
 
-import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.dto.Result;
 
 import java.util.List;
@@ -16,6 +15,6 @@ public interface UserService {
 
     Result<List<String>> gainSchoolList() throws RuntimeException;//获取学校的列表
 
-    Result<String> updateInfo(User user)throws RuntimeException;//更新用户信息
-    
+    Result<String> modifyPassword(String username,String oldPass,String newPass)throws RuntimeException;//更新用户信息
+
 }

@@ -8,11 +8,13 @@ import me.jcala.xmarket.server.entity.dto.Result;
  */
 public class CommonFactory {
 
-   private final Result<String> error=new Result<>();
+    private final Result<String> serverErr=new Result<>();
+    private final Result<String> simpleSuccess=new Result<>();
 
     private CommonFactory(){
-        this.error.setCode(RestIni.serverErr);
-        this.error.setMsg(RestIni.serverErrMsg);
+        this.serverErr.setCode(RestIni.serverErr);
+        this.serverErr.setMsg(RestIni.serverErrMsg);
+        this.simpleSuccess.setCode(RestIni.success);
     }
 
     private static class FactoryHolder{
@@ -23,7 +25,11 @@ public class CommonFactory {
         return FactoryHolder.instance;
     }
 
-    public Result<String> getError() {
-        return error;
+    public Result<String> serverError() {
+        return serverErr;
+    }
+
+    public Result<String> simpleSuccess() {
+        return simpleSuccess;
     }
 }

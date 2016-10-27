@@ -24,6 +24,6 @@ class CtrlExceptionHandler {
     @ResponseBody
     public Result<String> exceptionHandlerProd(RuntimeException e) {
         LOGGER.warn(e.getLocalizedMessage());
-        return  CommonFactory.INSTANCE().getError();
+        return  CommonFactory.INSTANCE().serverError();
     }
 }

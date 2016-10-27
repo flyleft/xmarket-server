@@ -3,11 +3,10 @@ package me.jcala.xmarket.server.service;
 import me.jcala.xmarket.server.admin.entity.SystemBean;
 import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
-import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.ResultBuilder;
 import me.jcala.xmarket.server.exception.SysDataException;
-import me.jcala.xmarket.server.exception.UserException;
+import me.jcala.xmarket.server.utils.CommonFactory;
 import me.jcala.xmarket.server.utils.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
@@ -16,7 +15,6 @@ import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -74,10 +72,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
-        Result<String> result=new Result<>();
        customRepository.updateUserSchool(username,school);
-        result.setCode(1);
-        return result;
+        return CommonFactory.INSTANCE().simpleSuccess();
     }
 
     @Override
@@ -93,11 +89,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> updateInfo(User user) throws RuntimeException {
-       Optional<User> userOptional=userRepository.findByUsername(user.getUsername());
-        if (!userOptional.isPresent()){
-            throw new UserException("该用户不存在");
+    public Result<String> modifyPassword(String username, String oldPass, String newPass) throws RuntimeException {
+        long num=userRepository.countByUsernameAndPassword(username,oldPass);
+        if (num<1){
+            return new ResultBuilder<String>().msg(RestIni.modifyPassErr).build();
         }
-        return null;
+        customRepository.updateUserPassword(username,newPass);
+        return CommonFactory.INSTANCE().simpleSuccess();
     }
 }

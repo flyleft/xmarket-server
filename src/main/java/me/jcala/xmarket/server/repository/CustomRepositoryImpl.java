@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository
@@ -24,4 +23,9 @@ public class CustomRepositoryImpl implements CustomRepository{
                 new Update().set("school",school), User.class);
     }
 
+    @Override
+    public void updateUserPassword(String username,String password) throws RuntimeException {
+       template.updateFirst(new Query(where("username").is(username)),
+               new Update().set("password",password), User.class);
+    }
 }
