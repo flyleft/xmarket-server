@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.ctrl;
 
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.utils.ResultStrFactory;
+import me.jcala.xmarket.server.utils.CommonFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,6 @@ class CtrlExceptionHandler {
     @ResponseBody
     public Result<String> exceptionHandlerProd(RuntimeException e) {
         LOGGER.warn(e.getLocalizedMessage());
-        return  ResultStrFactory.INSTANCE().getError();
+        return  CommonFactory.INSTANCE().getError();
     }
 }
