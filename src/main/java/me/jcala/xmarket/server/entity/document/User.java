@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class User {
     @Id
-    private String id;
     private String username;//用户名
     private String password;//用户密码
     private String school;//所在学校名称

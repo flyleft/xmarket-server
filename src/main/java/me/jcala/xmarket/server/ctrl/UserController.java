@@ -23,8 +23,8 @@ public class UserController {
             @ApiResponse(code=400,message="请求参数没填好"),
             @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
     })
-    @PostMapping(value = "/login/{username}",produces="application/json;charset=UTF-8")
-    public Result<String> login(@PathVariable("username") String username,String password) throws RuntimeException{
+    @PostMapping(value = "/login",produces="application/json;charset=UTF-8")
+    public Result<String> login(String username,String password) throws RuntimeException{
         return userService.login(username,password);
     }
 
@@ -34,8 +34,8 @@ public class UserController {
        return userService.register(username,password,phone);
    }
     @ApiOperation("设置用户学校信息")
-    @PutMapping(value = "/school/{username}",produces="application/json;charset=UTF-8")
-   public Result<String> updateUserSchool(@PathVariable("username") String username,String school){
+    @PutMapping(value = "/school",produces="application/json;charset=UTF-8")
+   public Result<String> updateUserSchool(String username,String school){
        return userService.updateUserSchool(username,school);
    }
     @ApiOperation("获取学校名称列表")

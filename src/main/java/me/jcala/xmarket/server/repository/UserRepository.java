@@ -8,11 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-    long countUserByUsername(String name);
+    long countByUsername(String username);
 
-
-    long countByUsernameAndPassword(@Param("username") String name,
-                                   @Param("password") String pass);
+    long countByUsernameAndPassword(@Param("username") String username,@Param("password") String pass);
 
     long countByPhone(String phone);
 

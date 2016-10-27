@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         Result<String> result=new Result<>();
         if (num>0){
             result.setCode(RestIni.success); return result;
-        }else if (userRepository.countUserByUsername(username)>0){
+        }else if (userRepository.countByUsername(username)>0){
             result.setMsg(RestIni.loginPassErr);
             return result;
         }else {
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<String> register(String username, String password, String phone) throws RuntimeException{
         Result<String> result=new Result<>();
-        if (userRepository.countUserByUsername(username)>0){
+        if (userRepository.countByUsername(username)>0){
            result.setMsg(RestIni.RegisterUmExist);
             return result;
         }else if (userRepository.countByPhone(phone)>0){
@@ -73,9 +73,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
         Result<String> result=new Result<>();
-       /* User user=userRepository.findOne(username);
-        user.setSchool(school);
-        userRepository.save(user);*/
        customRepository.updateUserSchool(username,school);
         result.setCode(1);
         return result;
