@@ -9,6 +9,7 @@ import me.jcala.xmarket.server.entity.dto.ResultBuilder;
 import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.profile.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.repository.CustomRepository;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,14 @@ public class UserServiceImpl implements UserService {
 
     private SystemRepository systemRepository;
 
+    private CustomRepository customRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository) {
+    public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
+                           CustomRepository customRepository) {
         this.userRepository = userRepository;
         this.systemRepository = systemRepository;
+        this.customRepository = customRepository;
     }
 
     @Override
@@ -68,9 +73,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
         Result<String> result=new Result<>();
-        User user=userRepository.findOne(username);
+       /* User user=userRepository.findOne(username);
         user.setSchool(school);
-        userRepository.save(user);
+        userRepository.save(user);*/
+       customRepository.updateUserSchool(username,school);
         result.setCode(1);
         return result;
     }
@@ -86,5 +92,11 @@ public class UserServiceImpl implements UserService {
         return new ResultBuilder<List<String>>().Code(RestIni.success)
                                                 .data(bean.getSchools())
                                                 .build();
+    }
+
+    @Override
+    public Result<String> updateInfo(User user) throws RuntimeException {
+
+        return null;
     }
 }

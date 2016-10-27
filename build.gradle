@@ -69,7 +69,6 @@ dependencies {
     compile ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"){
         exclude group: 'org.mongodb'
     }
-    compile "org.mongodb:bson:${mongoVersion}"
     compile "org.mongodb:mongodb-driver:${mongoVersion}"
     compile "org.mongodb:mongodb-driver-core:${mongoVersion}"
     //--------------------springFox----------------------------

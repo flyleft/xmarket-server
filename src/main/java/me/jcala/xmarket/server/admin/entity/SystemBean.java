@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 public class SystemBean {
     @Id
+    private String id;
     private String name;//唯一不可重复
     private List<String> schools;
 }
