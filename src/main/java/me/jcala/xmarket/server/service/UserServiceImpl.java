@@ -14,6 +14,9 @@ import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -71,7 +74,6 @@ public class UserServiceImpl implements UserService {
             return result;
         }
     }
-
     @Override
     public Result<String> updateUserSchool(String username,String school)
             throws RuntimeException {
