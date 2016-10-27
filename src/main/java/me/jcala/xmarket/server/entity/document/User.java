@@ -2,19 +2,15 @@ package me.jcala.xmarket.server.entity.document;
 
 
 import lombok.*;
-import org.mongodb.morphia.annotations.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 /**
  *用户信息封装类
  */
-@Entity("user")
 @Document(collection = "user")
 @Getter
 @Setter
 @NoArgsConstructor
-@Indexes(
-        @Index(value = "username", fields = @Field("username"))
-)
 public class User {
     @Id
     private String username;//用户名

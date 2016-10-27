@@ -81,10 +81,10 @@ public class UserServiceImpl implements UserService {
         SystemBean bean=systemRepository.findByName(name);
         if (bean==null||bean.getSchools()==null){
             new SysDataException().error();
+            return new Result<>();
         }
         return new ResultBuilder<List<String>>().Code(RestIni.success)
                                                 .data(bean.getSchools())
                                                 .build();
-
     }
 }

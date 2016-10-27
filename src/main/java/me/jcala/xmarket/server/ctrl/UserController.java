@@ -1,8 +1,8 @@
 package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.*;
+import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.repository.UserRepo;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    @Autowired
-    private UserRepo userRepo;
 
     @Autowired
     private UserService userService;
@@ -33,8 +31,7 @@ public class UserController {
    @ApiOperation("用户注册")
    @PostMapping(value = "/register",produces="application/json;charset=UTF-8")
     public Result<String> register(String username,String password,String phone) throws RuntimeException{
-      // return userService.register(username,password,phone);
-      return userRepo.register();
+       return userService.register(username,password,phone);
    }
     @ApiOperation("设置用户学校信息")
     @PutMapping(value = "/school/{username}",produces="application/json;charset=UTF-8")
@@ -45,5 +42,9 @@ public class UserController {
     @GetMapping(value = "/school_list",produces = "application/json;charset=UTF-8")
     public Result<List<String>> getSchoolNameList() throws RuntimeException{
         return userService.gainSchoolList();
+    }
+
+    public Result<String> updateUSerInfo(User user) throws RuntimeException{
+        return null;
     }
 }
