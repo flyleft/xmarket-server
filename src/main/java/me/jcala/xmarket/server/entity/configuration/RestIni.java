@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.utils;
+package me.jcala.xmarket.server.entity.configuration;
 
 /**
  * 关于rest服务器接收和返回信息的配置

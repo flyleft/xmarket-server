@@ -22,3 +22,5 @@ spring:
         multipart:
           max-file-size: 3MB
           max-request-size: 10MB
+pic:
+    home: /home/jcala/xmarket/log/spring_log

@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.utils;
 
+import me.jcala.xmarket.server.entity.configuration.RestIni;
 import me.jcala.xmarket.server.entity.dto.Result;
 
 /**

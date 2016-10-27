@@ -5,7 +5,7 @@ import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api("跟用户信息有关的api")
@@ -29,13 +29,14 @@ public class UserInfoController {
 
    @ApiOperation("用户注册")
    @PostMapping(value = "/register",produces="application/json;charset=UTF-8")
-    public Result<String> register(String username,String password,String phone) throws RuntimeException{
+    public Result<String> register(String username,String password,String phone)
+           throws RuntimeException{
        return userService.register(username,password,phone);
    }
     @ApiOperation("设置用户学校信息")
     @PutMapping(value = "/school",produces="application/json;charset=UTF-8")
    public Result<String> updateUserSchool(String username,String school){
-       return userService.updateUserSchool(username,school);
+       return userService.updateSchool(username,school);
    }
     @ApiOperation("获取学校名称列表")
     @GetMapping(value = "/school_list",produces = "application/json;charset=UTF-8")
@@ -45,7 +46,14 @@ public class UserInfoController {
 
     @ApiOperation("修改用户密码")
     @PutMapping(value = "/pass",produces = "application/json;charset=UTF-8")
-    public Result<String> updateUserPassword(String username,String oldPass,String newPass) throws RuntimeException{
-        return userService.modifyPassword(username,oldPass,newPass);
+    public Result<String> updateUserPassword(String username,String oldPass,String newPass)
+            throws RuntimeException{
+        return userService.updatePassword(username,oldPass,newPass);
+    }
+    @ApiOperation("修改用户头像")
+    @PutMapping(value = "/avatar",produces = "application/json;charset=UTF-8")
+    public Result<String> updateUserAvatar(String username, HttpServletRequest request)
+            throws RuntimeException{
+      return userService.updateAvatar(username,request);
     }
 }

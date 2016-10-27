@@ -1,24 +1,26 @@
 package me.jcala.xmarket.server.service;
 
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.admin.entity.SystemBean;
 import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
+import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.configuration.RestIni;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
+import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.entity.dto.ResultBuilder;
 import me.jcala.xmarket.server.exception.SysDataException;
-import me.jcala.xmarket.server.utils.CommonFactory;
-import me.jcala.xmarket.server.utils.RestIni;
-import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
+import me.jcala.xmarket.server.utils.CommonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,12 +30,15 @@ public class UserServiceImpl implements UserService {
 
     private CustomRepositoryImpl customRepository;
 
+    private ApplicationInfo info;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
-                           CustomRepositoryImpl customRepository) {
+                           CustomRepositoryImpl customRepository, ApplicationInfo info) {
         this.userRepository = userRepository;
         this.systemRepository = systemRepository;
         this.customRepository = customRepository;
+        this.info = info;
     }
 
     @Override
@@ -75,7 +80,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public Result<String> updateUserSchool(String username,String school)
+    public Result<String> updateSchool(String username, String school)
             throws RuntimeException {
        customRepository.updateUserSchool(username,school);
         return CommonFactory.INSTANCE().simpleSuccess();
@@ -94,13 +99,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> modifyPassword(String username,String oldPass,String newPass)
+    public Result<String> updatePassword(String username, String oldPass, String newPass)
             throws RuntimeException {
         long num=userRepository.countByUsernameAndPassword(username,oldPass);
         if (num<1){
             return new ResultBuilder<String>().msg(RestIni.modifyPassErr).build();
         }
         customRepository.updateUserPassword(username,newPass);
+        return CommonFactory.INSTANCE().simpleSuccess();
+    }
+
+    @Override
+    public Result<String> updateAvatar(String username, HttpServletRequest request)
+            throws RuntimeException {
+        log.error("url"+request.getServletContext().getServerInfo());
         return CommonFactory.INSTANCE().simpleSuccess();
     }
 }

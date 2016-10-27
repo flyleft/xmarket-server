@@ -3,6 +3,7 @@ package me.jcala.xmarket.server.service.inter;
 
 import me.jcala.xmarket.server.entity.dto.Result;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserService {
@@ -12,10 +13,12 @@ public interface UserService {
 
     Result<String> register(String username,String password,String phone) throws RuntimeException;//用户注册
 
-    Result<String> updateUserSchool(String username,String school) throws RuntimeException;//设置用户所在的学校
+    Result<String> updateSchool(String username, String school) throws RuntimeException;//设置用户所在的学校
 
     Result<List<String>> gainSchoolList() throws RuntimeException;//获取学校的列表
 
-    Result<String> modifyPassword(String username,String oldPass,String newPass)throws RuntimeException;//更新用户信息
+    Result<String> updatePassword(String username, String oldPass, String newPass)throws RuntimeException;//更新用户信息
+
+    Result<String> updateAvatar(String username, HttpServletRequest request) throws RuntimeException;//更新用户头像
 
 }

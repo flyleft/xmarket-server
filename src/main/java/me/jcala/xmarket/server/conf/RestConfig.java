@@ -1,10 +1,10 @@
 package me.jcala.xmarket.server.conf;
 
 import me.jcala.xmarket.server.annotation.SwaggerIgnore;
-import org.hibernate.validator.HibernateValidator;
+import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -24,12 +24,15 @@ import static springfox.documentation.builders.PathSelectors.regex;
 import static springfox.documentation.builders.RequestHandlerSelectors.withClassAnnotation;
 
 /**
+ *数据非空校验放到客户端,而服务器端不进行数据校验
  * 与rest相关的config
  */
 @Configuration
 @EnableSwagger2
 public class RestConfig {
 
+    @Value("${pic.home}")
+    private String picHome;
     @Bean
     public Docket ordinaryApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -87,10 +90,17 @@ public class RestConfig {
     /**
      *Validator验证器
      */
-    @Bean
+   /* @Bean
     public LocalValidatorFactoryBean validator(){
         LocalValidatorFactoryBean validatorFactoryBean=new LocalValidatorFactoryBean();
         validatorFactoryBean.setProviderClass(HibernateValidator.class);
         return validatorFactoryBean;
-    }
+    }*/
+
+   @Bean
+   public ApplicationInfo applicationInfo(){
+       return ApplicationInfo.builder()
+                             .picHome(picHome)
+                             .build();
+   }
 }
