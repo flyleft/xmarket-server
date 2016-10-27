@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> login(String username,String password) throws RuntimeException{
+    public Result<String> login(String username,String password)
+            throws RuntimeException{
         long num=userRepository.countByUsernameAndPassword(username,password);
         Result<String> result=new Result<>();
         if (num>0){
@@ -49,7 +50,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> register(String username, String password, String phone) throws RuntimeException{
+    public Result<String> register(String username,String password,String phone)
+            throws RuntimeException{
         Result<String> result=new Result<>();
         if (userRepository.countByUsername(username)>0){
            result.setMsg(RestIni.RegisterUmExist);
@@ -71,7 +73,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> updateUserSchool(String username, String school) throws RuntimeException {
+    public Result<String> updateUserSchool(String username,String school)
+            throws RuntimeException {
        customRepository.updateUserSchool(username,school);
         return CommonFactory.INSTANCE().simpleSuccess();
     }
@@ -89,7 +92,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> modifyPassword(String username, String oldPass, String newPass) throws RuntimeException {
+    public Result<String> modifyPassword(String username,String oldPass,String newPass)
+            throws RuntimeException {
         long num=userRepository.countByUsernameAndPassword(username,oldPass);
         if (num<1){
             return new ResultBuilder<String>().msg(RestIni.modifyPassErr).build();

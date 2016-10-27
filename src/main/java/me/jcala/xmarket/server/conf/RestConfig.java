@@ -1,8 +1,10 @@
 package me.jcala.xmarket.server.conf;
 
 import me.jcala.xmarket.server.annotation.SwaggerIgnore;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -35,7 +37,7 @@ public class RestConfig {
                 .genericModelSubstitutes(DeferredResult.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
-                .pathMapping("/api")
+                .pathMapping("/")
                 .select()
                 .paths(or(regex(".*")))
                 .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -51,7 +53,7 @@ public class RestConfig {
                .genericModelSubstitutes(DeferredResult.class)
                .useDefaultResponseMessages(false)
                .forCodeGeneration(true)
-               .pathMapping("/admin")
+               .pathMapping("/")
                .select()
                .paths(or(regex(".*")))
                .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -82,4 +84,13 @@ public class RestConfig {
         return new CorsFilter(source);
     }
 
+    /**
+     *Validator验证器
+     */
+    @Bean
+    public LocalValidatorFactoryBean validator(){
+        LocalValidatorFactoryBean validatorFactoryBean=new LocalValidatorFactoryBean();
+        validatorFactoryBean.setProviderClass(HibernateValidator.class);
+        return validatorFactoryBean;
+    }
 }
