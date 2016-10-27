@@ -17,10 +17,7 @@ public class CustomRepository {
     public CustomRepository(MongoTemplate template) {
         this.template = template;
     }
-    /*
-     mongoTemplate.updateMulti(new Query(where("accounts.accountType").is(Account.Type.SAVINGS)),
-  new Update().inc("accounts.$.balance", 50.00), Account.class);
-     */
+
     public void updateUserSchool(String username, String school){
         template.updateFirst(new Query(where("username").is(username)),
                 new Update().set("school",school), User.class);
