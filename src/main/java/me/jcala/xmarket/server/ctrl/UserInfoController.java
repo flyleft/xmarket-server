@@ -9,6 +9,7 @@ import me.jcala.xmarket.server.service.inter.StaticService;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,11 @@ public class UserInfoController {
     private UserService userService;
 
     private StaticService staticService;
+
+    @InitBinder("userCreateForm")
+    public void initBinder(WebDataBinder binder) {
+        //binder.addValidators(userCreateFormValidator);
+    }
 
     @Autowired
     public UserInfoController(UserService userService, StaticService staticService) {
@@ -73,7 +79,7 @@ public class UserInfoController {
             @ApiResponse(code=404,message="没有找到该图片")
     })
     @GetMapping(value = "/pic/{dir}/{picName}")
-    public ResponseEntity<byte[]> download(@PathVariable("dir") String dir,@PathVariable("picName") String picName)
+    public ResponseEntity<byte[]> download(@PathVariable String dir,@PathVariable String picName)
             throws RuntimeException {
         return staticService.gainPic(dir,picName);
     }
