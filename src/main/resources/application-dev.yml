@@ -27,4 +27,4 @@ spring:
         host: 127.0.0.1
         port: 27017
 pic:
-    home: /home/jcala/xmarket/log/spring_log
+    home: /home/jcala/xmarket/pic/

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class CtrlExceptionHandler {
 
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public Result<String> exceptionHandlerProd(RuntimeException e) {

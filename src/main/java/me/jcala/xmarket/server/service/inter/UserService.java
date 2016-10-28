@@ -2,6 +2,7 @@ package me.jcala.xmarket.server.service.inter;
 
 
 import me.jcala.xmarket.server.entity.dto.Result;
+import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

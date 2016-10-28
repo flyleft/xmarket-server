@@ -1,10 +1,16 @@
 package me.jcala.xmarket.server.ctrl;
 
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.service.inter.StaticService;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -13,9 +19,15 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserInfoController {
 
-    @Autowired
     private UserService userService;
 
+    private StaticService staticService;
+
+    @Autowired
+    public UserInfoController(UserService userService, StaticService staticService) {
+        this.userService = userService;
+        this.staticService = staticService;
+    }
 
     @ApiOperation("用户登录")
     @ApiResponses({
@@ -55,5 +67,14 @@ public class UserInfoController {
     public Result<String> updateUserAvatar(String username, HttpServletRequest request)
             throws RuntimeException{
       return userService.updateAvatar(username,request);
+    }
+    @ApiOperation("获取用户头像")
+    @ApiResponses({
+            @ApiResponse(code=404,message="没有找到该图片")
+    })
+    @GetMapping(value = "/pic/{dir}/{picName}")
+    public ResponseEntity<byte[]> download(@PathVariable("dir") String dir,@PathVariable("picName") String picName)
+            throws RuntimeException {
+        return staticService.gainPic(dir,picName);
     }
 }

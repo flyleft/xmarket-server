@@ -14,10 +14,17 @@ import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.CommonFactory;
+import me.jcala.xmarket.server.utils.FileTools;
+import me.jcala.xmarket.server.utils.StaticTool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -112,7 +119,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<String> updateAvatar(String username, HttpServletRequest request)
             throws RuntimeException {
-        log.error("url"+request.getServletContext().getServerInfo());
-        return CommonFactory.INSTANCE().simpleSuccess();
+        String url="";
+        try {
+            url=StaticTool.updateAvatar("/api/user/avatar",info.getPicHome(),request);
+        } catch (Exception e) {
+            log.warn("上传"+username+"用户头像发生错误"+e.getLocalizedMessage());
+        }
+        return new ResultBuilder<String>().Code(RestIni.success).data(url).build();
     }
+
 }
