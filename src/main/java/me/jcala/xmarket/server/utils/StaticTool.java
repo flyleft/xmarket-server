@@ -18,9 +18,6 @@ public class StaticTool {
     public static String updateAvatar(String restUrl,String picHome,HttpServletRequest request)
             throws Exception {
 
-        //图片在服务器上存储的根路径
-        final String imgDir = picHome;
-
         MultipartFile multipartFile = getMultipartFile(request);
 
         //设置图片名称为currentTimeMillis+文件后缀
@@ -30,16 +27,16 @@ public class StaticTool {
         String yearMonth = TimeTools.getYearMonthOfNow();
 
         //图片存储路径为根路径/年月。比如user/jcala/xmarket/201608
-        File path = new File(imgDir+ yearMonth);
+        File path = new File(picHome+File.separatorChar+ yearMonth);
 
         //合成图片在服务器上的绝对路径
-        File targetFile = new File(imgDir + yearMonth + File.separatorChar + fileName);
+        File targetFile = new File(picHome+File.separatorChar + yearMonth + File.separatorChar + fileName);
         if (!path.exists()) {
             path.mkdirs();
         }
         //保存图片
         multipartFile.transferTo(targetFile);
-        return getServerRoot(request) + restUrl + yearMonth + "/" + fileName;//"/api/user/avatar/"
+        return getServerRoot(request) + restUrl + yearMonth + "/" + fileName;
     }
 
     /**

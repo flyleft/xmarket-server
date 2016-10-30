@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
             throws RuntimeException {
         String url="";
         try {
-            url=StaticTool.updateAvatar("/api/user/avatar",info.getPicHome(),request);
+            url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
         } catch (Exception e) {
             log.warn("上传"+username+"用户头像发生错误"+e.getLocalizedMessage());
         }
