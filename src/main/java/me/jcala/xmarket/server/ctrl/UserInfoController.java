@@ -9,7 +9,6 @@ import me.jcala.xmarket.server.service.inter.StaticService;
 import me.jcala.xmarket.server.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +23,6 @@ public class UserInfoController {
 
     private StaticService staticService;
 
-    @InitBinder("userCreateForm")
-    public void initBinder(WebDataBinder binder) {
-        //binder.addValidators(userCreateFormValidator);
-    }
 
     @Autowired
     public UserInfoController(UserService userService, StaticService staticService) {

@@ -14,17 +14,11 @@ import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.CommonFactory;
-import me.jcala.xmarket.server.utils.FileTools;
 import me.jcala.xmarket.server.utils.StaticTool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -49,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> login(String username,String password)
+    public Result<String> login(String username, String password)
             throws RuntimeException{
         long num=userRepository.countByUsernameAndPassword(username,password);
         Result<String> result=new Result<>();

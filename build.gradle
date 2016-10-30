@@ -35,7 +35,7 @@ configurations {
     compile.exclude group: 'log4j', module: 'log4j'
     compile.exclude module: "spring-boot-starter-tomcat"
     compile.exclude module: "undertow-websockets-jsr"
-    //compile.exclude group: 'org.hibernate'
+    compile.exclude group: 'org.hibernate'
     compile.exclude group: 'net.minidev'
     compile.exclude group: 'org.apache.tomcat.embed'
     compile.exclude group: 'org.apache.tomcat'
@@ -66,7 +66,7 @@ dependencies {
     //--------------------- 工具------------------------------
     compile 'org.projectlombok:lombok:1.16.10'
     //---------------------JSR303-----------------------------
-    compile 'org.hibernate:hibernate-validator:5.2.4.Final'//5.3.0版本会报错
+    //compile 'org.hibernate:hibernate-validator:5.2.4.Final'//5.3.0版本会报错
     //---------------------mongo------------------------------
     compile ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"){
         exclude group: 'org.mongodb'
