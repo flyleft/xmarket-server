@@ -28,16 +28,16 @@ public class StaticServiceImpl implements StaticService{
     @Override
     public ResponseEntity<byte[]> gainPic(String dir, String picName) throws RuntimeException {
         File file=new File(info.getPicHome()+File.separatorChar+dir+File.separatorChar+picName);
-        byte[] bytes=new byte[]{};
+        byte[] bytes;
         try {
             bytes= FileTools.readFileToByteArray(file);
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn(e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", picName);
-        return new ResponseEntity<>(bytes, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
 }

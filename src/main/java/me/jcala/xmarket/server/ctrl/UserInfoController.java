@@ -73,8 +73,8 @@ public class UserInfoController {
     @ApiResponses({
             @ApiResponse(code=404,message="没有找到该图片")
     })
-    @GetMapping(value = "/pic/{dir}/{picName}")
-    public ResponseEntity<byte[]> download(@PathVariable String dir,@PathVariable String picName)
+    @GetMapping(value = "/pic/{dir}/{picName:.+}")
+    public ResponseEntity<byte[]> gainUserAvatar(@PathVariable String dir,@PathVariable String picName)
             throws RuntimeException {
         return staticService.gainPic(dir,picName);
     }
