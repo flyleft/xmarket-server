@@ -4,8 +4,6 @@ buildscript {
         springBootVersion = '1.4.1.RELEASE'
         springVersion='4.3.3.RELEASE'
         swaggerVersion='2.6.0'
-        resteasyVersion='2.2.0-RELEASE'
-        javaxRsApiVersion='2.1-m01'
         mongoVersion='3.4.0-rc1'
     }
     repositories {
@@ -78,6 +76,7 @@ dependencies {
         exclude group: 'com.fasterxml.jackson.core'
     }
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    compile 'io.springfox.ui:springfox-swagger-ui-rfc6570:0.9.8'
     //--------------------单元测试-------------------------------
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     //---------------------shiro--------------------------------

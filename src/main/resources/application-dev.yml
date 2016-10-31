@@ -12,6 +12,7 @@ server:
             enabled: true
             dir: /home/jcala/xmarket/log/server_log
             pattern: combined
+    context-path: /api/v1
 logging:
     config: classpath:logback-spring.xml
     path: /home/jcala/xmarket/log/spring_log
@@ -22,9 +23,10 @@ spring:
         multipart:
           max-file-size: 3MB
           max-request-size: 10MB
-    data.mongodb:
-        database: xmarket
-        host: 127.0.0.1
-        port: 27017
+    data:
+        mongodb:
+            database: xmarket
+            host: 127.0.0.1
+            port: 27017
 pic:
     home: G:\home\jcala\xmarket\pic

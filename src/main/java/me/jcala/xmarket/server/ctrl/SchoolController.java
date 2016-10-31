@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/school")
 public class SchoolController {
+
     private SystemService schoolService;
 
     @Autowired
