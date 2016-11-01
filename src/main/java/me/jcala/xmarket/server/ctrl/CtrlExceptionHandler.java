@@ -2,7 +2,7 @@ package me.jcala.xmarket.server.ctrl;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.utils.CommonFactory;
+import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,6 +23,6 @@ class CtrlExceptionHandler {
     @ResponseBody
     public ResponseEntity<Result> exceptionHandlerProd(RuntimeException e) {
         log.warn(e.getLocalizedMessage());
-        return  CommonFactory.INSTANCE().serverError();
+        return  RespFactory.INSTANCE().serverError();
     }
 }

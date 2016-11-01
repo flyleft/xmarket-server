@@ -14,6 +14,7 @@ import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.FieldValidator;
+import me.jcala.xmarket.server.utils.RespFactory;
 import me.jcala.xmarket.server.utils.StaticTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;import org.springframework.http.ResponseEntity;
@@ -53,11 +54,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public  ResponseEntity<?> login(String username, String password){
-        Result<String> result=new Result<>();
         if (FieldValidator.hasEmpty(username,password)){
-            result.api(Api.ILLEGAL_PARAMS);
-            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+            return RespFactory.INSTANCE().illegal_params();
         }
+        Result<String> result=new Result<>();
         Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
         if (user.isPresent()){
             result.api(Api.SUCCESS);
@@ -84,8 +84,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> register(String username, String password, String phone){
         Result<String> result=new Result<>();
         if (FieldValidator.hasEmpty(username,password,phone)){
-            result.api(Api.ILLEGAL_PARAMS);
-            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+            return RespFactory.INSTANCE().illegal_params();
         }else if (userRepository.countByUsername(username)>0){
            result.api(Api.USER_NAME_EXIST);
            return new ResponseEntity<>(result,HttpStatus.ACCEPTED);
@@ -100,8 +99,7 @@ public class UserServiceImpl implements UserService {
                                 .phone(phone)
                                 .build()
                 );
-            result.api(Api.SUCCESS);
-            return new ResponseEntity<>(result,HttpStatus.CREATED);
+            return RespFactory.INSTANCE().created();
         }
     }
 
@@ -116,12 +114,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> updateSchool(String id, String school){
         if (FieldValidator.hasEmpty(id,school)){
-            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+            return RespFactory.INSTANCE().illegal_params();
         }else if (userRepository.countById(id)<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
         }
         customRepository.updateUserSchool(id,school);
-        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
+        return RespFactory.INSTANCE().created();
     }
 
     /**
@@ -153,7 +151,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> updatePassword(String id, String oldPass, String newPass){
         if (FieldValidator.hasEmpty(id,oldPass,newPass)){
-            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+            return RespFactory.INSTANCE().illegal_params();
         }
         long num=userRepository.countByIdAndPassword(id,oldPass);
         if (num<1){
@@ -162,7 +160,7 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
         }
         customRepository.updateUserPassword(id,newPass);
-        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
+        return RespFactory.INSTANCE().created();
     }
 
     /**
@@ -175,13 +173,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> updateAvatar(String id, HttpServletRequest request) throws Exception{
         if (FieldValidator.hasEmpty(id)){
-            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+            return RespFactory.INSTANCE().illegal_params();
         }else if (userRepository.countById(id)<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
         }
         String url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
-        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
+        return RespFactory.INSTANCE().created();
     }
 
 }
