@@ -25,13 +25,13 @@ public class CustomRepositoryImpl implements CustomRepository{
 
     @Override
     public void updateUserPassword(String id,String password) throws RuntimeException {
-       template.updateFirst(new Query(where("id").is(id)),
+       template.updateFirst(new Query(where("_id").is(id)),
                new Update().set("password",password), User.class);
     }
 
     @Override
     public void updateUserAvatar(String id, String avatar_url) {
-        template.updateFirst(new Query(where("id").is(id)),
+        template.updateFirst(new Query(where("_id").is(id)),
                 new Update().set("avatar_url",avatar_url), User.class);
     }
 }

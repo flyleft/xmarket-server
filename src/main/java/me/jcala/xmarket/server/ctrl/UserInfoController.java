@@ -39,7 +39,7 @@ public class UserInfoController {
             @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
     })
     @PostMapping(value = "/login",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<String> login(String username,String password) throws RuntimeException{
+    public ResponseEntity<?> login(String username,String password) throws RuntimeException{
         return userService.login(username,password);
     }
 
@@ -50,25 +50,25 @@ public class UserInfoController {
    }
     @ApiOperation("设置用户学校信息")
     @PutMapping(value = "/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public Result<String> updateUserSchool(@PathVariable("user_id")String id,String school){
+   public ResponseEntity<?> updateUserSchool(@PathVariable("user_id")String id,String school){
        return userService.updateSchool(id,school);
    }
     @ApiOperation("获取学校名称列表")
     @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<List<String>> getSchoolNameList() throws RuntimeException{
+    public ResponseEntity<?> getSchoolNameList() throws RuntimeException{
         return userService.gainSchoolList();
     }
 
     @ApiOperation("修改用户密码")
     @PutMapping(value = "/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<String> updateUserPassword(String username,String oldPass,String newPass)
+    public ResponseEntity<?> updateUserPassword(String username,String oldPass,String newPass)
             throws RuntimeException{
         return userService.updatePassword(username,oldPass,newPass);
     }
     @ApiOperation("修改用户头像")
     @PutMapping(value = "/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<String> updateUserAvatar(String username, HttpServletRequest request)
-            throws RuntimeException{
+    public ResponseEntity<?> updateUserAvatar(String username, HttpServletRequest request)
+            throws Exception{
       return userService.updateAvatar(username,request);
     }
     @ApiOperation("获取用户头像")

@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.utils;
 
-import me.jcala.xmarket.server.entity.configuration.RestIni;
+import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.dto.Result;
 
 /**
@@ -10,12 +10,9 @@ import me.jcala.xmarket.server.entity.dto.Result;
 public class CommonFactory {
 
     private final Result<String> serverErr=new Result<>();
-    private final Result<String> simpleSuccess=new Result<>();
 
     private CommonFactory(){
-        this.serverErr.setCode(1000);
-        this.serverErr.setMsg("网络异常");
-        this.simpleSuccess.setCode(RestIni.success);
+        serverErr.api(Api.SERVER_ERROR);
     }
 
     private static class FactoryHolder{
@@ -30,7 +27,4 @@ public class CommonFactory {
         return serverErr;
     }
 
-    public Result<String> simpleSuccess() {
-        return simpleSuccess;
-    }
 }

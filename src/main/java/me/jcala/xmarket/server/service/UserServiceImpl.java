@@ -65,10 +65,10 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(result,HttpStatus.OK);
         }else if (userRepository.countByUsername(username)>0){
             result.api(Api.USER_PASS_ERR);
-            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }else {
             result.api(Api.USER_NAME_EXIST);
-            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -101,10 +101,18 @@ public class UserServiceImpl implements UserService {
                                 .build()
                 );
             result.api(Api.SUCCESS);
-            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(result,HttpStatus.CREATED);
         }
     }
 
+    /**
+     *PUT /users/user_id/update_school         更新学校信息
+     更新成功:       自定义状态码100  HttpStatus201 content包含user info
+     用户不存在:     自定义状态码201  HttpStatus404
+     无操作权限:     自定义状态码102  HttpStatus403
+     操作异常:       自定义状态码101  HttpStatus500
+     参数错误:       自定义状态码103  HttpStatus400
+     */
     @Override
     public ResponseEntity<?> updateSchool(String id, String school){
        customRepository.updateUserSchool(id,school);
