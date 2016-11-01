@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.utils.CommonFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,7 @@ class CtrlExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public Result<String> exceptionHandlerProd(RuntimeException e) {
+    public ResponseEntity<Result> exceptionHandlerProd(RuntimeException e) {
         log.warn(e.getLocalizedMessage());
         return  CommonFactory.INSTANCE().serverError();
     }
