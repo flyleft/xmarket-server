@@ -17,11 +17,10 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     long countByIdAndPassword(@Param("id") String id,@Param("password") String pass);
 
-    @Query(fields = "{id}")
+    @Query(fields =  "{'_id':1}")
     Optional<User> findByUsernameAndPassword(@Param("username") String username,@Param("password") String pass);
 
     long countByPhone(String phone);
 
-    @Query(value = "{ }", fields = "{ }")
     User save(User user);
 }

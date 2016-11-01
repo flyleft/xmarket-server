@@ -115,8 +115,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResponseEntity<?> updateSchool(String id, String school){
-       customRepository.updateUserSchool(id,school);
-       return null;
+        if (FieldValidator.hasEmpty(id,school)){
+            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+        }else if (userRepository.countById(id)<1){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
+        }
+        customRepository.updateUserSchool(id,school);
+        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
     }
 
     /**

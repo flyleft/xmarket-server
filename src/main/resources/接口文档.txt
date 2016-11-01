@@ -14,7 +14,6 @@ POST /users/register                  用户注册
 
 PUT /users/user_id/update_school         更新学校信息
 更新成功:       自定义状态码100  HttpStatus201 content包含user info
-用户不存在:     自定义状态码201  HttpStatus404
 无操作权限:     自定义状态码102  HttpStatus403
 操作异常:       自定义状态码101  HttpStatus500
 参数错误:       自定义状态码103  HttpStatus400

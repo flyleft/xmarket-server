@@ -39,7 +39,7 @@ public class UserInfoController {
             @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
     })
     @PostMapping(value = "/login",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> login(String username,String password) throws RuntimeException{
+    public ResponseEntity<?> login(String username,String password){
         return userService.login(username,password);
     }
 
@@ -50,18 +50,18 @@ public class UserInfoController {
    }
     @ApiOperation("设置用户学校信息")
     @PutMapping(value = "/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public ResponseEntity<?> updateUserSchool(@PathVariable String id,String school){
+   public ResponseEntity<?> updateUserSchool(@PathVariable("user_id") String id,String school){
        return userService.updateSchool(id,school);
    }
     @ApiOperation("修改用户密码")
     @PutMapping(value = "/{user_id}/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserPassword(@PathVariable String id,String oldPass,String newPass)
+    public ResponseEntity<?> updateUserPassword(@PathVariable("user_id")String id,String oldPass,String newPass)
             throws RuntimeException{
         return userService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation("修改用户头像")
     @PutMapping(value = "/{user_id}/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserAvatar(@PathVariable String id, HttpServletRequest request)
+    public ResponseEntity<?> updateUserAvatar(@PathVariable("user_id")String id, HttpServletRequest request)
             throws Exception{
       return userService.updateAvatar(id,request);
     }
@@ -69,14 +69,14 @@ public class UserInfoController {
     @ApiResponses({
             @ApiResponse(code=404,message="没有找到该图片")
     })
-    @GetMapping(value = "/pic/{dir}/{picName:.+}")
-    public ResponseEntity<byte[]> gainUserAvatar(@PathVariable String dir,@PathVariable String picName)
+    @GetMapping(value = "/pic/{dir}/{pic_name:.+}")
+    public ResponseEntity<byte[]> gainUserAvatar(@PathVariable("dir")String dir,@PathVariable("pic_name") String picName)
             throws RuntimeException {
         return staticService.gainPic(dir,picName);
     }
     @ApiOperation("获取学校名称列表")
     @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getSchoolNameList() throws RuntimeException{
+    public ResponseEntity<?> getSchoolList() throws RuntimeException{
         return userService.gainSchoolList();
     }
 
