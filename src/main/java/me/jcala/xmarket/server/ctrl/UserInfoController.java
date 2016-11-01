@@ -50,26 +50,20 @@ public class UserInfoController {
    }
     @ApiOperation("设置用户学校信息")
     @PutMapping(value = "/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public ResponseEntity<?> updateUserSchool(@PathVariable("user_id")String id,String school){
+   public ResponseEntity<?> updateUserSchool(@PathVariable String id,String school){
        return userService.updateSchool(id,school);
    }
-    @ApiOperation("获取学校名称列表")
-    @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getSchoolNameList() throws RuntimeException{
-        return userService.gainSchoolList();
-    }
-
     @ApiOperation("修改用户密码")
-    @PutMapping(value = "/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserPassword(String username,String oldPass,String newPass)
+    @PutMapping(value = "/{user_id}/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateUserPassword(@PathVariable String id,String oldPass,String newPass)
             throws RuntimeException{
-        return userService.updatePassword(username,oldPass,newPass);
+        return userService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation("修改用户头像")
-    @PutMapping(value = "/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserAvatar(String username, HttpServletRequest request)
+    @PutMapping(value = "/{user_id}/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateUserAvatar(@PathVariable String id, HttpServletRequest request)
             throws Exception{
-      return userService.updateAvatar(username,request);
+      return userService.updateAvatar(id,request);
     }
     @ApiOperation("获取用户头像")
     @ApiResponses({
@@ -80,4 +74,10 @@ public class UserInfoController {
             throws RuntimeException {
         return staticService.gainPic(dir,picName);
     }
+    @ApiOperation("获取学校名称列表")
+    @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getSchoolNameList() throws RuntimeException{
+        return userService.gainSchoolList();
+    }
+
 }
