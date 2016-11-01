@@ -13,7 +13,9 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     long countByUsername(String username);
 
-    long countByUsernameAndPassword(@Param("username") String username,@Param("password") String pass);
+    long countByIdAndPassword(@Param("id") String id,@Param("password") String pass);
+
+    long countByUernameAndPassword(@Param("username") String username,@Param("password") String pass);
 
     long countByPhone(String phone);
 

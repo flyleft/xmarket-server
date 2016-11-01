@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService {
             result.api(Api.USER_PHONE_EXIST);
             return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
         }else {
-            try {
                 userRepository.insert(
                         new UserBuilder()
                                 .username(username)
@@ -88,42 +87,42 @@ public class UserServiceImpl implements UserService {
                                 .phone(phone)
                                 .build()
                 );
-            } catch (Exception e) {
-                log.info("用户注册插入数据时发生异常:"+e.getLocalizedMessage());
-                result.api(Api.SERVER_ERROR);
-                return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
-            }
             result.api(Api.SUCCESS);
             return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
     }
-    @Override
-    public Result<String> updateSchool(String username, String school){
-       customRepository.updateUserSchool(username,school);
-        return CommonFactory.INSTANCE().simpleSuccess();
-    }
 
     @Override
-    public Result<List<String>> gainSchoolList(){
+    public ResponseEntity<?> updateSchool(String id, String school){
+       customRepository.updateUserSchool(id,school);
+       return null;
+    }
+
+    /**
+     GET /school_list                          获取学校列表
+     获取成功:       自定义状态码100  HttpStatus200 content包含school列表
+     获取失败:       自定义状态码101  HttpStatus500
+     */
+    @Override
+    public ResponseEntity<?>gainSchoolList(){
         String name= SysColName.COL_SCHOOL.name().toLowerCase();
         SystemBean bean=systemRepository.findByName(name);
         if (bean==null||bean.getSchools()==null){
             throw new SysDataException("sys集合数据不完整,请检查或者重新初始化");
         }
-        return new ResultBuilder<List<String>>().Code(RestIni.success)
-                                                .data(bean.getSchools())
-                                                .build();
+        Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
+        result.setData(bean.getSchools());
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @Override
-    public Result<String> updatePassword(String username, String oldPass, String newPass)
-            throws RuntimeException {
-        long num=userRepository.countByUsernameAndPassword(username,oldPass);
+    public ResponseEntity<?> updatePassword(String id, String oldPass, String newPass){
+        long num=userRepository.countByIdAndPassword(id,oldPass);
         if (num<1){
-            return new ResultBuilder<String>().msg(RestIni.modifyPassErr).build();
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_OLD_PASS_ERR),HttpStatus.UNAUTHORIZED);
         }
-        customRepository.updateUserPassword(username,newPass);
-        return CommonFactory.INSTANCE().simpleSuccess();
+        customRepository.updateUserPassword(id,newPass);
+        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
     }
 
     @Override

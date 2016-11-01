@@ -1,6 +1,6 @@
 POST /users/login                     用户登录
 登录成功:   自定义状态码100  HttpStatus200  content包含access_token
-用户名错误: 自定义状态码202  HttpStatus404
+用户名错误: 自定义状态码202  HttpStatus401
 密码错误:   自定义状态码203  HttpStatus401
 操作异常:   自定义状态码101  HttpStatus500
 参数错误:   自定义状态码103  HttpStatus400
@@ -21,6 +21,7 @@ PUT /users/user_id/update_school         更新学校信息
 
 PUT /users/user_id/update_pass               更新用户密码
 更新成功:       自定义状态码100  HttpStatus201 content不包含内容
+原密码错误:     自定义状态码204  HttpStatus401
 用户不存在:     自定义状态码201  HttpStatus404
 无操作权限:     自定义状态码102  HttpStatus403
 操作异常:       自定义状态码101  HttpStatus500

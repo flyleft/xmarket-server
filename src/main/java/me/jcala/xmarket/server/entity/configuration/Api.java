@@ -12,6 +12,7 @@ public enum Api {
     USER_PASS_ERR(202,"密码错误"),
     USER_NAME_EXIST(203,"该用户名已经存在"),
     USER_PHONE_EXIST(204,"该手机号已经被注册"),
+    USER_OLD_PASS_ERR(205,"原密码错误"),
     //图片相关
     PIC_NOT_EXIST(301,"该图片资源不存在");
     private int code;

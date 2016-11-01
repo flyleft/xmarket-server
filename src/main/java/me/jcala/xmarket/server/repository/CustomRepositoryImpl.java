@@ -18,8 +18,8 @@ public class CustomRepositoryImpl implements CustomRepository{
     }
 
     @Override
-    public void updateUserSchool(String username, String school) throws RuntimeException{
-        template.updateFirst(new Query(where("username").is(username)),
+    public void updateUserSchool(String id, String school) throws RuntimeException{
+        template.updateFirst(new Query(where("_id").is(id)),
                 new Update().set("school",school), User.class);
     }
 
