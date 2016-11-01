@@ -1,5 +1,8 @@
 package me.jcala.xmarket.server.entity.document;
 
+/**
+ * 为了方便给User链式赋值创建的辅助类
+ */
 public class  UserBuilder {
 
     private final User user=new User();

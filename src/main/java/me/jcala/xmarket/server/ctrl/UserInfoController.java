@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 @Api("跟用户信息有关的api")
 @RestController
 @RequestMapping("/users")
-@Slf4j
 public class UserInfoController {
 
     private UserService userService;

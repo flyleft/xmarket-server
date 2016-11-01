@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 分类列表封装类
+ * 商品分类
  */
 @Setter
 @Getter
-public class SortTag {
+public class TradeSort {
     private String id;//分类的id
     private String name;//分类的名称
     private String bgPic;//分类的背景图片

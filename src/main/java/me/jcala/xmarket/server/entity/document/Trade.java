@@ -10,7 +10,7 @@ import java.util.List;
 @Document(collection = "user")
 @Getter
 @Setter
-public class Deal {
+public class Trade {
     @Id
     private String id;//商品ID
     private String title;//商品名字
