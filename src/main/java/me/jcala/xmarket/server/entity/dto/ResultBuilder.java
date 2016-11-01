@@ -1,7 +1,10 @@
 package me.jcala.xmarket.server.entity.dto;
 
-public final class ResultBuilder<T> {
+public  class ResultBuilder<T> {
+
     private final Result<T> result=new Result<>();
+
+    private ResultBuilder(){}
 
     public ResultBuilder<T> Code(int code){
         result.setCode(code);

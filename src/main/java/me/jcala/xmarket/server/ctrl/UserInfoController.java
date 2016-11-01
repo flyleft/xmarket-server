@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api("跟用户信息有关的api")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/users")
 public class UserInfoController {
 
     private UserService userService;
