@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
             result.api(Api.USER_PASS_ERR);
             return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }else {
-            result.api(Api.USER_NAME_EXIST);
+            result.api(Api.USER_NOT_EXIST);
             return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }
     }

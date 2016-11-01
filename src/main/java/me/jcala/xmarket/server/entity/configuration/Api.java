@@ -5,7 +5,7 @@ public enum Api {
     SUCCESS(100,"操作成功"),
     SERVER_ERROR(101,"服务器异常"),
     FORBIDDEN(102,"没有权限"),
-    ILLEGAL_PARAMS(103,"请求参数错误"),
+    ILLEGAL_PARAMS(103,"请求参数不合法"),
     TOKEN_EXPIRED(104,"token过期"),
     //用户相关
     USER_NOT_EXIST(201,"用户不存在"),

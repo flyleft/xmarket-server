@@ -16,7 +16,6 @@ import java.util.List;
  */
 @Api("跟学校有关的api")
 @RestController
-@RequestMapping("/api/school")
 public class SchoolController {
 
     private SystemService schoolService;
@@ -25,5 +24,4 @@ public class SchoolController {
     public SchoolController(SystemService schoolService) {
         this.schoolService = schoolService;
     }
-
 }
