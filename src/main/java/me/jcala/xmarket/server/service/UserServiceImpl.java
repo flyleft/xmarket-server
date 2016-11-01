@@ -10,6 +10,7 @@ import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.entity.dto.ResultBuilder;
 import me.jcala.xmarket.server.exception.SysDataException;
+import me.jcala.xmarket.server.exception.TestException;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
@@ -43,8 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> login(String username, String password)
-            throws RuntimeException{
+    public Result<String> login(String username, String password){
         long num=userRepository.countByUsernameAndPassword(username,password);
         Result<String> result=new Result<>();
         if (num>0){
@@ -59,12 +59,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> register(String username,String password,String phone)
-            throws RuntimeException{
+    public Result<String> register(String username,String password,String phone){
         Result<String> result=new Result<>();
         if (userRepository.countByUsername(username)>0){
            result.setMsg(RestIni.RegisterUmExist);
-            return result;
+           throw new TestException("测试springMVC的异常自动上抛");
         }else if (userRepository.countByPhone(phone)>0){
             result.setMsg(RestIni.RegisterPhoneExist);
             return result;
@@ -81,14 +80,13 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public Result<String> updateSchool(String username, String school)
-            throws RuntimeException {
+    public Result<String> updateSchool(String username, String school){
        customRepository.updateUserSchool(username,school);
         return CommonFactory.INSTANCE().simpleSuccess();
     }
 
     @Override
-    public Result<List<String>> gainSchoolList() throws RuntimeException {
+    public Result<List<String>> gainSchoolList(){
         String name= SysColName.COL_SCHOOL.name().toLowerCase();
         SystemBean bean=systemRepository.findByName(name);
         if (bean==null||bean.getSchools()==null){

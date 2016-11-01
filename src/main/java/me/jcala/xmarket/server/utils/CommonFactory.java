@@ -13,8 +13,8 @@ public class CommonFactory {
     private final Result<String> simpleSuccess=new Result<>();
 
     private CommonFactory(){
-        this.serverErr.setCode(RestIni.serverErr);
-        this.serverErr.setMsg(RestIni.serverErrMsg);
+        this.serverErr.setCode(1000);
+        this.serverErr.setMsg("网络异常");
         this.simpleSuccess.setCode(RestIni.success);
     }
 

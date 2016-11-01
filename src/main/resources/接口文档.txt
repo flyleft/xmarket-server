@@ -48,8 +48,3 @@ GET /pic/dir/picName                  获取图片
 
 
 
-
-
-
-
-

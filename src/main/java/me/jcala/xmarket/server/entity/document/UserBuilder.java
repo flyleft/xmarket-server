@@ -1,7 +1,9 @@
 package me.jcala.xmarket.server.entity.document;
 
-public class UserBuilder {
+public class  UserBuilder {
+
     private final User user=new User();
+
 
     public UserBuilder username(final String username){
         user.setUsername(username);
