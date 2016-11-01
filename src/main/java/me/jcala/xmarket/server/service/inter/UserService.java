@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
 
-    Result<String> login(String username,String password);//用户登录
+    ResponseEntity<?> login(String username,String password);//用户登录
 
     ResponseEntity<?> register(String username,String password,String phone);//用户注册
 
@@ -20,6 +20,6 @@ public interface UserService {
 
     ResponseEntity<?> updatePassword(String username, String oldPass, String newPass);//更新用户信息
 
-    Result<String> updateAvatar(String username, HttpServletRequest request);//更新用户头像
+    ResponseEntity<?> updateAvatar(String username, HttpServletRequest request) throws Exception;//更新用户头像
 
 }

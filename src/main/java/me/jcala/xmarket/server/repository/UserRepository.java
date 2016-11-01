@@ -11,16 +11,17 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
+    long countById(String id);
+
     long countByUsername(String username);
 
     long countByIdAndPassword(@Param("id") String id,@Param("password") String pass);
 
-    long countByUernameAndPassword(@Param("username") String username,@Param("password") String pass);
+    @Query(fields = "{id}")
+    Optional<User> findByUsernameAndPassword(@Param("username") String username,@Param("password") String pass);
 
     long countByPhone(String phone);
 
     @Query(value = "{ }", fields = "{ }")
     User save(User user);
-
-    Optional<User> findByUsername(String username);
 }

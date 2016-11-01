@@ -6,21 +6,21 @@ import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
-import me.jcala.xmarket.server.utils.CommonFactory;
 import me.jcala.xmarket.server.utils.FieldValidator;
 import me.jcala.xmarket.server.utils.StaticTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -43,19 +43,32 @@ public class UserServiceImpl implements UserService {
         this.info = info;
     }
 
+    /**
+     POST /users/login                     用户登录
+     登录成功:   自定义状态码100  HttpStatus200  content包含access_token
+     用户名错误: 自定义状态码202  HttpStatus401
+     密码错误:   自定义状态码203  HttpStatus401
+     操作异常:   自定义状态码101  HttpStatus500
+     参数错误:   自定义状态码103  HttpStatus400
+     */
     @Override
-    public Result<String> login(String username, String password){
-        long num=userRepository.countByUsernameAndPassword(username,password);
+    public  ResponseEntity<?> login(String username, String password){
         Result<String> result=new Result<>();
-        if (num>0){
+        if (FieldValidator.hasEmpty(username,password)){
+            result.api(Api.ILLEGAL_PARAMS);
+            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+        }
+        Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
+        if (user.isPresent()){
             result.api(Api.SUCCESS);
-            return result;
+            result.setData(user.get().getId());
+            return new ResponseEntity<>(result,HttpStatus.OK);
         }else if (userRepository.countByUsername(username)>0){
             result.api(Api.USER_PASS_ERR);
-            return result;
+            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }else {
             result.api(Api.USER_NAME_EXIST);
-            return result;
+            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -115,26 +128,47 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
+    /**
+     PUT /users/user_id/update_pass               更新用户密码
+     更新成功:       自定义状态码100  HttpStatus201 content不包含内容
+     原密码错误:     自定义状态码204  HttpStatus401
+     用户不存在:     自定义状态码201  HttpStatus404
+     无操作权限:     自定义状态码102  HttpStatus403
+     操作异常:       自定义状态码101  HttpStatus500
+     参数错误:       自定义状态码103  HttpStatus400
+     */
     @Override
     public ResponseEntity<?> updatePassword(String id, String oldPass, String newPass){
+        if (FieldValidator.hasEmpty(id,oldPass,newPass)){
+            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+        }
         long num=userRepository.countByIdAndPassword(id,oldPass);
         if (num<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_OLD_PASS_ERR),HttpStatus.UNAUTHORIZED);
+        }else if (userRepository.countById(id)<1){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
         }
         customRepository.updateUserPassword(id,newPass);
         return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
     }
 
+    /**
+     更新成功:       自定义状态码100  HttpStatus201 content包含头像url
+     用户不存在:     自定义状态码201  HttpStatus404
+     无操作权限:     自定义状态码102  HttpStatus403
+     操作异常:       自定义状态码101  HttpStatus500
+     参数错误:       自定义状态码103  HttpStatus400
+     */
     @Override
-    public Result<String> updateAvatar(String username, HttpServletRequest request)
-            throws RuntimeException {
-        String url="";
-        try {
-            url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
-        } catch (Exception e) {
-            log.warn("上传"+username+"用户头像发生错误"+e.getLocalizedMessage());
+    public ResponseEntity<?> updateAvatar(String id, HttpServletRequest request) throws Exception{
+        if (FieldValidator.hasEmpty(id)){
+            return new ResponseEntity<>(new Result<String>().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
+        }else if (userRepository.countById(id)<1){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
         }
-        return new ResultBuilder<String>().Code(RestIni.success).data(url).build();
+        String url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
+        customRepository.updateUserAvatar(id,url);
+        return new ResponseEntity<>(new Result<String>().api(Api.SUCCESS),HttpStatus.CREATED);
     }
 
 }
