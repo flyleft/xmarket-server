@@ -12,7 +12,7 @@ public interface UserService {
 
     Result<String> login(String username,String password);//用户登录
 
-    Result<String> register(String username,String password,String phone);//用户注册
+    ResponseEntity<?> register(String username,String password,String phone);//用户注册
 
     Result<String> updateSchool(String username, String school);//设置用户所在的学校
 

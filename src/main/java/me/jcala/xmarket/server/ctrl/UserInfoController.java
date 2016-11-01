@@ -6,13 +6,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.exception.ReqParasException;
-import me.jcala.xmarket.server.exception.TestException;
 import me.jcala.xmarket.server.service.inter.StaticService;
 import me.jcala.xmarket.server.service.inter.UserService;
-import me.jcala.xmarket.server.utils.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,23 +46,12 @@ public class UserInfoController {
    @ApiOperation("用户注册")
    @PostMapping(value = "/register",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> register(String username,String password,String phone){
-       Result<String> result=new Result<>();
-       try {
-           FieldValidator.hasEmpty(username,password,phone);
-           userService.register(username,password,phone);
-       } catch (ReqParasException e) {
-           log.info("用户注册时错误:"+e.getLocalizedMessage());
-           result.setCode(1002);
-           result.setMsg("请求参数错误");
-           return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
-       }
-       //return userService.register(username,password,phone);
-     return new ResponseEntity<String>(HttpStatus.MULTI_STATUS);
+     return userService.register(username,password,phone);
    }
     @ApiOperation("设置用户学校信息")
-    @PutMapping(value = "/school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public Result<String> updateUserSchool(String username,String school){
-       return userService.updateSchool(username,school);
+    @PutMapping(value = "/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+   public Result<String> updateUserSchool(@PathVariable("user_id")String id,String school){
+       return userService.updateSchool(id,school);
    }
     @ApiOperation("获取学校名称列表")
     @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
