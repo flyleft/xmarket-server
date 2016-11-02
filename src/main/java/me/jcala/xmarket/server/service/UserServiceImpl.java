@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     /**
      POST /users/login                     用户登录
      登录成功:   自定义状态码100  HttpStatus200  content包含access_token
-     用户名错误: 自定义状态码202  HttpStatus401
+     用户名错误: 自定义状态码202  HttpStatus404
      密码错误:   自定义状态码203  HttpStatus401
      操作异常:   自定义状态码101  HttpStatus500
      参数错误:   自定义状态码103  HttpStatus400
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }else {
             result.api(Api.USER_NOT_EXIST);
-            return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
         }
     }
 
