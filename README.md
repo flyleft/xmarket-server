@@ -30,4 +30,3 @@
 参数错误:   自定义状态码103  HttpStatus400
 ```
 3. 使用oauth2作token验证
-4. 使用HTTPS加密

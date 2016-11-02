@@ -80,5 +80,6 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     //---------------------权限管理--------------------------------
     compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

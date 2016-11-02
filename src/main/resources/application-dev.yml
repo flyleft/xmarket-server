@@ -12,6 +12,11 @@ server:
             enabled: true
             dir: /home/jcala/xmarket/log/server_log
             pattern: combined
+#    ssl:
+#        key-store: classpath:sample.jks
+#        key-store-password: secret
+#        key-password: password
+#        enabled: true
     context-path: /api/v1
 logging:
     config: classpath:logback-spring.xml
