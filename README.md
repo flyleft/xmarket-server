@@ -10,7 +10,7 @@
 - mongoDB: 数据库
 - spring Fox: 生成API在线文档
 - react.js: 后台管理ui
-- spring security: 权限引擎
+- shiro: 权限引擎
 
 #### swagger API文档
 ![user](screenshot/api.jpg)
