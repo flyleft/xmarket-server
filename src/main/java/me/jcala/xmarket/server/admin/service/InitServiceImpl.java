@@ -50,9 +50,8 @@ public class InitServiceImpl implements InitService{
         SystemBean system=new SystemBean();
         Role role=new Role("admin",Arrays.asList("USER:*","ADMIN:*"));
         Authority authority=new Authority("admin","admin",Arrays.asList(role));
-        system.setAuthority(authority);
+        system.setAuthorities(Arrays.asList(authority));
         system.setName(colAuthor);
-        system.setAuthority(authority);
         systemRepository.save(system);
     }
 }

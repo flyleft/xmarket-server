@@ -17,5 +17,5 @@ public class SystemBean {
     @Indexed(unique = true)
     private String name;//唯一不可重复
     private List<String> schools;
-    private Authority authority;
+    private List<Authority> authorities;
 }

@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.shiro;
+package me.jcala.xmarket.server.admin.shiro;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
