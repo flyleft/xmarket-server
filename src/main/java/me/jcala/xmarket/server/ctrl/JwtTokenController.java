@@ -19,7 +19,7 @@ public class JwtTokenController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping(value = "/authenticate",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> authenticate(String username,String password){
 
        return tokenService.createToken(username,password);

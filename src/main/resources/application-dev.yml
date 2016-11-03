@@ -33,5 +33,6 @@ spring:
             database: xmarket
             host: 127.0.0.1
             port: 27017
-pic:
-    home: G:\home\jcala\xmarket\pic
+xmarket:
+    pic_home: G:\home\jcala\xmarket\pic
+    jwt_key: shaku$#&!><?SD*o349()?/,<>+

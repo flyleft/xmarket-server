@@ -30,8 +30,11 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @Configuration
 @EnableSwagger2//使swagger配置生效
 public class RestConfig {
-    @Value("${pic.home}")
+    @Value("${xmarket.pic_home}")
     private String picHome;
+
+    @Value("${xmarket.jwt_key}")
+    private String jwtKey;
 
     @SuppressWarnings("unchecked")
     @Bean
@@ -103,6 +106,7 @@ public class RestConfig {
    public ApplicationInfo applicationInfo(){
        return ApplicationInfo.builder()
                              .picHome(picHome)
+                             .jwtKey(jwtKey)
                              .build();
    }
 }

@@ -10,4 +10,5 @@ import lombok.Getter;
 @Getter
 public class ApplicationInfo {
     private String picHome;
+    private String jwtKey;
 }
