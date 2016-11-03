@@ -17,4 +17,15 @@ public class SystemBean {
     private String id;
     private String name;//唯一不可重复
     private List<String> schools;
+    private Authority authority;
+}
+class Authority {
+    private String id;
+    private String username;
+    private String password;
+    private List<Role> roles;
+
+}
+class Role{
+    List<String> permissions;
 }
