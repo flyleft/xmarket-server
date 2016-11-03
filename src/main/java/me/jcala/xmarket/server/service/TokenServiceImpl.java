@@ -37,17 +37,20 @@ public class TokenServiceImpl implements TokenService{
     }
 
     @Override
-    public ResponseEntity<?> createToken(String username,String password) {
-        if (FieldValidator.hasEmpty(username,password)){
+    public ResponseEntity<?> createToken(String username,String password,String ipMac) {
+        if (FieldValidator.hasEmpty(username,password,ipMac)){
             return RespFactory.INSTANCE().illegal_params();
-        }
-        if (userRepository.countByUsername(username)<1){
+        }else if (userRepository.countByUsername(username)<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
+        }else if (userRepository.countByIdAndPassword(username,password)>0){
+            String token=createJWT("xmarket","jcala",username+":"+ipMac,info.getJwtLife());
+            Result<String> result=new Result<>();
+            result.api(Api.SUCCESS);
+            result.setData(token);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.UNAUTHORIZED);
         }
-        if (userRepository.countByIdAndPassword(username,password)>0){
-
-        }
-        return null;
     }
 
     /**
@@ -84,6 +87,9 @@ public class TokenServiceImpl implements TokenService{
         return builder.compact();
     }
 
+    /**
+     * 将jwt解析为javaBean
+     */
     private Token parseJWT(String jwt) {
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(info.getJwtKey()))
@@ -95,6 +101,4 @@ public class TokenServiceImpl implements TokenService{
                 .subject(claims.getSubject())
                 .build();
     }
-
-
 }

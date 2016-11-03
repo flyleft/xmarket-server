@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.conf;
 
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.annotation.SwaggerIgnore;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +28,18 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
  *数据非空校验放到客户端,而服务器端不进行数据校验
  * 与rest相关的config
  */
+@Slf4j
 @Configuration
 @EnableSwagger2//使swagger配置生效
 public class RestConfig {
     @Value("${xmarket.pic_home}")
     private String picHome;
 
-    @Value("${xmarket.jwt_key}")
+    @Value("${xmarket.jwt.key}")
     private String jwtKey;
+
+    @Value("${xmarket.jwt.life}")
+    private String jwtLife;
 
     @SuppressWarnings("unchecked")
     @Bean
@@ -104,9 +109,17 @@ public class RestConfig {
 
    @Bean
    public ApplicationInfo applicationInfo(){
+       long life= 3600000;
+       try {
+           life = Long.getLong(jwtLife);
+       } catch (Exception e) {
+           log.error("jwt life必须为数字!系统将采用默认值3600000毫秒");
+       }
+
        return ApplicationInfo.builder()
                              .picHome(picHome)
                              .jwtKey(jwtKey)
+                             .jwtLife(life)
                              .build();
    }
 }

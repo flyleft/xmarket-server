@@ -20,8 +20,7 @@ public class JwtTokenController {
     }
 
     @PostMapping(value = "/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> authenticate(String username,String password){
-
-       return tokenService.createToken(username,password);
+    public ResponseEntity<?> authenticate(String username,String password,String ipMac){
+       return tokenService.createToken(username,password,ipMac);
     }
 }

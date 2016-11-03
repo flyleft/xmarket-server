@@ -11,4 +11,5 @@ import lombok.Getter;
 public class ApplicationInfo {
     private String picHome;
     private String jwtKey;
+    private long jwtLife;
 }

@@ -35,4 +35,6 @@ spring:
             port: 27017
 xmarket:
     pic_home: G:\home\jcala\xmarket\pic
-    jwt_key: shaku$#&!><?SD*o349()?/,<>+
+    jwt:
+        key: shaku$#&!><?SD*o349()?/,<>+
+        life: 7200000
