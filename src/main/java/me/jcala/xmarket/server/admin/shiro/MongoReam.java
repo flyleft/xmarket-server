@@ -1,13 +1,17 @@
 package me.jcala.xmarket.server.admin.shiro;
 
-import me.jcala.xmarket.server.admin.service.SystemServiceImpl;
+import me.jcala.xmarket.server.admin.entity.Authority;
 import me.jcala.xmarket.server.admin.service.inter.SystemService;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Set;
 
 public class MongoReam extends AuthorizingRealm {
 
@@ -19,26 +23,33 @@ public class MongoReam extends AuthorizingRealm {
         this.systemService = systemService;
     }
 
+    /**
+     * 权限验证
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String usernmae=principals.getPrimaryPrincipal().toString();
-        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-
-        return null;
+        String username = principals.getPrimaryPrincipal().toString();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        Set<String> roles = systemService.findRolesByAuthorityName(username);
+        Set<String> permissions = systemService.findPermissionsByAuthorityName(username);
+        info.setRoles(roles);
+        info.setStringPermissions(permissions);
+        return info;
     }
 
+    /**
+     * 登录验证
+     */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        if(!(authToken instanceof UsernamePasswordToken)) {
-            throw new AuthenticationException("This realm can only supports UsernamePasswordToken");
+        //获取用户账号
+        String username = token.getPrincipal().toString();
+        Authority authority = systemService.findAuthorityByUsername(username);
+        if (authority != null) {
+            return  new SimpleAuthenticationInfo(authority.getUsername(),
+                    authority.getPassword(),"mongo_realm");
         }
-        UsernamePasswordToken token=(UsernamePasswordToken) authToken;
-        if(token.getUsername() == null) {
-            throw new AuthenticationException("Token can not be null");
-        }
-
-        //return new SimpleAuthenticationInfo(username, password, getName());
         return null;
-}
+    }
 }
