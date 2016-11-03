@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -13,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 public class Role{
     String roleName;
-    List<String> permissions;
+    Set<String> permissions;
 }

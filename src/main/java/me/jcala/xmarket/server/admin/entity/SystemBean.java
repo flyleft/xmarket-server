@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Set;
 
 @Document(collection = "sys")
 @Setter
@@ -17,5 +18,5 @@ public class SystemBean {
     @Indexed(unique = true)
     private String name;//唯一不可重复
     private List<String> schools;
-    private List<Authority> authorities;
+    private Set<Authority> authorities;
 }

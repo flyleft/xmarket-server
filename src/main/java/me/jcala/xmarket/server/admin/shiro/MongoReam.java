@@ -1,16 +1,28 @@
 package me.jcala.xmarket.server.admin.shiro;
 
+import me.jcala.xmarket.server.admin.service.SystemServiceImpl;
+import me.jcala.xmarket.server.admin.service.inter.SystemService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MongoReam extends AuthorizingRealm {
 
-    public MongoReam() {
+    private SystemService systemService;
+
+    @Autowired
+    public MongoReam(SystemService systemService) {
+        super();
+        this.systemService = systemService;
     }
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String usernmae=principals.getPrimaryPrincipal().toString();
+        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
 
         return null;
     }
