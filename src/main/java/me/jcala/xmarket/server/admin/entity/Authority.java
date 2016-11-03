@@ -13,5 +13,6 @@ import java.util.Set;
 public class Authority {
         private String username;
         private String password;
+        private String password_salt;
         private Set<Role> roles;
 }

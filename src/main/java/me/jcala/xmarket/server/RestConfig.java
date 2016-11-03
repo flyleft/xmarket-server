@@ -29,13 +29,16 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
  * 与rest相关的config
  */
 @Configuration
-@EnableSwagger2
-@EnableMongoRepositories(basePackages = {"me.jcala.xmarket.server.repository",
-        "me.jcala.xmarket.server.admin.repository"})
+@EnableSwagger2//使swagger配置生效
+@EnableMongoRepositories(//配置Mongo repository 的扫描位置
+        basePackages = {"me.jcala.xmarket.server.repository",
+        "me.jcala.xmarket.server.admin.repository"}
+)
 public class RestConfig {
-
     @Value("${pic.home}")
     private String picHome;
+
+    @SuppressWarnings("unchecked")
     @Bean
     public Docket ordinaryApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -52,6 +55,7 @@ public class RestConfig {
                 .apiInfo(infoBuilder().description("普通用户的api后端").build());
     }
 
+    @SuppressWarnings("unchecked")
     @Bean
    public Docket adminApi(){
        return new Docket(DocumentationType.SWAGGER_2)
