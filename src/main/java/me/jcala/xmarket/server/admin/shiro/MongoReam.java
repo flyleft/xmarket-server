@@ -15,13 +15,8 @@ import java.util.Set;
 
 public class MongoReam extends AuthorizingRealm {
 
-    private SystemService systemService;
-
     @Autowired
-    public MongoReam(SystemService systemService) {
-        super();
-        this.systemService = systemService;
-    }
+    private SystemService systemService;
 
     /**
      * 权限验证
