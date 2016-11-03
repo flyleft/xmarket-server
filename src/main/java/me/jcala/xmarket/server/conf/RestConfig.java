@@ -1,11 +1,10 @@
-package me.jcala.xmarket.server;
+package me.jcala.xmarket.server.conf;
 
 import me.jcala.xmarket.server.annotation.SwaggerIgnore;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,10 +29,6 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
  */
 @Configuration
 @EnableSwagger2//使swagger配置生效
-@EnableMongoRepositories(//配置Mongo repository 的扫描位置
-        basePackages = {"me.jcala.xmarket.server.repository",
-        "me.jcala.xmarket.server.admin.repository"}
-)
 public class RestConfig {
     @Value("${pic.home}")
     private String picHome;

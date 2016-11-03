@@ -6,6 +6,7 @@ import me.jcala.xmarket.server.admin.service.inter.SystemService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SystemServiceImpl implements SystemService {
@@ -15,12 +16,12 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public List<Role> findRolesByAuthorityName(String username) {
+    public Set<String> findRolesByAuthorityName(String username) {
         return null;
     }
 
     @Override
-    public List<String> findPermissionsByAuthorityName(String username) {
+    public Set<String> findPermissionsByAuthorityName(String username) {
         return null;
     }
 }

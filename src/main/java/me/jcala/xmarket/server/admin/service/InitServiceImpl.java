@@ -50,7 +50,7 @@ public class InitServiceImpl implements InitService{
         String colAuthor=SysColName.COL_AUTHORITY.name().toLowerCase();
         SystemBean system=new SystemBean();
         Role role=new Role("admin",new HashSet<>(Arrays.asList("USER:*","ADMIN:*")));
-        Authority authority=new Authority("admin","admin",
+        Authority authority=new Authority("admin","admin","c312",
                 new HashSet<>(Arrays.asList(role)));
         system.setAuthorities(new HashSet<>(Arrays.asList(authority)));
         system.setName(colAuthor);
