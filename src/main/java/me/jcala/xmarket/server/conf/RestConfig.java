@@ -111,7 +111,7 @@ public class RestConfig {
    public ApplicationInfo applicationInfo(){
        long life= 3600000;
        try {
-           life = Long.getLong(jwtLife);
+           life = Long.parseLong(jwtLife);
        } catch (Exception e) {
            log.error("jwt life必须为数字!系统将采用默认值3600000毫秒");
        }
