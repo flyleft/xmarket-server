@@ -9,6 +9,7 @@ import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
@@ -30,6 +31,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -64,16 +66,19 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> loginAndGetToken(String username, String password) {
         if (CustomValidator.hasEmpty(username,password)){
             return RespFactory.INSTANCE().illegal_params();
-        }else if (userRepository.countByUsername(username)<1){
+        }
+        if (userRepository.countByUsername(username)<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
-        }else if (userRepository.countByUsernameAndPassword(username,password)>0){
-            String token=createJWT("xmarket","jcala",username,info.getJwtLife());
+        }
+        Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
+        if (!user.isPresent()){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.UNAUTHORIZED);
+        }else {
+            String token=createJWT("xmarket","jcala",user.get().getId(),info.getJwtLife());
             Result<String> result=new Result<>();
             result.api(Api.SUCCESS);
             result.setData(token);
             return new ResponseEntity<>(result,HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.UNAUTHORIZED);
         }
     }
     /**
