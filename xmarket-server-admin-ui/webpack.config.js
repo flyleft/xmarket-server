@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   //入口文件配置
   entry: {
-    index: './src/Component/main.jsx',
+    index: './src/app.js',
   },
   //出口文件配置
   output: {
