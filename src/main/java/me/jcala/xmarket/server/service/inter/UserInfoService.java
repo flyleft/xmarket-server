@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface UserService {
+public interface UserInfoService {
 
 
     ResponseEntity<?> loginAndGetToken(String username,String password);

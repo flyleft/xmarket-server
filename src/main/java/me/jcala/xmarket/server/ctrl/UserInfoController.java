@@ -1,10 +1,9 @@
 package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.*;
-import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.StaticService;
-import me.jcala.xmarket.server.service.inter.UserService;
+import me.jcala.xmarket.server.service.inter.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/v1")
 public class UserInfoController {
 
-    private UserService userService;
+    private UserInfoService userInfoService;
 
     private StaticService staticService;
 
 
     @Autowired
-    public UserInfoController(UserService userService, StaticService staticService) {
-        this.userService = userService;
+    public UserInfoController(UserInfoService userInfoService, StaticService staticService) {
+        this.userInfoService = userInfoService;
         this.staticService = staticService;
     }
 
@@ -37,32 +36,32 @@ public class UserInfoController {
     })
     @PostMapping(value = "/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> authenticate(String username,String password){
-        return userService.loginAndGetToken(username,password);
+        return userInfoService.loginAndGetToken(username,password);
     }
 
     @ApiOperation(value = "用户注册",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/users/register",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> register(String username,String password,String phone){
-     return userService.register(username,password,phone);
+     return userInfoService.register(username,password,phone);
    }
 
     @ApiOperation(value = "设置用户学校信息",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/users/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
    public ResponseEntity<?> updateUserSchool(@PathVariable("user_id") String id,String school){
-       return userService.updateSchool(id,school);
+       return userInfoService.updateSchool(id,school);
    }
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/{user_id}/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserPassword(@PathVariable("user_id")String id,String oldPass,String newPass)
             throws RuntimeException{
-        return userService.updatePassword(id,oldPass,newPass);
+        return userInfoService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation(value = "修改用户头像",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/users/{user_id}/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserAvatar(@PathVariable("user_id")String id, HttpServletRequest request)
             throws Exception{
-      return userService.updateAvatar(id,request);
+      return userInfoService.updateAvatar(id,request);
     }
 
     @ApiOperation(value = "获取用户头像",response = byte[].class,produces = "application/json;charset=UTF-8")
@@ -78,7 +77,7 @@ public class UserInfoController {
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/users/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getSchoolList() throws RuntimeException{
-        return userService.gainSchoolList();
+        return userInfoService.gainSchoolList();
     }
 
 }

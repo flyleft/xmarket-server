@@ -15,7 +15,7 @@ import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.UserRepository;
-import me.jcala.xmarket.server.service.inter.UserService;
+import me.jcala.xmarket.server.service.inter.UserInfoService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
 import me.jcala.xmarket.server.utils.StaticTool;
@@ -35,7 +35,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class UserInfoServiceImpl implements UserInfoService {
 
     private UserRepository userRepository;
 
@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     private ApplicationInfo info;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
-                           CustomRepositoryImpl customRepository, ApplicationInfo info) {
+    public UserInfoServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
+                               CustomRepositoryImpl customRepository, ApplicationInfo info) {
         this.userRepository = userRepository;
         this.systemRepository = systemRepository;
         this.customRepository = customRepository;

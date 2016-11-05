@@ -1,6 +1,7 @@
 package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.Api;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,5 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserTradeController {
+
+
+    public ResponseEntity<?> add(){
+        return null;
+    }
 
 }
