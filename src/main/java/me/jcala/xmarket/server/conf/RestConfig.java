@@ -122,4 +122,5 @@ public class RestConfig {
                              .jwtLife(life)
                              .build();
    }
+
 }

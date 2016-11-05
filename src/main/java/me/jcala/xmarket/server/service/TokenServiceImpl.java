@@ -1,9 +1,7 @@
 package me.jcala.xmarket.server.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.dto.Result;
@@ -17,12 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;
-
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class TokenServiceImpl implements TokenService{
 
@@ -100,5 +98,19 @@ public class TokenServiceImpl implements TokenService{
                 .expiration(claims.getExpiration())
                 .subject(claims.getSubject())
                 .build();
+    }
+
+    /**
+     * 验证token
+     */
+    public boolean JwtVerify(String jwt){
+        boolean trust=true;
+        try {
+            Jwts.parser().setSigningKey(info.getJwtKey()).parseClaimsJws(jwt);
+        } catch (SignatureException e) {
+           trust=false;
+           log.info("该JWT不可信:"+e.getLocalizedMessage());
+        }
+       return trust;
     }
 }
