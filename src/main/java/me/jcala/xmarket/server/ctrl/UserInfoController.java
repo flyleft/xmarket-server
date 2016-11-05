@@ -64,6 +64,12 @@ public class UserInfoController {
       return userInfoService.updateAvatar(id,request);
     }
 
+    @ApiOperation(value = "获取用户志愿队信息",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/users/{user_id}/team",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainUserTeam(@PathVariable("user_id")String id) throws RuntimeException{
+        return null;
+    }
+
     @ApiOperation(value = "获取用户头像",response = byte[].class,produces = "application/json;charset=UTF-8")
     @ApiResponses({
             @ApiResponse(code=404,message="没有找到该图片")
@@ -74,10 +80,12 @@ public class UserInfoController {
         return staticService.gainPic(dir,picName);
     }
 
+
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/users/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getSchoolList() throws RuntimeException{
+    public ResponseEntity<?> gainSchoolList() throws RuntimeException{
         return userInfoService.gainSchoolList();
     }
+
 
 }
