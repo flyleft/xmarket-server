@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Api("跟用户信息有关的api")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 public class UserInfoController {
 
     private UserService userService;

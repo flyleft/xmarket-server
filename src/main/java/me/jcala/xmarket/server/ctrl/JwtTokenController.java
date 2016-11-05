@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api("用于生成JWT Token")
@@ -19,7 +20,7 @@ public class JwtTokenController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping(value = "/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/api/v1/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> authenticate(String username,String password,String ipMac){
        return tokenService.createToken(username,password,ipMac);
     }

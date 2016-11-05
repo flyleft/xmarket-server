@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Api("跟学校有关的api")
 @RestController
+@RequestMapping("/api/v1/schools")
 public class SchoolController {
 
     private SystemService schoolService;

@@ -17,7 +17,7 @@ server:
 #        key-store-password: secret
 #        key-password: password
 #        enabled: true
-    context-path: /api/v1
+    #context-path: /api/v1
 logging:
     config: classpath:logback-spring.xml
     path: /home/jcala/xmarket/log/spring_log

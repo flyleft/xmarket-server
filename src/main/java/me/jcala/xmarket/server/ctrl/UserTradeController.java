@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api("跟用户交易有关的api")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 public class UserTradeController {
 
 }

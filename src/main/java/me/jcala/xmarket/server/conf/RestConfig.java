@@ -3,6 +3,8 @@ package me.jcala.xmarket.server.conf;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.annotation.SwaggerIgnore;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.interceptor.TokenInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.Contact;
@@ -31,7 +35,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @Slf4j
 @Configuration
 @EnableSwagger2//使swagger配置生效
-public class RestConfig {
+public class RestConfig extends WebMvcConfigurerAdapter {
     @Value("${xmarket.pic_home}")
     private String picHome;
 
@@ -40,6 +44,12 @@ public class RestConfig {
 
     @Value("${xmarket.jwt.life}")
     private String jwtLife;
+    private TokenInterceptor tokenInterceptor;
+
+    @Autowired
+    public RestConfig(TokenInterceptor tokenInterceptor) {
+        this.tokenInterceptor = tokenInterceptor;
+    }
 
     @SuppressWarnings("unchecked")
     @Bean
@@ -49,7 +59,7 @@ public class RestConfig {
                 .genericModelSubstitutes(DeferredResult.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
-                .pathMapping("/")
+                .pathMapping("/admin/")
                 .select()
                 .paths(or(regex(".*")))
                 .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -66,7 +76,7 @@ public class RestConfig {
                .genericModelSubstitutes(DeferredResult.class)
                .useDefaultResponseMessages(false)
                .forCodeGeneration(true)
-               .pathMapping("/")
+               .pathMapping("/api/v1/")
                .select()
                .paths(or(regex(".*")))
                .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -123,4 +133,10 @@ public class RestConfig {
                              .build();
    }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(tokenInterceptor)
+                .addPathPatterns("/api/v1/**")
+                .excludePathPatterns("/api/v1/auth");
+    }
 }

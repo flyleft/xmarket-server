@@ -15,7 +15,8 @@ import org.springframework.context.annotation.ComponentScans;
         @ComponentScan("me.jcala.xmarket.server.conf"),
         @ComponentScan("me.jcala.xmarket.server.repository"),
         @ComponentScan("me.jcala.xmarket.server.ctrl"),
-        @ComponentScan("me.jcala.xmarket.server.admin")
+        @ComponentScan("me.jcala.xmarket.server.admin"),
+        @ComponentScan("me.jcala.xmarket.server.interceptor")
 })
 public class Application extends SpringBootServletInitializer {
     @Override
