@@ -44,12 +44,6 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 
     @Value("${xmarket.jwt.life}")
     private String jwtLife;
-    private TokenInterceptor tokenInterceptor;
-
-    @Autowired
-    public RestConfig(TokenInterceptor tokenInterceptor) {
-        this.tokenInterceptor = tokenInterceptor;
-    }
 
     @SuppressWarnings("unchecked")
     @Bean
@@ -59,7 +53,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
                 .genericModelSubstitutes(DeferredResult.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
-                .pathMapping("/admin/")
+                .pathMapping("/")
                 .select()
                 .paths(or(regex(".*")))
                 .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -76,7 +70,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
                .genericModelSubstitutes(DeferredResult.class)
                .useDefaultResponseMessages(false)
                .forCodeGeneration(true)
-               .pathMapping("/api/v1/")
+               .pathMapping("/")
                .select()
                .paths(or(regex(".*")))
                .apis(not(withClassAnnotation(SwaggerIgnore.class)))
@@ -133,10 +127,4 @@ public class RestConfig extends WebMvcConfigurerAdapter {
                              .build();
    }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor)
-                .addPathPatterns("/api/v1/**")
-                .excludePathPatterns("/api/v1/auth");
-    }
 }

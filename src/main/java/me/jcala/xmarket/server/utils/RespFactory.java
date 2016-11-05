@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.dto.Result;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ public class RespFactory {
     private final ResponseEntity<Result> createSuccess=new ResponseEntity<>(new Result().api(Api.SUCCESS), HttpStatus.CREATED);
     private final ResponseEntity<Result> serverError=new ResponseEntity<>(new Result().api(Api.SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     private final ResponseEntity<Result> illegal_params=new ResponseEntity<>(new Result().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
-    private final ResponseEntity<Result> token_expired=new ResponseEntity<>(new Result().api(Api.TOKEN_EXPIRED),HttpStatus.UNAUTHORIZED);
+    private final ResponseEntity<Result> token_expired=new ResponseEntity<>(new Result().api(Api.TOKEN_ILLEGAL),HttpStatus.UNAUTHORIZED);
     private final ResponseEntity<Result> forbidden=new ResponseEntity<>(new Result().api(Api.FORBIDDEN),HttpStatus.FORBIDDEN);
     private RespFactory(){
     }

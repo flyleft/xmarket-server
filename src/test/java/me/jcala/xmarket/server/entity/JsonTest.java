@@ -1,6 +1,8 @@
 package me.jcala.xmarket.server.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.jcala.xmarket.server.entity.configuration.Api;
+import me.jcala.xmarket.server.entity.dto.Result;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,27 +12,19 @@ import org.junit.Test;
  */
 public class JsonTest {
     private ObjectMapper mapper;
-    private TestBean bean;
     private String json;
+    private Result<String> result;
     @Before
     public void initData(){
         mapper = new ObjectMapper();
-        //bean=TestBean.builder().username("小王").password("585").build();
-        bean=new TestBean();
-        bean.setUsername("user");
-        bean.setPassword("pass");
+        result=new Result<>();
+        result.api(Api.TOKEN_ILLEGAL);
+
     }
     @Test
     public void test2Json() throws Exception{
-        json =  mapper.writeValueAsString(bean);
+        json =  mapper.writeValueAsString(result);
         System.out.println(json);
     }
-
-    @After
-    public void test2Obj() throws Exception{
-        TestBean bean1 = mapper.readValue(json, TestBean.class);
-        System.out.println(bean1);
-    }
-
 
 }

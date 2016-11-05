@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.interceptor;
 
-import me.jcala.xmarket.server.service.inter.TokenService;
-import me.jcala.xmarket.server.utils.FieldValidator;
+import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.utils.CustomValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,11 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class TokenInterceptor implements HandlerInterceptor {
 
-    private TokenService tokenService;
+    private ApplicationInfo info;
+
+    private final String tokenIllegal="{\"code\":104,\"msg\":\"token不合法\",\"data\":null}";
 
     @Autowired
-    public TokenInterceptor(TokenService tokenService) {
-        this.tokenService = tokenService;
+    public TokenInterceptor(ApplicationInfo info) {
+        this.info = info;
     }
 
     public TokenInterceptor() {
@@ -31,10 +33,14 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
          String jwt=request.getHeader("x-access-token");
-         if (FieldValidator.hasEmpty(jwt)){
+         if (!CustomValidator.hasEmpty(jwt) && CustomValidator.JwtVerify(info.getJwtKey(),jwt)){
+             return true;
+         }else {
+             response.setContentType("application/json;charset=UTF-8");
+             response.setStatus(401);
+             response.getWriter().write(tokenIllegal);
              return false;
          }
-        return tokenService.JwtVerify(jwt);
     }
 
     @Override

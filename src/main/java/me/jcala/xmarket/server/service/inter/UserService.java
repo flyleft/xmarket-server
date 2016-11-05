@@ -1,16 +1,14 @@
 package me.jcala.xmarket.server.service.inter;
 
 
-import me.jcala.xmarket.server.entity.dto.Result;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 public interface UserService {
 
 
-    ResponseEntity<?> login(String username,String password);//用户登录
+    ResponseEntity<?> loginAndGetToken(String username,String password);
 
     ResponseEntity<?> register(String username,String password,String phone);//用户注册
 

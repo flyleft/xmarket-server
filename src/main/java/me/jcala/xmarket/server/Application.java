@@ -11,12 +11,13 @@ import org.springframework.context.annotation.ComponentScans;
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScans({
+        @ComponentScan("me.jcala.xmarket.server.interceptor"),
         @ComponentScan("me.jcala.xmarket.server.service"),
         @ComponentScan("me.jcala.xmarket.server.conf"),
         @ComponentScan("me.jcala.xmarket.server.repository"),
         @ComponentScan("me.jcala.xmarket.server.ctrl"),
-        @ComponentScan("me.jcala.xmarket.server.admin"),
-        @ComponentScan("me.jcala.xmarket.server.interceptor")
+        @ComponentScan("me.jcala.xmarket.server.admin")
+
 })
 public class Application extends SpringBootServletInitializer {
     @Override

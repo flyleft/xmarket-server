@@ -1,9 +1,14 @@
 package me.jcala.xmarket.server.utils;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
+import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 
 @Slf4j
-public class FieldValidator {
+public class CustomValidator {
+
+    private static ApplicationInfo info;
 
     public static boolean hasEmpty(String...strings){
         for (String str:strings){
@@ -20,5 +25,14 @@ public class FieldValidator {
             }
         }
         return false;
+    }
+    public static boolean JwtVerify(final String key,final String jwt){
+        boolean trust=true;
+        try {
+            Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
+        } catch (SignatureException e) {
+            trust=false;
+        }
+        return trust;
     }
 }
