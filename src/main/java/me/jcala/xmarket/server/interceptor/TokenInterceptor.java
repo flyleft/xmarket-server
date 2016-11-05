@@ -1,5 +1,8 @@
 package me.jcala.xmarket.server.interceptor;
 
+import me.jcala.xmarket.server.service.inter.TokenService;
+import me.jcala.xmarket.server.utils.FieldValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,10 +16,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
+
+    private TokenService tokenService;
+
+    @Autowired
+    public TokenInterceptor(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    public TokenInterceptor() {
+        super();
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        return true;
+         String jwt=request.getHeader("x-access-token");
+         if (FieldValidator.hasEmpty(jwt)){
+             return false;
+         }
+        return tokenService.JwtVerify(jwt);
     }
 
     @Override

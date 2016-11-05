@@ -100,17 +100,14 @@ public class TokenServiceImpl implements TokenService{
                 .build();
     }
 
-    /**
-     * 验证token
-     */
+    @Override
     public boolean JwtVerify(String jwt){
         boolean trust=true;
         try {
             Jwts.parser().setSigningKey(info.getJwtKey()).parseClaimsJws(jwt);
         } catch (SignatureException e) {
-           trust=false;
-           log.info("该JWT不可信:"+e.getLocalizedMessage());
+            trust=false;
         }
-       return trust;
+        return trust;
     }
 }

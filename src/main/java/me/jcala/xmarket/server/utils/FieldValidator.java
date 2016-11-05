@@ -1,5 +1,8 @@
 package me.jcala.xmarket.server.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class FieldValidator {
 
     public static boolean hasEmpty(String...strings){
