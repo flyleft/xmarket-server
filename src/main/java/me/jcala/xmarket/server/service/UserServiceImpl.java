@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             return RespFactory.INSTANCE().illegal_params();
         }else if (userRepository.countByUsername(username)<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
-        }else if (userRepository.countByIdAndPassword(username,password)>0){
+        }else if (userRepository.countByUsernameAndPassword(username,password)>0){
             String token=createJWT("xmarket","jcala",username,info.getJwtLife());
             Result<String> result=new Result<>();
             result.api(Api.SUCCESS);
