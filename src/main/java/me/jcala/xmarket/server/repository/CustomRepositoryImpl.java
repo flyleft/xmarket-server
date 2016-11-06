@@ -18,20 +18,26 @@ public class CustomRepositoryImpl implements CustomRepository{
     }
 
     @Override
-    public void updateUserSchool(String id, String school) throws RuntimeException{
-        template.updateFirst(new Query(where("_id").is(id)),
+    public void updateUserSchool(String user_id, String school) throws RuntimeException{
+        template.updateFirst(new Query(where("_id").is(user_id)),
                 new Update().set("school",school), User.class);
     }
 
     @Override
-    public void updateUserPassword(String id,String password) throws RuntimeException {
-       template.updateFirst(new Query(where("_id").is(id)),
+    public void updateUserPassword(String user_id,String password) throws RuntimeException {
+       template.updateFirst(new Query(where("_id").is(user_id)),
                new Update().set("password",password), User.class);
     }
 
     @Override
-    public void updateUserAvatar(String id, String avatar_url) {
-        template.updateFirst(new Query(where("_id").is(id)),
+    public void updateUserAvatar(String user_id, String avatar_url) {
+        template.updateFirst(new Query(where("_id").is(user_id)),
                 new Update().set("avatar_url",avatar_url), User.class);
+    }
+
+    @Override
+    public void updateUserTrades(String which_col,String user_id, String trade_id) {
+        template.updateFirst(new Query(where("_id").is(user_id)),
+                new Update().push(which_col,trade_id), User.class);
     }
 }
