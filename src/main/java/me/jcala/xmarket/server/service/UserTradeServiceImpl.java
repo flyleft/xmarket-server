@@ -62,28 +62,28 @@ public class UserTradeServiceImpl implements UserTradeService {
         Iterable<Trade> trades=new ArrayList<>();
         switch (type){
             case SELL:
-                if (user.getSell_trades()!=null){
-                    trades=tradeRepository.findAll(user.getSell_trades());
+                if (user.getSellTrades()!=null){
+                    trades=tradeRepository.findAll(user.getSellTrades());
                 }
                 break;
             case SOLD:
-                if (user.getSold_trades()!=null){
-                    trades=tradeRepository.findAll(user.getSold_trades());
+                if (user.getSoldTrades()!=null){
+                    trades=tradeRepository.findAll(user.getSoldTrades());
                 }
                 break;
             case BOUGHT:
-                if (user.getBought_trades()!=null){
-                    trades=tradeRepository.findAll(user.getBought_trades());
+                if (user.getBoughtTrades()!=null){
+                    trades=tradeRepository.findAll(user.getBoughtTrades());
                 }
                 break;
             case DONATE:
-                if (user.getDonate_trades()!=null){
-                    trades=tradeRepository.findAll(user.getDonate_trades());
+                if (user.getDonateTrades()!=null){
+                    trades=tradeRepository.findAll(user.getDonateTrades());
                 }
                 break;
             case TOBECONFIRM:
-                if (user.getTo_be_confirm_trades()!=null){
-                    trades=tradeRepository.findAll(user.getTo_be_confirm_trades());
+                if (user.getToBeConfirmTrades()!=null){
+                    trades=tradeRepository.findAll(user.getToBeConfirmTrades());
                 }
                 break;
             default:break;
