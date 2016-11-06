@@ -39,7 +39,7 @@ public class SchoolServiceImpl implements SchoolService {
      */
     @Override
     public ResponseEntity<?> getSchoolList(){
-        String name= SysColName.COL_SCHOOL.name().toLowerCase();
+        String name= SysColName.colSchool.name().toLowerCase();
         SystemBean bean=systemRepository.findByName(name);
         if (bean==null||bean.getSchools()==null){
             throw new SysDataException("sys集合数据不完整,请检查或者重新初始化");

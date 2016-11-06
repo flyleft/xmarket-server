@@ -40,14 +40,14 @@ public class InitServiceImpl implements InitService{
         return systemRepository.count() < 2;//如果sys的条数为0，则需要进行初始化操作
     }
     private void initSchool(){
-        String colSchool= SysColName.COL_SCHOOL.name().toLowerCase();
+        String colSchool= SysColName.colSchool.name();
         SystemBean system=new SystemBean();
         system.setSchools(new School().getSchoolList());
         system.setName(colSchool);
         systemRepository.save(system);
     }
     private void initAuthority(){
-        String colAuthor=SysColName.COL_AUTHORITY.name().toLowerCase();
+        String colAuthor=SysColName.colAuthority.name();
         SystemBean system=new SystemBean();
         Role role=new Role("admin",new HashSet<>(Arrays.asList("USER:*","ADMIN:*")));
         Authority authority=new Authority("admin","admin","c312",
