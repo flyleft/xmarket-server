@@ -74,7 +74,7 @@ public class UserInfoController {
     @ApiResponses({
             @ApiResponse(code=404,message="没有找到该图片")
     })
-    @GetMapping(value = "/users/pic/{dir}/{pic_name:.+}",produces = "image/jpeg;image/png;image/gif")
+    @GetMapping(value = "/pic/{dir}/{pic_name:.+}",produces = "image/jpeg;image/png;image/gif")
     public ResponseEntity<byte[]> gainUserAvatar(@PathVariable("dir")String dir,@PathVariable("pic_name") String picName)
             throws RuntimeException {
         return staticService.gainPic(dir,picName);
@@ -82,7 +82,7 @@ public class UserInfoController {
 
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/users/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList() throws RuntimeException{
         return userInfoService.gainSchoolList();
     }

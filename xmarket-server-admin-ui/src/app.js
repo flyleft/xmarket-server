@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TestComponent from './component/TestComponent';
+import LineProgress from './component/LineProgress';
 
 const App = () => (
     <MuiThemeProvider>
-        <TestComponent />
+        <LineProgress  />
     </MuiThemeProvider>
 );
 
