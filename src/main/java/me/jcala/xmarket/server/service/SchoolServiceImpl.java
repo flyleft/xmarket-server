@@ -54,11 +54,10 @@ public class SchoolServiceImpl implements SchoolService {
         if (CustomValidator.hasEmpty(schoolName)){
             return RespFactory.INSTANCE().illegal_params();
         }
-        List<Trade> trades=new ArrayList<>();
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
-        trades=tradeRepository.findBySchoolName(schoolName);
+        List<Trade> trades=tradeRepository.findBySchoolName(schoolName);
         result.setData(trades);
 
-        return new ResponseEntity<Result<List<Trade>>>(HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

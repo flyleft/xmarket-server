@@ -91,6 +91,6 @@ public class UserTradeServiceImpl implements UserTradeService {
         Result<Iterable<Trade>> result=new Result<Iterable<Trade>>().api(Api.SUCCESS);
         result.setData(trades);
 
-        return new ResponseEntity<Result<Iterable<Trade>>>(HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
