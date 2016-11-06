@@ -2,6 +2,7 @@ package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import me.jcala.xmarket.server.entity.configuration.TradeType;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserTradeService;
@@ -31,30 +32,30 @@ public class UserTradeController {
     @ApiOperation(value = "获取捐赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{user_id}/donate",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> donates(@PathVariable("user_id") String userId){
-        return null;
+        return userTradeService.getTrades(TradeType.DONATE,userId);
     }
 
     @ApiOperation(value = "获取卖出商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{user_id}/sold",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> sold(@PathVariable("user_id") String userId){
-        return null;
+        return userTradeService.getTrades(TradeType.SOLD,userId);
     }
 
     @ApiOperation(value = "获取买到商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{user_id}/bought",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> bought(@PathVariable("user_id") String userId){
-        return null;
+        return userTradeService.getTrades(TradeType.BOUGHT,userId);
     }
 
     @ApiOperation(value = "获取待售商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{user_id}/for_sale",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> forSale(@PathVariable("user_id") String userId){
-        return null;
+        return userTradeService.getTrades(TradeType.SELL,userId);
     }
 
     @ApiOperation(value = "获取待确认商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{user_id}/to_be_confirm",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> toBeConfirm(@PathVariable("user_id") String userId){
-        return null;
+    public ResponseEntity<?> toBeConfirm(@PathVariable("user_id") String userId) {
+        return userTradeService.getTrades(TradeType.TOBECONFIRM, userId);
     }
 }

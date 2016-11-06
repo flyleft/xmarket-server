@@ -57,10 +57,38 @@ public class UserTradeServiceImpl implements UserTradeService {
         if (user==null){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
         }
-        List<Trade> trades=new ArrayList<>();
+        Iterable<Trade> trades=new ArrayList<>();
         switch (type){
             case SELL:
+                if (user.getSell_trades()!=null){
+                    trades=tradeRepository.findAll(user.getSell_trades());
+                }
+                break;
+            case SOLD:
+                if (user.getSold_trades()!=null){
+                    trades=tradeRepository.findAll(user.getSold_trades());
+                }
+                break;
+            case BOUGHT:
+                if (user.getBought_trades()!=null){
+                    trades=tradeRepository.findAll(user.getBought_trades());
+                }
+                break;
+            case DONATE:
+                if (user.getDonate_trades()!=null){
+                    trades=tradeRepository.findAll(user.getDonate_trades());
+                }
+                break;
+            case TOBECONFIRM:
+                if (user.getTo_be_confirm_trades()!=null){
+                    trades=tradeRepository.findAll(user.getTo_be_confirm_trades());
+                }
+                break;
+            default:break;
         }
-        return null;
+        Result<Iterable<Trade>> result=new Result<Iterable<Trade>>().api(Api.SUCCESS);
+        result.setData(trades);
+
+        return new ResponseEntity<Result<Iterable<Trade>>>(HttpStatus.OK);
     }
 }
