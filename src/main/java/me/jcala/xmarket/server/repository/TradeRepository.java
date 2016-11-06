@@ -13,4 +13,5 @@ public interface TradeRepository extends MongoRepository<Trade,String>{
     @Query(fields =  "{'_id':1}")
     @Override
     Trade save(Trade trade);
+
 }

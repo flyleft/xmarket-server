@@ -5,4 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserTradeService {
     ResponseEntity<?> createTrade(String userId, Trade trade);
+    ResponseEntity<?> getTrades(String userId);
 }

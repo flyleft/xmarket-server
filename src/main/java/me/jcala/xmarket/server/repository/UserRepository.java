@@ -22,5 +22,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     long countByPhone(String phone);
 
+    @SuppressWarnings("unchecked")
     User save(User user);
 }
