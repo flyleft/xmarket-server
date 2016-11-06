@@ -14,8 +14,6 @@ public interface UserInfoService {
 
     ResponseEntity<?> updateSchool(String id, String school);//设置用户所在的学校
 
-    ResponseEntity<?> gainSchoolList();//获取学校的列表
-
     ResponseEntity<?> updatePassword(String username, String oldPass, String newPass);//更新用户信息
 
     ResponseEntity<?> updateAvatar(String username, HttpServletRequest request) throws Exception;//更新用户头像

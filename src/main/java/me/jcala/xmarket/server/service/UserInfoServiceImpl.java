@@ -164,22 +164,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         return RespFactory.INSTANCE().created();
     }
 
-    /**
-     GET /school_list                          获取学校列表
-     获取成功:       自定义状态码100  HttpStatus200 content包含school列表
-     获取失败:       自定义状态码101  HttpStatus500
-     */
-    @Override
-    public ResponseEntity<?>gainSchoolList(){
-        String name= SysColName.COL_SCHOOL.name().toLowerCase();
-        SystemBean bean=systemRepository.findByName(name);
-        if (bean==null||bean.getSchools()==null){
-            throw new SysDataException("sys集合数据不完整,请检查或者重新初始化");
-        }
-        Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
-        result.setData(bean.getSchools());
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
 
     /**
      PUT /users/user_id/update_pass               更新用户密码

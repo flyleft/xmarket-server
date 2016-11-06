@@ -81,11 +81,4 @@ public class UserInfoController {
     }
 
 
-    @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainSchoolList() throws RuntimeException{
-        return userInfoService.gainSchoolList();
-    }
-
-
 }
