@@ -28,13 +28,11 @@ public class UserTradeServiceImpl implements UserTradeService {
         }
         Trade tradeData= tradeRepository.save(trade);
         if (tradeData!=null){
-            String id=tradeData.getId();
-
+            customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
+            return RespFactory.INSTANCE().created();
         }else {
-            throw new RuntimeException("trade信息存储失败!");
+            throw new RuntimeException("some error happened in UserTradeService:交易信息存储失败!");
         }
-
-        return null;
     }
 
 }

@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.service.inter.UserTradeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users/")
 public class UserTradeController {
 
+    private UserTradeService userTradeService;
+
+    @Autowired
+    public UserTradeController(UserTradeService userTradeService) {
+        this.userTradeService = userTradeService;
+    }
+
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/{user_id}/trade/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> create(@PathVariable("user_id") String userId, Trade trade){
-        return null;
+        return userTradeService.createTrade(userId,trade);
     }
 
     @ApiOperation(value = "获取捐赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
