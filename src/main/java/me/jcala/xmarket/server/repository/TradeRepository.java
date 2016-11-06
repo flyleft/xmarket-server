@@ -19,4 +19,8 @@ public interface TradeRepository extends MongoRepository<Trade,String>{
     @Query(value = "{ 'schoolName' : ?0 }")
     List<Trade> findBySchoolName(String schoolName);
 
+
+    @Query(value = "{ 'tagId' : ?0 }")
+    List<Trade> findByTagId(String tagId);
+
 }

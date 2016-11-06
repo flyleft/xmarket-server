@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,12 @@ public class TradeTagController {
     @GetMapping(value = "/tag_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return tradeTagService.getTradeSortList();
+    }
+
+    @ApiOperation(value = "获取商品分类列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/{tag_id}/trade_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainTradeListByTag(@PathVariable("tag_id") String tagId){
+        return tradeTagService.getTradeListBySort(tagId);
     }
 
 }
