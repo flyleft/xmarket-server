@@ -4,4 +4,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface SchoolService {
     ResponseEntity<?> getSchoolList();
+    ResponseEntity<?> getSchoolTradeList(String schoolName);
 }

@@ -21,6 +21,7 @@ public class Trade {
     private String title;//商品名字
     @NotNull
     private User author;//商品所属者
+    private String school_name;//所属的学校名称
     private List<String> img_urls;//商品图片
     private String create_time;//商品创建时间
     private String donate_time;//商品捐赠时间

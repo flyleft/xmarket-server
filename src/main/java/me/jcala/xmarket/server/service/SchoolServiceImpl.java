@@ -4,16 +4,22 @@ import me.jcala.xmarket.server.admin.entity.SystemBean;
 import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.configuration.Api;
+import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.service.inter.SchoolService;
+import me.jcala.xmarket.server.utils.CustomValidator;
+import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SchoolServiceImpl implements SchoolService {
 
     private SystemRepository systemRepository;
@@ -41,5 +47,18 @@ public class SchoolServiceImpl implements SchoolService {
         Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
         result.setData(bean.getSchools());
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getSchoolTradeList(String schoolName) {
+        if (CustomValidator.hasEmpty(schoolName)){
+            return RespFactory.INSTANCE().illegal_params();
+        }
+        List<Trade> trades=new ArrayList<>();
+        Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
+        trades=tradeRepository.findBySchoolName(schoolName);
+        result.setData(trades);
+
+        return new ResponseEntity<Result<List<Trade>>>(HttpStatus.OK);
     }
 }
