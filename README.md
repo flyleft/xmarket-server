@@ -31,5 +31,7 @@
     参数错误:   自定义状态码103  HttpStatus400
     ```
 
-3. 使用Token验证，提高安全性。
-4. 使用JWT作Token，无须session缓存token，降低了服务器的压力。
+3. Token验证。
+4. 用JWT作Token，无需session缓存token，降低服务器压力。
+5. 支持HTTPS。
+6. 后台使用react.js做单页面应用。
