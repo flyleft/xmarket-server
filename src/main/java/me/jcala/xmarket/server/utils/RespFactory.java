@@ -1,6 +1,5 @@
 package me.jcala.xmarket.server.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.dto.Result;
 import org.springframework.http.HttpStatus;

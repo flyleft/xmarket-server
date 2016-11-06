@@ -22,5 +22,9 @@ public class User {
     private String school;//所在学校名称
     private String phone;//手机号
     private String avatar_url;//头像地址
-    private List<String> sell_deals;//用户在售商品id
+    private List<String> sell_trades;//用户在售商品id列表
+    private List<String> sold_trades;//用户已售商品id列表
+    private List<String> donate_trades;//捐赠商品id列表
+    private List<String> bought_trades;//已买到商品id列表
+    private List<String> to_be_confirm_trades;//待确认商品id列表
 }

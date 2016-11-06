@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
-@Document(collection = "user")
+@Document(collection = "trade")
 @Getter
 @Setter
 public class Trade {
