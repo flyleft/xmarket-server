@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.service;
 
+import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.service.inter.TeamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,8 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public ResponseEntity<?> createTeam() {
+    public ResponseEntity<?> createTeam(Team team) {
+
         return null;
     }
 }

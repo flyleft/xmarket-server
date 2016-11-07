@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.service.inter;
 
+import me.jcala.xmarket.server.entity.document.Team;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -9,6 +10,6 @@ public interface TeamService {
 
     ResponseEntity<?> getTeamList();//获取志愿队列表
 
-    ResponseEntity<?> createTeam();//添加志愿队
+    ResponseEntity<?> createTeam(Team team);//添加志愿队
 
 }
