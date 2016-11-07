@@ -8,6 +8,7 @@ import me.jcala.xmarket.server.service.inter.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +26,18 @@ public class TeamController {
     }
 
     @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PostMapping(value = "/teams",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/teams/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> createTeam(Team team){
+
         return teamService.createTeam(team);
     }
+
+    @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/teams/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getTeamList(Team team){
+
+        return teamService.getTeamList();
+    }
+
 
 }

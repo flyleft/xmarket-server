@@ -9,4 +9,5 @@ public interface CustomRepository {
     void updateUserPassword(String user_id,String password);//修改用户密码
     void updateUserAvatar(String user_id,String avatar_url);//更新用户的头像
     void updateUserTrades(String which_col, String user_id, String trade_id);//更新用户待售商品列
+    void updateUserTeams(String user_id,String team_id);//更新用户的志愿队id列表
 }

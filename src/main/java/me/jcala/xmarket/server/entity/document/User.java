@@ -27,4 +27,5 @@ public class User {
     private List<String> donateTrades;//捐赠商品id列表
     private List<String> boughtTrades;//已买到商品id列表
     private List<String> toBeConfirmTrades;//待确认商品id列表
+    private List<String> teams;//志愿队的id列表
 }

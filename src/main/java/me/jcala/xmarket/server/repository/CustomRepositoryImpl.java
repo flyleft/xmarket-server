@@ -40,4 +40,10 @@ public class CustomRepositoryImpl implements CustomRepository{
         template.updateFirst(new Query(where("_id").is(user_id)),
                 new Update().push(which_col,trade_id), User.class);
     }
+
+    @Override
+    public void updateUserTeams(String user_id, String team_id) {
+        template.updateFirst(new Query(where("_id").is(user_id)),
+                new Update().push("teams",team_id), User.class);
+    }
 }
