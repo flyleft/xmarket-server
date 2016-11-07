@@ -28,13 +28,13 @@ public class SchoolController {
     }
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/school_list",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return schoolService.getSchoolList();
     }
 
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{school_name}/tradeList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{school_name}/trades/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolTradeList(@PathVariable("school_name") String schoolName){
 
         return schoolService.getSchoolTradeList(schoolName);

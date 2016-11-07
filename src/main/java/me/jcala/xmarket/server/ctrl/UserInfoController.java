@@ -46,26 +46,26 @@ public class UserInfoController {
    }
 
     @ApiOperation(value = "设置用户学校信息",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/update_school",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/users/{user_id}/school/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
    public ResponseEntity<?> updateUserSchool(@PathVariable("user_id") String id,String school){
        return userInfoService.updateSchool(id,school);
    }
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/{user_id}/pass", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/{user_id}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserPassword(@PathVariable("user_id")String id,String oldPass,String newPass)
             throws RuntimeException{
         return userInfoService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation(value = "修改用户头像",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/avatar",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/users/{user_id}/avatar/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserAvatar(@PathVariable("user_id")String id, HttpServletRequest request)
             throws Exception{
       return userInfoService.updateAvatar(id,request);
     }
 
     @ApiOperation(value = "获取用户志愿队信息",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/users/{user_id}/team",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/users/{user_id}/teams/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainUserTeam(@PathVariable("user_id")String id) throws RuntimeException{
         return null;
     }
