@@ -50,7 +50,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public ResponseEntity<?> getSchoolTradeList(String schoolName) {
         if (CustomValidator.hasEmpty(schoolName)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
         List<Trade> trades=tradeRepository.findBySchoolName(schoolName);

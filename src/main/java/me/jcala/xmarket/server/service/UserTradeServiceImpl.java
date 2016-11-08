@@ -39,12 +39,12 @@ public class UserTradeServiceImpl implements UserTradeService {
     @Override
     public ResponseEntity<?> createTrade(String userId, Trade trade) {
         if (CustomValidator.hasEmpty(userId)||trade==null){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         Trade tradeData= tradeRepository.save(trade);
         if (tradeData!=null){
             customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
-            return RespFactory.INSTANCE().created();
+            return RespFactory.INSTANCE().ok();
         }else {
             throw new RuntimeException("some error happened in UserTradeService:交易信息存储失败!");
         }
@@ -53,7 +53,7 @@ public class UserTradeServiceImpl implements UserTradeService {
     @Override
     public ResponseEntity<?> getTrades(TradeType type, String userId) {
         if (CustomValidator.hasEmpty(userId)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         User user=userRepository.findOne(userId);
         if (user==null){

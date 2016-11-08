@@ -37,7 +37,7 @@ public class TeamServiceImpl implements TeamService{
     @Override
     public ResponseEntity<?> createTeam(Team team) {
         if (team==null){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         Team teamData=teamRepository.save(team);
         if (teamData==null){
@@ -45,6 +45,6 @@ public class TeamServiceImpl implements TeamService{
         }
         customRepository.updateUserTeams(team.getSponsor().getId(),teamData.getId());
 
-        return RespFactory.INSTANCE().created();
+        return RespFactory.INSTANCE().ok();
     }
 }

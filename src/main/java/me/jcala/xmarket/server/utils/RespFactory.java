@@ -12,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 public class RespFactory {
 
     private final Result<String> resultSuccessStr=new Result<String>().api(Api.SUCCESS);
-    private final ResponseEntity<Result> getSuccess=new ResponseEntity<>(resultSuccessStr, HttpStatus.OK);
-    private final ResponseEntity<Result> createSuccess=new ResponseEntity<>(new Result().api(Api.SUCCESS), HttpStatus.CREATED);
+    private final ResponseEntity<Result> ok=new ResponseEntity<>(resultSuccessStr, HttpStatus.OK);
     private final ResponseEntity paramsError=new ResponseEntity(HttpStatus.BAD_REQUEST);
     private final ResponseEntity serverError=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     private final ResponseEntity tokenError=new ResponseEntity(HttpStatus.UNAUTHORIZED);
@@ -32,11 +31,7 @@ public class RespFactory {
     }
 
     public ResponseEntity<Result> ok() {
-        return this.getSuccess;
-    }
-
-    public ResponseEntity<Result> created(){
-        return this.createSuccess;
+        return this.ok;
     }
 
     public Result<String> resultSuccessStr() {

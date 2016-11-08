@@ -47,7 +47,7 @@ public class TradeTagServiceImpl implements TradeTagService {
     @Override
     public ResponseEntity<?> getTradeListBySort(String sortId) {
         if (CustomValidator.hasEmpty(sortId)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
 
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
