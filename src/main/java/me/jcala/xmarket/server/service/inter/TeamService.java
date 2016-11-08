@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
  */
 public interface TeamService {
 
-    ResponseEntity<?> getTeamList();//获取志愿队列表
+    ResponseEntity<?> getTeamListBySchoolName(String schoolName);//获取志愿队列表
 
     ResponseEntity<?> createTeam(Team team);//添加志愿队
 

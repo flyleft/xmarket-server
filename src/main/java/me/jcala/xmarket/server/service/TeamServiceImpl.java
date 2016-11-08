@@ -27,8 +27,8 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public ResponseEntity<?> getTeamList() {
-        List<Team> teamList=teamRepository.findAll();
+    public ResponseEntity<?> getTeamListBySchoolName(String schoolName) {
+        List<Team> teamList=teamRepository.findAllBySchoolName(schoolName);
         Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
         result.setData(teamList);
         return new ResponseEntity<>(result, HttpStatus.OK);

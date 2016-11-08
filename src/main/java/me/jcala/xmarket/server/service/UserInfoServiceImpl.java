@@ -129,7 +129,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (CustomValidator.hasEmpty(id,school)){
             return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
+            return RespFactory.INSTANCE().notFoundError();
         }
         customRepository.updateUserSchool(id,school);
         return RespFactory.INSTANCE().ok();
@@ -144,7 +144,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (num<1){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_OLD_PASS_ERR),HttpStatus.OK);
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
+            return RespFactory.INSTANCE().notFoundError();
         }
         customRepository.updateUserPassword(id,newPass);
         return RespFactory.INSTANCE().ok();
@@ -155,7 +155,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (CustomValidator.hasEmpty(id)){
             return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
+            return RespFactory.INSTANCE().notFoundError();
         }
         String url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);

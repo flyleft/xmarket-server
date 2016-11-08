@@ -8,10 +8,7 @@ import me.jcala.xmarket.server.service.inter.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api("跟志愿队有关的api")
 @RestController
@@ -32,11 +29,11 @@ public class TeamController {
         return teamService.createTeam(team);
     }
 
-    @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/teams/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getTeamList(Team team){
+    @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/teams/{school_name}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getTeamList(@PathVariable("school_name") String schoolName){
 
-        return teamService.getTeamList();
+        return teamService.getTeamListBySchoolName(schoolName);
     }
 
 
