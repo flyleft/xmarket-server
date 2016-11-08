@@ -13,9 +13,9 @@
 - shiro: 权限引擎
 
 #### swagger API文档
-![user](screenshot/api.jpg)
+![user](screenshot/api1.jpg)
 
-![login](screenshot/api1.jpg)
+![login](screenshot/api2.jpg)
 
 
 #### 特点
