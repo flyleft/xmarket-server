@@ -19,8 +19,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     private ApplicationInfo info;
 
-    private final String tokenIllegal="{\"code\":104,\"msg\":\"token不合法\",\"data\":null}";
-
     @Autowired
     public TokenInterceptor(ApplicationInfo info) {
         this.info = info;
@@ -38,7 +36,6 @@ public class TokenInterceptor implements HandlerInterceptor {
          }else {
              response.setContentType("application/json;charset=UTF-8");
              response.setStatus(401);
-             response.getWriter().write(tokenIllegal);
              return false;
          }
     }
