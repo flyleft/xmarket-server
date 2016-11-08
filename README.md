@@ -21,17 +21,19 @@
 #### 特点
 
 1. 符合restful风格,url基本符合HTTP的幂等性。只有注册等几个对幂等性要求不高的少数功能不符合
-2. 返回状态码独立与HTTP状态码，针对不同情况返回不同自定义状态码和HTTP状态码。例如登录就有以下状态码
+2. Token验证。
+3. 用JWT作Token，无需session缓存token，降低服务器压力。
+4. 支持HTTPS。
+5. 后台使用react.js做单页面应用。
+6. 返回状态码独立与HTTP状态码，针对不同情况返回不同自定义状态码和HTTP状态码。例如更新用户密码
 
-    ```
-    登录成功:   自定义状态码100  HttpStatus200
-    用户名错误: 自定义状态码202  HttpStatus404
-    密码错误:   自定义状态码203  HttpStatus401
-    操作异常:   自定义状态码101  HttpStatus500
-    参数错误:   自定义状态码103  HttpStatus400
-    ```
-
-3. Token验证。
-4. 用JWT作Token，无需session缓存token，降低服务器压力。
-5. 支持HTTPS。
-6. 后台使用react.js做单页面应用。
+```
+PUT /users/user_id/update_pass
+更新成功:       自定义状态码100  HttpStatus200 content不包含内容
+原密码错误:     自定义状态码204  HttpStatus200
+用户名不存在:   HttpStatus404
+无操作权限:     HttpStatus403
+操作异常:       HttpStatus500
+参数错误:       HttpStatus400
+token不合法:    HttpStatus401
+```

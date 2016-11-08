@@ -11,12 +11,15 @@ import org.springframework.http.ResponseEntity;
  */
 public class RespFactory {
 
-    private final ResponseEntity<Result> getSuccess=new ResponseEntity<>(new Result().api(Api.SUCCESS), HttpStatus.OK);
+    private final Result<String> resultSuccessStr=new Result<String>().api(Api.SUCCESS);
+    private final ResponseEntity<Result> getSuccess=new ResponseEntity<>(resultSuccessStr, HttpStatus.OK);
     private final ResponseEntity<Result> createSuccess=new ResponseEntity<>(new Result().api(Api.SUCCESS), HttpStatus.CREATED);
-    private final ResponseEntity<Result> serverError=new ResponseEntity<>(new Result().api(Api.SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-    private final ResponseEntity<Result> illegal_params=new ResponseEntity<>(new Result().api(Api.ILLEGAL_PARAMS),HttpStatus.BAD_REQUEST);
-    private final ResponseEntity<Result> token_expired=new ResponseEntity<>(new Result().api(Api.TOKEN_ILLEGAL),HttpStatus.UNAUTHORIZED);
-    private final ResponseEntity<Result> forbidden=new ResponseEntity<>(new Result().api(Api.FORBIDDEN),HttpStatus.FORBIDDEN);
+    private final ResponseEntity paramsError=new ResponseEntity(HttpStatus.BAD_REQUEST);
+    private final ResponseEntity serverError=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    private final ResponseEntity tokenError=new ResponseEntity(HttpStatus.UNAUTHORIZED);
+    private final ResponseEntity NotFoundError=new ResponseEntity(HttpStatus.NOT_FOUND);
+    private final ResponseEntity forbidden=new ResponseEntity(HttpStatus.FORBIDDEN);
+    //private final ResponseEntity<Result> token_expired=new ResponseEntity<>(new Result().api(Api.TOKEN_ILLEGAL),HttpStatus.UNAUTHORIZED);
     private RespFactory(){
     }
 
@@ -35,16 +38,32 @@ public class RespFactory {
     public ResponseEntity<Result> created(){
         return this.createSuccess;
     }
-    public ResponseEntity<Result> serverError(){
-        return this.serverError;
+
+    public Result<String> resultSuccessStr() {
+        return this.resultSuccessStr;
     }
-    public ResponseEntity<Result> illegal_params(){
-        return this.illegal_params;
+
+    public ResponseEntity paramsError() {
+        return paramsError;
     }
-    public ResponseEntity<Result> token_expired(){
-        return this.token_expired;
+
+    public ResponseEntity serverError() {
+        return serverError;
     }
-    public ResponseEntity<Result> forbidden(){
-        return this.forbidden;
+
+    public ResponseEntity tokenError() {
+        return tokenError;
     }
+
+    public ResponseEntity notFoundError() {
+        return NotFoundError;
+    }
+
+    public ResponseEntity forbidden() {
+        return forbidden;
+    }
+//    public ResponseEntity<Result> token_expired(){
+//        return this.token_expired;
+//    }
+
 }

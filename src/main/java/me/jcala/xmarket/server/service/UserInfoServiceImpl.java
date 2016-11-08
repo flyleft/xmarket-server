@@ -54,25 +54,17 @@ public class UserInfoServiceImpl implements UserInfoService {
         this.info = info;
     }
 
-    /**
-     POST /users/login                     用户登录
-     登录成功:   自定义状态码100  HttpStatus200  content包含access_token
-     用户名错误: 自定义状态码202  HttpStatus404
-     密码错误:   自定义状态码203  HttpStatus401
-     操作异常:   自定义状态码101  HttpStatus500
-     参数错误:   自定义状态码103  HttpStatus400
-     */
     @Override
     public ResponseEntity<?> loginAndGetToken(String username, String password) {
         if (CustomValidator.hasEmpty(username,password)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         if (userRepository.countByUsername(username)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.OK);
         }
         Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
         if (!user.isPresent()){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.OK);
         }else {
             String token=createJWT("xmarket","jcala",user.get().getId(),info.getJwtLife());
             Result<String> result=new Result<>();
@@ -114,25 +106,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         return builder.compact();
     }
-    /**
-     * POST /users/register                  用户注册
-     注册成功:       自定义状态码100  HttpStatus201 content包含user_id
-     用户名已存在:    自定义状态码205  HttpStatus202
-     手机号已经被注册: 自定义状态码206  HttpStatus202
-     操作异常:        自定义状态码101  HttpStatus500
-     参数错误:        自定义状态码103  HttpStatus400
-     */
+
     @Override
     public ResponseEntity<?> register(String username, String password, String phone){
         Result<String> result=new Result<>();
         if (CustomValidator.hasEmpty(username,password,phone)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countByUsername(username)>0){
            result.api(Api.USER_NAME_EXIST);
-           return new ResponseEntity<>(result,HttpStatus.ACCEPTED);
+           return new ResponseEntity<>(result,HttpStatus.OK);
         }else if (userRepository.countByPhone(phone)>0){
             result.api(Api.USER_PHONE_EXIST);
-            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }else {
                 userRepository.insert(
                         new UserBuilder()
@@ -145,71 +130,46 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
     }
 
-    /**
-     *PUT /users/user_id/update_school         更新学校信息
-     更新成功:       自定义状态码100  HttpStatus201 content包含user info
-     用户不存在:     自定义状态码201  HttpStatus404
-     无操作权限:     自定义状态码102  HttpStatus403
-     操作异常:       自定义状态码101  HttpStatus500
-     参数错误:       自定义状态码103  HttpStatus400
-     */
+
     @Override
     public ResponseEntity<?> updateSchool(String id, String school){
         if (CustomValidator.hasEmpty(id,school)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
         }
         customRepository.updateUserSchool(id,school);
         return RespFactory.INSTANCE().created();
     }
 
-
-    /**
-     PUT /users/user_id/update_pass               更新用户密码
-     更新成功:       自定义状态码100  HttpStatus201 content不包含内容
-     原密码错误:     自定义状态码204  HttpStatus401
-     用户不存在:     自定义状态码201  HttpStatus404
-     无操作权限:     自定义状态码102  HttpStatus403
-     操作异常:       自定义状态码101  HttpStatus500
-     参数错误:       自定义状态码103  HttpStatus400
-     */
     @Override
     public ResponseEntity<?> updatePassword(String id, String oldPass, String newPass){
         if (CustomValidator.hasEmpty(id,oldPass,newPass)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }
         long num=userRepository.countByIdAndPassword(id,oldPass);
         if (num<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_OLD_PASS_ERR),HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_OLD_PASS_ERR),HttpStatus.OK);
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
         }
         customRepository.updateUserPassword(id,newPass);
         return RespFactory.INSTANCE().created();
     }
 
-    /**
-     更新成功:       自定义状态码100  HttpStatus201 content包含头像url
-     用户不存在:     自定义状态码201  HttpStatus404
-     无操作权限:     自定义状态码102  HttpStatus403
-     操作异常:       自定义状态码101  HttpStatus500
-     参数错误:       自定义状态码103  HttpStatus400
-     */
     @Override
     public ResponseEntity<?> updateAvatar(String id, HttpServletRequest request) throws Exception{
         if (CustomValidator.hasEmpty(id)){
-            return RespFactory.INSTANCE().illegal_params();
+            return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countById(id)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST),HttpStatus.OK);
         }
         String url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().created();
     }
-    /**
-     * 将jwt解析为javaBean
-     */
+
+
     /*private Token parseJWT(String jwt) {
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(info.getJwtKey()))
