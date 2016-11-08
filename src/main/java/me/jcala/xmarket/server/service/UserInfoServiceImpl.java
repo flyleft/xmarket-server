@@ -35,17 +35,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private UserRepository userRepository;
 
-    private SystemRepository systemRepository;
-
     private CustomRepositoryImpl customRepository;
 
     private ApplicationInfo info;
 
     @Autowired
-    public UserInfoServiceImpl(UserRepository userRepository, SystemRepository systemRepository,
+    public UserInfoServiceImpl(UserRepository userRepository,
                                CustomRepositoryImpl customRepository, ApplicationInfo info) {
         this.userRepository = userRepository;
-        this.systemRepository = systemRepository;
         this.customRepository = customRepository;
         this.info = info;
     }
