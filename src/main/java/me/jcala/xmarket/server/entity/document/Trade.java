@@ -1,6 +1,7 @@
 package me.jcala.xmarket.server.entity.document;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.util.List;
 @Document(collection = "trade")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Trade {
     @Id
     private String id;//商品ID
@@ -29,4 +31,8 @@ public class Trade {
     private int status;//商品状态。0:在售，1:售出,2:捐赠
     private List<User> waitTrades;//商品待交易者名单
     private User trade;//商品交易者
+
+    public Trade(String id){
+        this.id=id;
+    }
 }
