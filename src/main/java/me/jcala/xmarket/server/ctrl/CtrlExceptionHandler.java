@@ -19,9 +19,8 @@ class CtrlExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ResponseEntity<Result> exceptionHandlerProd(RuntimeException e) {
+    public ResponseEntity exceptionHandlerProd(RuntimeException e) {
         log.warn(e.getLocalizedMessage());
         return  RespFactory.INSTANCE().serverError();
     }
