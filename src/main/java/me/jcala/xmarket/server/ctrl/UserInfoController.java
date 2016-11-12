@@ -39,8 +39,8 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户注册",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/users/register",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> register(String username,String password,String phone){
-     return userInfoService.register(username,password,phone);
+    public ResponseEntity<?> register(String username,String password){
+     return userInfoService.register(username,password);
    }
 
     @ApiOperation(value = "设置用户学校信息",response = Result.class,produces = "application/json;charset=UTF-8")

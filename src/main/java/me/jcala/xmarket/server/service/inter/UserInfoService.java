@@ -10,7 +10,7 @@ public interface UserInfoService {
 
     ResponseEntity<?> loginAndGetToken(String username,String password);
 
-    ResponseEntity<?> register(String username,String password,String phone);//用户注册
+    ResponseEntity<?> register(String username,String password);//用户注册
 
     ResponseEntity<?> updateSchool(String id, String school);//设置用户所在的学校
 

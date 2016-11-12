@@ -99,22 +99,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public ResponseEntity<?> register(String username, String password, String phone){
+    public ResponseEntity<?> register(String username, String password){
         Result<String> result=new Result<>();
-        if (CustomValidator.hasEmpty(username,password,phone)){
+        if (CustomValidator.hasEmpty(username,password)){
             return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countByUsername(username)>0){
            result.api(Api.USER_NAME_EXIST);
            return new ResponseEntity<>(result,HttpStatus.OK);
-        }else if (userRepository.countByPhone(phone)>0){
-            result.api(Api.USER_PHONE_EXIST);
-            return new ResponseEntity<>(result, HttpStatus.OK);
         }else {
                 userRepository.insert(
                         new UserBuilder()
                                 .username(username)
                                 .password(password)
-                                .phone(phone)
                                 .build()
                 );
             return RespFactory.INSTANCE().ok();
