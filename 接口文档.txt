@@ -1,5 +1,5 @@
 POST /users/login                     用户登录
-登录成功:   自定义状态码100  HttpStatus200  content包含access_token
+登录成功:   自定义状态码100  HttpStatus200  content包含access_jwt
 用户名错误: 自定义状态码202  HttpStatus200
 密码错误:   自定义状态码203  HttpStatus200
 操作异常:   HttpStatus500
@@ -19,7 +19,7 @@ jwt过期:        自定义状态码101  HttpStatus200
 无操作权限:     HttpStatus403
 操作异常:       HttpStatus500
 参数错误:       HttpStatus400
-token不合法:    HttpStatus401
+jwt不合法:    HttpStatus401
 
 PUT /users/user_id/update_pass               更新用户密码
 更新成功:       自定义状态码100  HttpStatus200 content不包含内容
@@ -29,7 +29,7 @@ jwt过期:        自定义状态码101  HttpStatus200
 无操作权限:     HttpStatus403
 操作异常:       HttpStatus500
 参数错误:       HttpStatus400
-token不合法:    HttpStatus401
+jwt不合法:      HttpStatus401
 
 PUT /users/user_id/update_avatar             更新头像
 更新成功:       自定义状态码100  HttpStatus200 content包含头像url
@@ -38,7 +38,7 @@ jwt过期:        自定义状态码101  HttpStatus200
 无操作权限:      HttpStatus403
 操作异常:       HttpStatus500
 参数错误:       HttpStatus400
-token不合法:    HttpStatus401
+jwt不合法:    HttpStatus401
 
 GET /school_list                          获取学校列表
 获取成功:       自定义状态码100  HttpStatus200 content包含school列表

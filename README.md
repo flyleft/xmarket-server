@@ -29,11 +29,13 @@
 
 ```
 PUT /users/user_id/update_pass
+PUT /users/user_id/update_pass               更新用户密码
 更新成功:       自定义状态码100  HttpStatus200 content不包含内容
 原密码错误:     自定义状态码204  HttpStatus200
+jwt过期:        自定义状态码101  HttpStatus200
 用户名不存在:   HttpStatus404
 无操作权限:     HttpStatus403
 操作异常:       HttpStatus500
 参数错误:       HttpStatus400
-token不合法:    HttpStatus401
+jwt不合法:      HttpStatus401
 ```
