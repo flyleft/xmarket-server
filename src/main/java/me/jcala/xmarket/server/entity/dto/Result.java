@@ -8,6 +8,7 @@ import me.jcala.xmarket.server.entity.configuration.Api;
  */
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Result<T> {
     @Getter
     private int code;//返回码

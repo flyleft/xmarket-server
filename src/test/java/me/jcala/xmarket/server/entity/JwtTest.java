@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import me.jcala.xmarket.server.utils.CustomValidator;
 import org.junit.Test;
 import sun.misc.BASE64Encoder;
 
@@ -50,5 +51,13 @@ public class JwtTest {
         }
 
         return builder.compact();
+    }
+
+    @Test
+    public void verifyJwt(){
+        String jwt="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4bWFya2V0IiwiaWF0IjoxNDc4OTQ2NTY5LCJzdWIiOiI1ODI2ZTk3MDA2MmU1MjE1MThiNjRiNmUiLCJpc3MiOiJqY2FsYSIsImV4cCI6MTQ3ODk1Mzc2OX0.Xvt9tZsBFN-uZ5AyN-w3156eL2rsImgI3UOXFJxDLAI";
+        boolean trust=CustomValidator.JwtVerify("shaku$#&!><?SD*o349()?/,<>+",jwt);
+        System.out.print(trust);
+
     }
 }

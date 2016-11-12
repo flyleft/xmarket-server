@@ -8,8 +8,6 @@ import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 @Slf4j
 public class CustomValidator {
 
-    private static ApplicationInfo info;
-
     public static boolean hasEmpty(String...strings){
         for (String str:strings){
             if (str==null||str.isEmpty()){
