@@ -3,9 +3,16 @@ package me.jcala.xmarket.server.admin.profile;
 import java.util.ArrayList;
 import java.util.List;
 
-public class School {
+/**
+ * 学校名字列表的初始化数据
+ */
+public class SchoolInitData {
 
     private final List<String> schoolList=new ArrayList<>();
+
+    public SchoolInitData(){
+        addSchool();
+    }
 
     private void addSchool(){
         schoolList.add("西南交通大学(犀浦校区)");
@@ -16,7 +23,6 @@ public class School {
     }
 
     public List<String> getSchoolList(){
-        addSchool();
         return this.schoolList;
     }
 }
