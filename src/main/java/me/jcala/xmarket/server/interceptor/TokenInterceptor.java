@@ -1,6 +1,7 @@
 package me.jcala.xmarket.server.interceptor;
 
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
          String jwt=request.getHeader("x-access-token");
-         if (!CustomValidator.hasEmpty(jwt) && CustomValidator.JwtVerify(info.getJwtKey(),jwt)){
+         if (!CustomValidator.hasEmpty(jwt) && CustomValidator.JwtVerify(info.getJwtKey(),jwt)== TokenVerifyResult.success){
              return true;
          }else {
              response.setContentType("application/json;charset=UTF-8");

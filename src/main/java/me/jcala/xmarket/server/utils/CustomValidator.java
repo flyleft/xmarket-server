@@ -1,9 +1,10 @@
 package me.jcala.xmarket.server.utils;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
-import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
+
+import javax.xml.bind.DatatypeConverter;
 
 @Slf4j
 public class CustomValidator {
@@ -24,13 +25,16 @@ public class CustomValidator {
         }
         return false;
     }
-    public static boolean JwtVerify(final String key,final String jwt){
-        boolean trust=true;
+    public static TokenVerifyResult JwtVerify(final String key, final String jwt){
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
+            Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(key))
+                    .parseClaimsJws(jwt);
+        } catch (ExpiredJwtException e) {
+            return TokenVerifyResult.expired;
         } catch (SignatureException e) {
-            trust=false;
+            return TokenVerifyResult.illegalSignature;
         }
-        return trust;
+        return TokenVerifyResult.success;
     }
 }

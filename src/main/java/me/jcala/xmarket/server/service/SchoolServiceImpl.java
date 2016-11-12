@@ -32,7 +32,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     /**
-     GET /school_list                          获取学校列表
+     GET /school_list    获取学校列表
      获取成功:       自定义状态码100  HttpStatus200 content包含school列表
      获取失败:       自定义状态码101  HttpStatus500
      */

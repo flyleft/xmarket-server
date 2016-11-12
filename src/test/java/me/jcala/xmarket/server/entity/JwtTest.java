@@ -3,10 +3,9 @@ package me.jcala.xmarket.server.entity;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
+import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import org.junit.Test;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -14,30 +13,19 @@ import java.security.Key;
 import java.util.Date;
 
 public class JwtTest {
-    @Test
-    public void testJwt(){
-        Key key = MacProvider.generateKey();
+    private final String key="dsjkdls;ld;sldlsdls;d";
+    private String token;
 
-        System.out.println(key.getAlgorithm());
-        String compactJws = Jwts.builder()
-                .setSubject("Joe")
-                .signWith(SignatureAlgorithm.HS512, key)
-                .compact();
-        System.out.print(compactJws);
-    }
-    @Test
-    public void testJwtInJava(){
-        System.out.println(createJWT("xmarket","34","jcala",System.currentTimeMillis()+10));
-    }
     private String createJWT(String id, String issuer, String subject, long ttlMillis) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        String appKey = new BASE64Encoder().encode("jcala".getBytes());
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(appKey);
+
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
         JwtBuilder builder = Jwts.builder().setId(id)
                 .setIssuedAt(now)
                 .setSubject(subject)
@@ -54,10 +42,11 @@ public class JwtTest {
     }
 
     @Test
-    public void verifyJwt(){
-        String jwt="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4bWFya2V0IiwiaWF0IjoxNDc4OTQ2NTY5LCJzdWIiOiI1ODI2ZTk3MDA2MmU1MjE1MThiNjRiNmUiLCJpc3MiOiJqY2FsYSIsImV4cCI6MTQ3ODk1Mzc2OX0.Xvt9tZsBFN-uZ5AyN-w3156eL2rsImgI3UOXFJxDLAI";
-        boolean trust=CustomValidator.JwtVerify("shaku$#&!><?SD*o349()?/,<>+",jwt);
-        System.out.print(trust);
-
+    public void verifyToken(){
+        token=createJWT("xmarket","jcala","jsadjsdkslodlsd",30000);
+        System.out.println(token);
+        TokenVerifyResult result=CustomValidator.JwtVerify(key,token);
+        System.out.println(result);
     }
+
 }

@@ -79,9 +79,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        String appKey = new BASE64Encoder().encode(info.getJwtKey().getBytes());
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(appKey);
 
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(info.getJwtKey());
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder builder = Jwts.builder().setId(id)
