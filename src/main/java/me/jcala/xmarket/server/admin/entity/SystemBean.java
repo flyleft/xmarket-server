@@ -2,7 +2,6 @@ package me.jcala.xmarket.server.admin.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.jcala.xmarket.server.entity.document.TradeTag;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

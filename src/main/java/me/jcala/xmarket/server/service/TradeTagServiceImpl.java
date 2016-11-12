@@ -5,7 +5,7 @@ import me.jcala.xmarket.server.admin.profile.SysColName;
 import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.document.Trade;
-import me.jcala.xmarket.server.entity.document.TradeTag;
+import me.jcala.xmarket.server.admin.entity.TradeTag;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.service.inter.TradeTagService;

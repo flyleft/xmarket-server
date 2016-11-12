@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.entity.document;
+package me.jcala.xmarket.server.admin.entity;
 
 import lombok.Getter;
 import lombok.Setter;
