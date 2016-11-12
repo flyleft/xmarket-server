@@ -28,7 +28,6 @@
 6. 返回状态码独立与HTTP状态码，针对不同情况返回不同自定义状态码和HTTP状态码。例如更新用户密码
 
 ```
-PUT /users/user_id/update_pass
 PUT /users/user_id/update_pass               更新用户密码
 更新成功:       自定义状态码100  HttpStatus200 content不包含内容
 原密码错误:     自定义状态码204  HttpStatus200
