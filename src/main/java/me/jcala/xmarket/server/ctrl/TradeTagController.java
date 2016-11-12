@@ -24,13 +24,13 @@ public class TradeTagController {
         this.tradeTagService = tradeTagService;
     }
 
-    @ApiOperation(value = "获取商品分类列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return tradeTagService.getTradeSortList();
     }
 
-    @ApiOperation(value = "获取商品分类列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "获取指定分类下的商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{tag_id}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeListByTag(@PathVariable("tag_id") String tagId){
         return tradeTagService.getTradeListBySort(tagId);
