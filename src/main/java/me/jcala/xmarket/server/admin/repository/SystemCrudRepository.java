@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SystemRepository extends MongoRepository<SystemBean,String>{
+public interface SystemCrudRepository extends MongoRepository<SystemBean,String>{
 
     SystemBean findByName(String name);
 }

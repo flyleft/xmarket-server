@@ -4,7 +4,6 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import me.jcala.xmarket.server.admin.repository.SystemRepository;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.document.User;
