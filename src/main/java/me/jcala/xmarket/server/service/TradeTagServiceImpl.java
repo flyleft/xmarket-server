@@ -7,6 +7,7 @@ import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.admin.entity.TradeTag;
 import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.repository.SystemGetRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.service.inter.TradeTagService;
 import me.jcala.xmarket.server.utils.CustomValidator;
@@ -21,12 +22,12 @@ import java.util.List;
 @Service
 public class TradeTagServiceImpl implements TradeTagService {
 
-    private SystemCrudRepository systemCrudRepository;
+    private SystemGetRepository systemCrudRepository;
 
     private TradeRepository tradeRepository;
 
     @Autowired
-    public TradeTagServiceImpl(SystemCrudRepository systemCrudRepository, TradeRepository tradeRepository) {
+    public TradeTagServiceImpl(SystemGetRepository systemCrudRepository, TradeRepository tradeRepository) {
         this.systemCrudRepository = systemCrudRepository;
         this.tradeRepository = tradeRepository;
     }

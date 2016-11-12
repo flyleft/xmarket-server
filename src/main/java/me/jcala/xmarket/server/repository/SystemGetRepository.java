@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SystemGetRepository extends MongoRepository<SystemBean,String> {
-
+    SystemBean findByName(String name);
 }
