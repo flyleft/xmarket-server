@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -85,6 +86,9 @@ public class RestConfig extends WebMvcConfigurerAdapter {
                 .license("MIT")
                 .termsOfServiceUrl("http://115.28.18.158/")
                 .contact(new Contact("jcala","https://github.com/jcalaz","jcalaz@163.com"));
+    }
+    private ApiKey apiKey() {
+        return new ApiKey("mykey", "api_key", "header");
     }
     /**
      * 跨域过滤器
