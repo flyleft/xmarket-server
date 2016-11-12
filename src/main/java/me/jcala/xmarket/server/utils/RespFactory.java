@@ -18,7 +18,6 @@ public class RespFactory {
     private final ResponseEntity tokenError=new ResponseEntity(HttpStatus.UNAUTHORIZED);
     private final ResponseEntity NotFoundError=new ResponseEntity(HttpStatus.NOT_FOUND);
     private final ResponseEntity forbidden=new ResponseEntity(HttpStatus.FORBIDDEN);
-    //private final ResponseEntity<Result> token_expired=new ResponseEntity<>(new Result().api(Api.TOKEN_ILLEGAL),HttpStatus.UNAUTHORIZED);
     private RespFactory(){
     }
 
@@ -57,8 +56,5 @@ public class RespFactory {
     public ResponseEntity forbidden() {
         return forbidden;
     }
-//    public ResponseEntity<Result> token_expired(){
-//        return this.token_expired;
-//    }
 
 }

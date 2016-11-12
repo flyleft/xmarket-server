@@ -18,7 +18,7 @@ public class JsonTest {
     public void initData(){
         mapper = new ObjectMapper();
         result=new Result<>();
-        result.api(Api.SUCCESS);
+        result.api(Api.TOKEN_EXPIRED);
 
     }
     @Test

@@ -3,6 +3,7 @@ package me.jcala.xmarket.server.interceptor;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
 import me.jcala.xmarket.server.utils.CustomValidator;
+import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,14 +32,25 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
          String jwt=request.getHeader("x-access-token");
-         if (!CustomValidator.hasEmpty(jwt) && CustomValidator.JwtVerify(info.getJwtKey(),jwt)== TokenVerifyResult.success){
-             return true;
-         }else {
-             response.setContentType("application/json;charset=UTF-8");
+         if (jwt==null){
              response.setStatus(401);
              return false;
          }
+
+         TokenVerifyResult result=CustomValidator.JwtVerify(info.getJwtKey(),jwt);
+         if (result==TokenVerifyResult.success){
+             return true;
+         }else if (result==TokenVerifyResult.expired){
+             response.setContentType("application/json;charset=UTF-8");
+             response.setStatus(200);
+             response.getWriter().write("{\"code\":101,\"msg\":\"token过期\",\"data\":null}");
+            return false;
+        }else {
+             response.setStatus(401);
+             return false;
+        }
     }
 
     @Override
