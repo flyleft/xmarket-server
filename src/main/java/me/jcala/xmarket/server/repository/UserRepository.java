@@ -17,7 +17,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     long countByIdAndPassword(@Param("id") String id,@Param("password") String pass);
 
-    @Query(fields =  "{'_id':1}")
+    @Query(fields =  "{'_id':1,'username':1,'school':1,'phone':1,'avatar_url':1}")
     Optional<User> findByUsernameAndPassword(@Param("username") String username,@Param("password") String pass);
 
     long countByPhone(String phone);

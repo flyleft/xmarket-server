@@ -58,10 +58,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (!user.isPresent()){
             return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.OK);
         }else {
-            String token=createJWT("xmarket","jcala",user.get().getId(),info.getJwtLife());
-            Result<String> result=new Result<>();
+            User userData=user.get();
+            String token=createJWT("xmarket","jcala",userData.getId(),info.getJwtLife());
+            Result<User> result=new Result<>();
             result.api(Api.SUCCESS);
-            result.setData(token);
+            userData.setToken(token);
+            result.setData(userData);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
@@ -100,20 +102,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public ResponseEntity<?> register(String username, String password){
-        Result<String> result=new Result<>();
         if (CustomValidator.hasEmpty(username,password)){
             return RespFactory.INSTANCE().paramsError();
         }else if (userRepository.countByUsername(username)>0){
-           result.api(Api.USER_NAME_EXIST);
-           return new ResponseEntity<>(result,HttpStatus.OK);
+           return new ResponseEntity<>(new Result<String>().api(Api.USER_NAME_EXIST),HttpStatus.OK);
         }else {
-                userRepository.insert(
+                User user=userRepository.insert(
                         new UserBuilder()
                                 .username(username)
                                 .password(password)
                                 .build()
                 );
-            return RespFactory.INSTANCE().ok();
+
+                if (user==null){
+                  throw new RuntimeException("UserInfoServiceImpl:用户注册向数据库插入数据时发生异常");
+                }
+                String token=createJWT("xmarket","jcala",user.getId(),info.getJwtLife());
+                user.setToken(token);
+            Result<User> result=new Result<>();
+            result.api(Api.SUCCESS);
+            result.setData(user);
+            return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
 
@@ -155,18 +164,5 @@ public class UserInfoServiceImpl implements UserInfoService {
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().ok();
     }
-
-
-    /*private Token parseJWT(String jwt) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(info.getJwtKey()))
-                .parseClaimsJws(jwt).getBody();
-        return Token.builder()
-                .id(claims.getId())
-                .issuer(claims.getIssuer())
-                .expiration(claims.getExpiration())
-                .subject(claims.getSubject())
-                .build();
-    }*/
 
 }
