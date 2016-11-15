@@ -44,7 +44,7 @@ public class UserInfoController {
    }
 
     @ApiOperation(value = "设置用户学校和电话号码",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/phone_school/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/users/{user_id}/phoneSchool/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> registerNext(@PathVariable("user_id") String id,String phone,String school){
         return userInfoService.updatePhoneSchool(id,phone,school);
     }
