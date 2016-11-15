@@ -110,7 +110,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                         new UserBuilder()
                                 .username(username)
                                 .password(password)
-                                .avatarUrl("/img/avatar.jpg")
+                                .avatarUrl("/img/avatar.jpg")//设置用户默认头像，即/resources/static/img/avatar.jpg
                                 .build()
                 );
 
