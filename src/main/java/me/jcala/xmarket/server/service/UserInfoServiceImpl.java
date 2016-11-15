@@ -113,14 +113,12 @@ public class UserInfoServiceImpl implements UserInfoService {
                                 .build()
                 );
 
-                if (user==null){
+                if (user==null || user.getId()==null){
                   throw new RuntimeException("UserInfoServiceImpl:用户注册向数据库插入数据时发生异常");
                 }
-                String token=createJWT("xmarket","jcala",user.getId(),info.getJwtLife());
-                user.setToken(token);
-            Result<User> result=new Result<>();
+            Result<String> result=new Result<>();
             result.api(Api.SUCCESS);
-            result.setData(user);
+            result.setData(user.getId());
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
@@ -138,6 +136,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         customRepository.updateUserPhoneSchool(id,phone,school);
         Result<User> userResult=new Result<User>().api(Api.SUCCESS);
+        String token=createJWT("xmarket","jcala",user.getId(),info.getJwtLife());
+        user.setToken(token);
         userResult.setData(user);
         return new ResponseEntity<>(userResult,HttpStatus.OK);
     }
