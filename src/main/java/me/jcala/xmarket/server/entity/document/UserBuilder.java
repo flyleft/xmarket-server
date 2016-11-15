@@ -18,15 +18,11 @@ public class  UserBuilder {
         return this;
     }
 
-    public UserBuilder phone(final String phone){
-        user.setPhone(phone);
+    public UserBuilder avatarUrl(final String avatarUrl){
+        user.setAvatarrl(avatarUrl);
         return this;
     }
 
-    public UserBuilder school(final String school){
-        user.setSchool(school);
-        return this;
-    }
     public User build(){
         return this.user;
     }

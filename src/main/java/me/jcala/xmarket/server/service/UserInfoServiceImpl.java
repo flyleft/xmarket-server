@@ -110,6 +110,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                         new UserBuilder()
                                 .username(username)
                                 .password(password)
+                                .avatarUrl("/img/avatar.jpg")
                                 .build()
                 );
 
