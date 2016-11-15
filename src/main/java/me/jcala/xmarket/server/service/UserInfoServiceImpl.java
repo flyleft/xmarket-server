@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
@@ -128,14 +127,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     @Override
-    public ResponseEntity<?> updateSchool(String id, String school){
+    public ResponseEntity<?> updatePhoneSchool(String id,String phone, String school){
+
         if (CustomValidator.hasEmpty(id,school)){
             return RespFactory.INSTANCE().paramsError();
-        }else if (userRepository.countById(id)<1){
+        }
+        User user=userRepository.findOne(id);
+        if (user==null){
             return RespFactory.INSTANCE().notFoundError();
         }
-        customRepository.updateUserSchool(id,school);
-        return RespFactory.INSTANCE().ok();
+        customRepository.updateUserPhoneSchool(id,phone,school);
+        Result<User> userResult=new Result<User>().api(Api.SUCCESS);
+        userResult.setData(user);
+        return new ResponseEntity<>(userResult,HttpStatus.OK);
     }
 
     @Override

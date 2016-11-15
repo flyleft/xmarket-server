@@ -43,11 +43,12 @@ public class UserInfoController {
      return userInfoService.register(username,password);
    }
 
-    @ApiOperation(value = "设置用户学校信息",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/school/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public ResponseEntity<?> updateUserSchool(@PathVariable("user_id") String id,String school){
-       return userInfoService.updateSchool(id,school);
-   }
+    @ApiOperation(value = "设置用户学校和电话号码",response = Result.class,produces = "application/json;charset=UTF-8")
+    @PutMapping(value = "/users/{user_id}/phone_school/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> registerNext(@PathVariable("user_id") String id,String phone,String school){
+        return userInfoService.updatePhoneSchool(id,phone,school);
+    }
+
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/{user_id}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)

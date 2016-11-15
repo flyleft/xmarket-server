@@ -12,7 +12,7 @@ public interface UserInfoService {
 
     ResponseEntity<?> register(String username,String password);//用户注册
 
-    ResponseEntity<?> updateSchool(String id, String school);//设置用户所在的学校
+    ResponseEntity<?> updatePhoneSchool(String id, String phone,String school);//设置用户所在的学校
 
     ResponseEntity<?> updatePassword(String username, String oldPass, String newPass);//更新用户信息
 

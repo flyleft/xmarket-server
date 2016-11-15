@@ -18,32 +18,35 @@ public class CustomRepositoryImpl implements CustomRepository{
     }
 
     @Override
-    public void updateUserSchool(String user_id, String school) throws RuntimeException{
-        template.updateFirst(new Query(where("_id").is(user_id)),
+    public void updateUserPhoneSchool(String userId,String phone, String school){
+        template.updateFirst(new Query(where("_id").is(userId)),
                 new Update().set("school",school), User.class);
+
+        template.updateFirst(new Query(where("_id").is(userId)),
+                new Update().set("phone",phone), User.class);
     }
 
     @Override
-    public void updateUserPassword(String user_id,String password) throws RuntimeException {
-       template.updateFirst(new Query(where("_id").is(user_id)),
+    public void updateUserPassword(String userId,String password){
+       template.updateFirst(new Query(where("_id").is(userId)),
                new Update().set("password",password), User.class);
     }
 
     @Override
-    public void updateUserAvatar(String user_id, String avatar_url) {
-        template.updateFirst(new Query(where("_id").is(user_id)),
-                new Update().set("avatar_url",avatar_url), User.class);
+    public void updateUserAvatar(String userId, String avatarUrl) {
+        template.updateFirst(new Query(where("_id").is(userId)),
+                new Update().set("avatar_url",avatarUrl), User.class);
     }
 
     @Override
-    public void updateUserTrades(String which_col,String user_id, String trade_id) {
-        template.updateFirst(new Query(where("_id").is(user_id)),
+    public void updateUserTrades(String which_col,String userId, String trade_id) {
+        template.updateFirst(new Query(where("_id").is(userId)),
                 new Update().push(which_col,trade_id), User.class);
     }
 
     @Override
-    public void updateUserTeams(String user_id, String team_id) {
-        template.updateFirst(new Query(where("_id").is(user_id)),
-                new Update().push("teams",team_id), User.class);
+    public void updateUserTeams(String userId, String teamId) {
+        template.updateFirst(new Query(where("_id").is(userId)),
+                new Update().push("teams",teamId), User.class);
     }
 }
