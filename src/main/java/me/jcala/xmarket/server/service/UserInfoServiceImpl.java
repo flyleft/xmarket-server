@@ -160,7 +160,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }else if (userRepository.countById(id)<1){
             return RespFactory.INSTANCE().notFoundError();
         }
-        String url=StaticTool.updateAvatar("/api/user/avatar/",info.getPicHome(),request);
+        String url=StaticTool.updateAvatar("/api/v1/static/img",info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().ok();
     }
