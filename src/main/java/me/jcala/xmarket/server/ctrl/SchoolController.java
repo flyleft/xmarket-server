@@ -28,7 +28,7 @@ public class SchoolController {
     }
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/names/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "names/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return schoolService.getSchoolList();
     }

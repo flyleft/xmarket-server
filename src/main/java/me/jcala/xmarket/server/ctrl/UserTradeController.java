@@ -54,7 +54,7 @@ public class UserTradeController {
     }
 
     @ApiOperation(value = "获取待确认商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{user_id}/to_be_confirm/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{user_id}/toBeConfirmed/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> toBeConfirm(@PathVariable("user_id") String userId) {
         return userTradeService.getTrades(TradeType.TOBECONFIRM, userId);
     }

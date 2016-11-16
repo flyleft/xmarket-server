@@ -51,7 +51,7 @@ public class UserInfoController {
 
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/{user_id}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/users/{user_id}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserPassword(@PathVariable("user_id")String id,String oldPass,String newPass)
             throws RuntimeException{
         return userInfoService.updatePassword(id,oldPass,newPass);

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api("跟志愿队有关的api")
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/teams")
 public class TeamController {
 
     private TeamService teamService;
@@ -23,15 +23,15 @@ public class TeamController {
     }
 
     @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PostMapping(value = "/teams/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> createTeam(Team team){
 
         return teamService.createTeam(team);
     }
 
     @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/teams/{school_name}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getTeamList(@PathVariable("school_name") String schoolName){
+    @GetMapping(value = "/{school_name}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainTeamList(@PathVariable("school_name") String schoolName){
 
         return teamService.getTeamListBySchoolName(schoolName);
     }
