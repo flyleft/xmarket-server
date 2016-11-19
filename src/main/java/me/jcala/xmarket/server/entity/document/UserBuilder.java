@@ -19,7 +19,7 @@ public class  UserBuilder {
     }
 
     public UserBuilder avatarUrl(final String avatarUrl){
-        user.setAvatarrl(avatarUrl);
+        user.setAvatarUrl(avatarUrl);
         return this;
     }
 

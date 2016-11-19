@@ -24,7 +24,7 @@ public class User {
     private String password;//用户密码
     private String school;//所在学校名称
     private String phone;//手机号
-    private String avatarrl;//头像地址
+    private String avatarUrl;//头像地址
     private List<String> sellTrades;//用户在售商品id列表
     private List<String> soldTrades;//用户已售商品id列表
     private List<String> donateTrades;//捐赠商品id列表
