@@ -44,28 +44,28 @@ public class UserInfoController {
    }
 
     @ApiOperation(value = "设置用户学校和电话号码",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/phoneSchool/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> registerNext(@PathVariable("user_id") String id,String phone,String school){
+    @PutMapping(value = "/users/{userId}/phoneSchool/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> registerNext(@PathVariable("userId") String id,String phone,String school){
         return userInfoService.updatePhoneSchool(id,phone,school);
     }
 
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserPassword(@PathVariable("user_id")String id,String oldPass,String newPass)
+    @PutMapping(value = "/users/{userId}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateUserPassword(@PathVariable("userId")String id,String oldPass,String newPass)
             throws RuntimeException{
         return userInfoService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation(value = "修改用户头像",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PutMapping(value = "/users/{user_id}/avatar/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserAvatar(@PathVariable("user_id")String id, HttpServletRequest request)
+    @PutMapping(value = "/users/{userId}/avatar/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateUserAvatar(@PathVariable("userId")String id, HttpServletRequest request)
             throws Exception{
       return userInfoService.updateAvatar(id,request);
     }
 
     @ApiOperation(value = "获取用户志愿队信息",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/users/{user_id}/teams/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainUserTeam(@PathVariable("user_id")String id) throws RuntimeException{
+    @GetMapping(value = "/users/{userId}/teams/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainUserTeam(@PathVariable("userId")String id) throws RuntimeException{
         return null;
     }
 
