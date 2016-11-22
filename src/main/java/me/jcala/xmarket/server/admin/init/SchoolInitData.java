@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.admin.profile;
+package me.jcala.xmarket.server.admin.init;
 
 import java.util.ArrayList;
 import java.util.List;

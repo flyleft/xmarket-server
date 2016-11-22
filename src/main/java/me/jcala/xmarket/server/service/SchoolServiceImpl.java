@@ -1,8 +1,7 @@
 package me.jcala.xmarket.server.service;
 
 import me.jcala.xmarket.server.admin.entity.SystemBean;
-import me.jcala.xmarket.server.admin.profile.SysColName;
-import me.jcala.xmarket.server.admin.repository.SystemCrudRepository;
+import me.jcala.xmarket.server.admin.init.SysColName;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;

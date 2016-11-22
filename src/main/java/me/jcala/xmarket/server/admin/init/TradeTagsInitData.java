@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.admin.profile;
+package me.jcala.xmarket.server.admin.init;
 
 import me.jcala.xmarket.server.admin.entity.TradeTag;
 
