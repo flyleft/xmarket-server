@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.admin.shiro;
 
 import me.jcala.xmarket.server.admin.entity.Authority;
-import me.jcala.xmarket.server.admin.service.inter.SystemService;
+import me.jcala.xmarket.server.admin.service.inter.AuthorityService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class MongoReam extends AuthorizingRealm {
 
     @Autowired
-    private SystemService systemService;
+    private AuthorityService systemService;
 
     /**
      * 权限验证
