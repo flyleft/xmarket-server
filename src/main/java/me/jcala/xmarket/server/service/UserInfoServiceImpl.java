@@ -139,6 +139,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         Result<User> userResult=new Result<User>().api(Api.SUCCESS);
         String token=createJWT("xmarket","jcala",user.getId(),info.getJwtLife());
         user.setToken(token);
+        user.setSchool(school);
+        user.setPhone(phone);
         userResult.setData(user);
         return new ResponseEntity<>(userResult,HttpStatus.OK);
     }
