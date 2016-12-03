@@ -3,6 +3,7 @@ package me.jcala.xmarket.server.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
+import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
@@ -13,6 +14,7 @@ import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserTradeService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
+import me.jcala.xmarket.server.utils.StaticTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -32,12 +35,15 @@ public class UserTradeServiceImpl implements UserTradeService {
 
     private UserRepository userRepository;
 
+    private ApplicationInfo info;
+
     @Autowired
-    public UserTradeServiceImpl(TradeRepository tradeRepository,
-                                CustomRepository customRepository, UserRepository userRepository) {
+    public UserTradeServiceImpl(TradeRepository tradeRepository, CustomRepository customRepository,
+                                UserRepository userRepository, ApplicationInfo info) {
         this.tradeRepository = tradeRepository;
         this.customRepository = customRepository;
         this.userRepository = userRepository;
+        this.info = info;
     }
 
     @Override
@@ -49,16 +55,17 @@ public class UserTradeServiceImpl implements UserTradeService {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Trade tradeBean = mapper.readValue(trade, Trade.class);
+            List<String> imgUrls=StaticTool.uploadMultiFiles(info.getPicHome(),request);
+            tradeBean.setImgUrls(imgUrls);
             tradeData = tradeRepository.save(tradeBean);
-
         } catch (IOException e) {
-            log.info("发布的商品反序列出错"+e.getLocalizedMessage());
+            log.info("发布商品序列化或者图片存储出错:"+e.getLocalizedMessage());
         }
         if (tradeData!=null){
             customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
             return RespFactory.INSTANCE().ok();
         }
-        return null;
+        return RespFactory.INSTANCE().paramsError();
     }
 
     @Override
