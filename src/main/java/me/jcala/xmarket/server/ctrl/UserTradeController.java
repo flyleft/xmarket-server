@@ -2,8 +2,8 @@ package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
-import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Api("跟用户交易有关的api")
 @RestController
 @RequestMapping("/api/v1/users/")
@@ -25,8 +26,9 @@ public class UserTradeController {
 
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/{userId}/trades/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> create(@PathVariable("userId") String userId, Trade trade){
-        return userTradeService.createTrade(userId,trade);
+    public ResponseEntity<?> create(@PathVariable("userId") String userId,String trade){
+        //return userTradeService.createTrade(userId,trade);
+        return null;
     }
 
     @ApiOperation(value = "获取捐赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
@@ -54,7 +56,7 @@ public class UserTradeController {
     }
 
     @ApiOperation(value = "获取待确认商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/toBeConfirmed/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{userId}/to_be_confirmed/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> toBeConfirm(@PathVariable("userId") String userId) {
         return userTradeService.getTrades(TradeType.TOBECONFIRM, userId);
     }
