@@ -30,7 +30,7 @@ public class UserTradeController {
     @PostMapping(value = "/{userId}/trades/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> create(@PathVariable("userId") String userId, String trade, HttpServletRequest request){
 
-        return null;
+        return userTradeService.createTrade(userId,trade,request);
     }
 
     @ApiOperation(value = "获取捐赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")

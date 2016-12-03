@@ -59,7 +59,7 @@ public class UserTradeServiceImpl implements UserTradeService {
             tradeBean.setImgUrls(imgUrls);
             tradeData = tradeRepository.save(tradeBean);
         } catch (IOException e) {
-            log.info("发布商品序列化或者图片存储出错:"+e.getLocalizedMessage());
+            log.info("发布商品序列化或者图片存储出错:"+e.getMessage());
         }
         if (tradeData!=null){
             customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
