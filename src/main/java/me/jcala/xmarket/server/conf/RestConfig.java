@@ -37,6 +37,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @Configuration
 @EnableSwagger2//使swagger配置生效
 public class RestConfig extends WebMvcConfigurerAdapter {
+    public static final String picUrlPath="/api/v1/static/img";
     @Value("${xmarket.pic_home}")
     private String picHome;
 

@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @Api("跟用户交易有关的api")
 @RestController
@@ -26,8 +28,8 @@ public class UserTradeController {
 
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/{userId}/trades/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> create(@PathVariable("userId") String userId,String trade){
-        //return userTradeService.createTrade(userId,trade);
+    public ResponseEntity<?> create(@PathVariable("userId") String userId, String trade, HttpServletRequest request){
+
         return null;
     }
 

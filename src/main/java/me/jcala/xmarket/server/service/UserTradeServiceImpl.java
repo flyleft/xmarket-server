@@ -1,5 +1,7 @@
 package me.jcala.xmarket.server.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
 import me.jcala.xmarket.server.entity.document.Trade;
@@ -15,9 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Service
+@Slf4j
 public class UserTradeServiceImpl implements UserTradeService {
 
     private TradeRepository tradeRepository;
@@ -35,17 +41,24 @@ public class UserTradeServiceImpl implements UserTradeService {
     }
 
     @Override
-    public ResponseEntity<?> createTrade(String userId, Trade trade) {
-        if (CustomValidator.hasEmpty(userId)||trade==null){
+    public ResponseEntity<?> createTrade(String userId, String trade, HttpServletRequest request) {
+        if (CustomValidator.hasEmpty(userId,trade)){
             return RespFactory.INSTANCE().paramsError();
         }
-        Trade tradeData= tradeRepository.save(trade);
+        Trade tradeData=null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Trade tradeBean = mapper.readValue(trade, Trade.class);
+            tradeData = tradeRepository.save(tradeBean);
+
+        } catch (IOException e) {
+            log.info("发布的商品反序列出错"+e.getLocalizedMessage());
+        }
         if (tradeData!=null){
             customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
             return RespFactory.INSTANCE().ok();
-        }else {
-            throw new RuntimeException("some error happened in UserTradeService:交易信息存储失败!");
         }
+        return null;
     }
 
     @Override

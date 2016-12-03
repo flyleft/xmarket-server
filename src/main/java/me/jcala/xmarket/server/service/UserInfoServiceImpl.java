@@ -164,10 +164,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public ResponseEntity<?> updateAvatar(String id, HttpServletRequest request) throws Exception{
         if (CustomValidator.hasEmpty(id)){
             return RespFactory.INSTANCE().paramsError();
-        }else if (userRepository.countById(id)<1){
+        }
+        if (userRepository.countById(id)<1){
             return RespFactory.INSTANCE().notFoundError();
         }
-        String url=StaticTool.updateAvatar("/api/v1/static/img",info.getPicHome(),request);
+        String url=StaticTool.uploadFile(info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().ok();
     }
