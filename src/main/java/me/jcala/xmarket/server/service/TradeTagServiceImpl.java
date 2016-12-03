@@ -16,7 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TradeTagServiceImpl implements TradeTagService {
@@ -32,7 +34,7 @@ public class TradeTagServiceImpl implements TradeTagService {
     }
 
     @Override
-    public ResponseEntity<?> getTradeSortList() {
+    public ResponseEntity<?> getTradeTagList() {
          String col= SysColName.colTradeTag.name();
          SystemBean systemBean= systemCrudRepository.findByName(col);
          if (systemBean==null){
@@ -41,6 +43,21 @@ public class TradeTagServiceImpl implements TradeTagService {
          List<TradeTag> tradeTags=systemBean.getTradeTags();
         Result<List<TradeTag>> result=new Result<List<TradeTag>>().api(Api.SUCCESS);
         result.setData(tradeTags);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getTradeTagNameList() {
+        String col= SysColName.colTradeTag.name();
+        SystemBean systemBean= systemCrudRepository.findByName(col);
+        if (systemBean==null){
+            throw new RuntimeException("商品标签为空,请检查数据库中systemBean集合数据是否完整");
+        }
+        List<String> tagNames=systemBean.getTradeTags().stream()
+                                                        .map(TradeTag::getName)
+                                                        .collect(Collectors.toList());
+        Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
+        result.setData(tagNames);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

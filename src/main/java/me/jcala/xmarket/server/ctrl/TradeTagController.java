@@ -26,9 +26,14 @@ public class TradeTagController {
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainSchoolList(){
-        return tradeTagService.getTradeSortList();
+    public ResponseEntity<?> gainTradeTagList(int kind){
+        if (kind==1){
+            return tradeTagService.getTradeTagList();//kind为1返回TradeTag列表
+        }else{
+            return tradeTagService.getTradeTagNameList();//kind为2返回TradeTag列表
+        }
     }
+
 
     @ApiOperation(value = "获取指定分类下的商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = "/{tagId}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
