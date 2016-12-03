@@ -34,8 +34,8 @@ public class SchoolController {
     }
 
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/trades/{school_name}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("school_name") String schoolName){
+    @GetMapping(value = "/trades/{schoolName}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName){
 
         return schoolService.getSchoolTradeList(schoolName);
     }
