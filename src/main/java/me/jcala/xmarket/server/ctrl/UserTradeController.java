@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserTradeService;
+import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,33 +34,19 @@ public class UserTradeController {
         return userTradeService.createTrade(userId,trade,request);
     }
 
-    @ApiOperation(value = "获取捐赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/donate/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> donates(@PathVariable("userId") String userId){
-        return userTradeService.getTrades(TradeType.DONATE,userId);
-    }
-
-    @ApiOperation(value = "获取卖出商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/sold/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> sold(@PathVariable("userId") String userId){
-        return userTradeService.getTrades(TradeType.SOLD,userId);
-    }
-
-    @ApiOperation(value = "获取买到商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/bought/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> bought(@PathVariable("userId") String userId){
-        return userTradeService.getTrades(TradeType.BOUGHT,userId);
-    }
-
-    @ApiOperation(value = "获取待售商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/for_sale/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> forSale(@PathVariable("userId") String userId){
-        return userTradeService.getTrades(TradeType.SELL,userId);
-    }
-
-    @ApiOperation(value = "获取待确认商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/{userId}/to_be_confirmed/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> toBeConfirm(@PathVariable("userId") String userId) {
-        return userTradeService.getTrades(TradeType.TOBECONFIRM, userId);
+    @ApiOperation(value = "获取商品列表;根据kind的值获取不同类型列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/{userId}/trades/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getTrades(@PathVariable("userId") String userId,int kind){
+        if (kind==0){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        switch (kind){
+            case 1:return userTradeService.getTrades(TradeType.DONATE,userId);
+            case 2:return userTradeService.getTrades(TradeType.SOLD,userId);
+            case 3:return userTradeService.getTrades(TradeType.BOUGHT,userId);
+            case 4:return userTradeService.getTrades(TradeType.SELL,userId);
+            case 5:return userTradeService.getTrades(TradeType.TOBECONFIRM, userId);
+            default:return RespFactory.INSTANCE().paramsError();
+        }
     }
 }
