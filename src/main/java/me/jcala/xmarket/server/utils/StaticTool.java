@@ -53,17 +53,22 @@ public class StaticTool {
         List<String> imgUrls=new ArrayList<>();
         MultipartHttpServletRequest multipartRequest =
                 (MultipartHttpServletRequest) request;
-        Iterator<String> fileNames = multipartRequest.getFileNames();
+
+        List<MultipartFile> files=multipartRequest.getFiles("file");
+
         String yearMonth = TimeTools.getYearMonthOfNow();
+
         String picDir=picHome+File.separatorChar+ yearMonth;
+
         File path = new File(picDir);
+
         String imgUrl=getServerRoot(request)+ RestConfig.picUrlPath + yearMonth + "/";
+
         if (!path.exists()) {
             path.mkdirs();
         }
 
-        while (fileNames.hasNext()){
-            MultipartFile file = multipartRequest.getFile(fileNames.next());
+        for (MultipartFile file:files){
             String fileName = String.valueOf(System.currentTimeMillis()) + "." +
                     FileTools.getSuffix(file.getOriginalFilename());
             File targetFile = new File(picDir + File.separatorChar + fileName);

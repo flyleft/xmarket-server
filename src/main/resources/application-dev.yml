@@ -26,7 +26,7 @@ spring:
         encoding.force: false
         multipart:
           max-file-size: 3MB
-          max-request-size: 10MB
+          max-request-size: 25MB
     data:
         mongodb:
             database: xmarket
