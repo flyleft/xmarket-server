@@ -56,6 +56,9 @@ public class UserTradeServiceImpl implements UserTradeService {
             ObjectMapper mapper = new ObjectMapper();
             Trade tradeBean = mapper.readValue(trade, Trade.class);
             List<String> imgUrls=StaticTool.uploadMultiFiles(info.getPicHome(),request);
+            if (imgUrls.size() < 1){
+                return RespFactory.INSTANCE().paramsError();
+            }
             tradeBean.setImgUrls(imgUrls);
             tradeData = tradeRepository.save(tradeBean);
         } catch (IOException e) {
