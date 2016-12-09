@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -25,12 +26,9 @@ public class Trade {
     private String tagName;
     private String schoolName;//所属的学校名称
     private List<String> imgUrls;//商品图片
-    private String createTime;//商品创建时间
-    private String donateTime;//商品捐赠时间
+    private long createTime;//商品创建时间
     private int status;//商品状态。0:在售，1:售出,2:捐赠
-    private List<User> waitTrades;//商品待交易者名单
-    private User trade;//商品交易者
-    private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
+    @Transient private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
     public Trade(String id){
         this.id=id;
     }
