@@ -2,7 +2,7 @@ package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.*;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.service.inter.StaticService;
+import me.jcala.xmarket.server.service.inter.FileService;
 import me.jcala.xmarket.server.service.inter.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,13 +17,13 @@ public class UserInfoController {
 
     private UserInfoService userInfoService;
 
-    private StaticService staticService;
+    private FileService fileService;
 
 
     @Autowired
-    public UserInfoController(UserInfoService userInfoService, StaticService staticService) {
+    public UserInfoController(UserInfoService userInfoService, FileService fileService) {
         this.userInfoService = userInfoService;
-        this.staticService = staticService;
+        this.fileService = fileService;
     }
 
     @ApiOperation(value = "用户登录并获取token",response = Result.class,produces = "application/json;charset=UTF-8")

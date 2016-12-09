@@ -14,7 +14,7 @@ import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserInfoService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
-import me.jcala.xmarket.server.utils.StaticTool;
+import me.jcala.xmarket.server.utils.FileTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -168,7 +168,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userRepository.countById(id)<1){
             return RespFactory.INSTANCE().notFoundError();
         }
-        String url=StaticTool.uploadFile(info.getPicHome(),request);
+        String url= FileTool.uploadFile(info.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().ok();
     }

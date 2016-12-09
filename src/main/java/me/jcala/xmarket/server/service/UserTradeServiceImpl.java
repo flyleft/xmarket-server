@@ -14,7 +14,7 @@ import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserTradeService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
-import me.jcala.xmarket.server.utils.StaticTool;
+import me.jcala.xmarket.server.utils.FileTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +55,7 @@ public class UserTradeServiceImpl implements UserTradeService {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Trade tradeBean = mapper.readValue(trade, Trade.class);
-            List<String> imgUrls=StaticTool.uploadMultiFiles(info.getPicHome(),request);
+            List<String> imgUrls= FileTool.uploadMultiFiles(info.getPicHome(),request);
             if (imgUrls.size() < 1){
                 return RespFactory.INSTANCE().paramsError();
             }

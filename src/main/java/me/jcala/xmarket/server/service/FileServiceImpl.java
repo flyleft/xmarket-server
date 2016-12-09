@@ -2,7 +2,7 @@ package me.jcala.xmarket.server.service;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
-import me.jcala.xmarket.server.service.inter.StaticService;
+import me.jcala.xmarket.server.service.inter.FileService;
 import me.jcala.xmarket.server.utils.FileTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,12 +14,12 @@ import java.io.File;
 
 @Service
 @Slf4j
-public class StaticServiceImpl implements StaticService{
+public class FileServiceImpl implements FileService {
 
     private ApplicationInfo info;
 
     @Autowired
-    public StaticServiceImpl(ApplicationInfo info) {
+    public FileServiceImpl(ApplicationInfo info) {
         this.info = info;
     }
 

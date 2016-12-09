@@ -18,7 +18,7 @@ import java.util.List;
  * 提供静态资源比如图片的一些公用操作
  */
 @Slf4j
-public class StaticTool {
+public class FileTool {
 
     public static String uploadFile(String picHome,HttpServletRequest request)
             throws Exception {

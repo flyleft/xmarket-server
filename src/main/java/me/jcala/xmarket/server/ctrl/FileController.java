@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import me.jcala.xmarket.server.service.inter.StaticService;
+import me.jcala.xmarket.server.service.inter.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Api("跟静态资源有关的api")
 @Controller
 @RequestMapping("/api/v1/static")
-public class StaticController {
+public class FileController {
 
-    private StaticService staticService;
+    private FileService fileService;
 
     @Autowired
-    public StaticController(StaticService staticService) {
-        this.staticService = staticService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @ApiOperation(value = "获取图片资源",response = byte[].class,produces = "application/json;charset=UTF-8")
@@ -31,6 +31,6 @@ public class StaticController {
     @GetMapping(value = "/img/{dir}/{picName:.+}",produces = "image/jpeg;image/png;image/gif")
     public ResponseEntity<byte[]> gainUserAvatar(@PathVariable("dir")String dir, @PathVariable("picName") String picName)
             throws RuntimeException {
-        return staticService.gainPic(dir,picName);
+        return fileService.gainPic(dir,picName);
     }
 }
