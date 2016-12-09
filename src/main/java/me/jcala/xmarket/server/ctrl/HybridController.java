@@ -62,7 +62,7 @@ public class HybridController {
     }
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = ApiConf.get__tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = ApiConf.get_tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeTagList(int kind){
 
         if (kind==1){

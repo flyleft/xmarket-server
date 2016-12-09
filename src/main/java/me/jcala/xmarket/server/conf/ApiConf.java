@@ -27,7 +27,7 @@ public interface ApiConf {
     //------------------------Hybrid 文件相关--------------------------
     String get_img="/api/v1/file/img/{dir}/{picName:.+}";//获取图片资源
     //------------------------Hybrid 分类相关--------------------------
-    String get__tags="api/v1/tags/get";//获取商品分类列表
+    String get_tags="api/v1/tags/get";//获取商品分类列表
     //------------------------Hybrid 交易相关--------------------------
     String create_deal="api/v1/deals/create";//创建交易
 }
