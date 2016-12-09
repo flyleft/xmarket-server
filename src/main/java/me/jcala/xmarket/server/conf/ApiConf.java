@@ -23,14 +23,11 @@ public interface ApiConf {
     String create_team="api/v1/teams/create";//创建志愿队
     String get_school_teams="/api/v1/teams/{schoolName}/get";//获取该学校下的所有志愿队
     //------------------------Hybrid 学校相关--------------------------
-    String get_school_list="api/v1/schools/names/get";//获取学校名称列表
+    String get_schools="api/v1/schools/names/get";//获取学校名称列表
     //------------------------Hybrid 文件相关--------------------------
     String get_img="/api/v1/file/img/{dir}/{picName:.+}";//获取图片资源
     //------------------------Hybrid 分类相关--------------------------
-    String get_trade_tag="api/v1/tags/get";//获取商品分类列表
-
-
-    String confirm_deal="api/v1/users/{userId}/deal/create";
-    String create_user_deal="api/v1/users/{userId}/deal/create";
-    String get_trade_detail="/api/v1/trades/{tradeId}/get";
+    String get__tags="api/v1/tags/get";//获取商品分类列表
+    //------------------------Hybrid 交易相关--------------------------
+    String create_deal="api/v1/deals/create";//创建交易
 }

@@ -46,7 +46,7 @@ public class HybridController {
 
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = ApiConf.get_school_list,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = ApiConf.get_schools,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return hybridService.getSchoolList();
     }
@@ -62,7 +62,7 @@ public class HybridController {
     }
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "tags/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = ApiConf.get__tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeTagList(int kind){
 
         if (kind==1){
@@ -71,6 +71,14 @@ public class HybridController {
             return hybridService.getTradeTagNameList();//kind为2返回String列表
         }
 
+    }
+
+    @ApiOperation(value = "创建交易",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = ApiConf.create_deal,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> createDeal(String userId,String tradeId){
+        // TODO: 16-12-09  没有实现发起交易
+
+        return null;
     }
 
 }

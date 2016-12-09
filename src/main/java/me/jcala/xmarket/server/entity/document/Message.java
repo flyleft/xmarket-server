@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Getter
 public class Message {
+
     @Id
     private String id;
     private String belongId;//消息所属者的id
@@ -23,6 +25,6 @@ public class Message {
     private String userPhone;//交易对方用户的手机号。如果kind为0则手机号可见；如果kind为1则手机号不可见，设置默认值""
     private String tradeId;//商品id
     private String tradeImg;//商品的封面
-    private int kind;//kind表示信息类型。0表示买到商品的消息；1表示收到购买请求的消息
+    @Transient private int kind;//kind表示信息类型。0表示买到商品的消息；1表示收到购买请求的消息
 
 }
