@@ -46,16 +46,4 @@ public class SchoolServiceImpl implements SchoolService {
         result.setData(bean.getSchools());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    @Override
-    public ResponseEntity<?> getSchoolTradeList(String schoolName) {
-        if (CustomValidator.hasEmpty(schoolName)){
-            return RespFactory.INSTANCE().paramsError();
-        }
-        Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
-        List<Trade> trades=tradeRepository.findBySchoolName(schoolName);
-        result.setData(trades);
-
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
 }

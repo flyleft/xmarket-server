@@ -86,4 +86,16 @@ public class TradeServiceImpl implements TradeService {
         result.setData(trade);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<?> getTradeListBySchoolName(String schoolName) {
+        if (CustomValidator.hasEmpty(schoolName)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
+        List<Trade> trades=tradeRepository.findBySchoolName(schoolName);
+        result.setData(trades);
+
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }

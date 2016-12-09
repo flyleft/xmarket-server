@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("跟学校有关的api")
 @RestController
-@RequestMapping("/api/v1/schools")
 public class SchoolController {
 
     private SchoolService schoolService;
@@ -28,15 +27,9 @@ public class SchoolController {
     }
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "names/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/api/v1/schools/names/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return schoolService.getSchoolList();
     }
 
-    @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/trades/{schoolName}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName){
-
-        return schoolService.getSchoolTradeList(schoolName);
-    }
 }

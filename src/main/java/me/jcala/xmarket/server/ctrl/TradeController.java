@@ -52,4 +52,11 @@ public class TradeController {
         return null;
     }
 
+    @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/school/{schoolName}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName){
+
+        return tradeService.getTradeListBySchoolName(schoolName);
+    }
+
 }
