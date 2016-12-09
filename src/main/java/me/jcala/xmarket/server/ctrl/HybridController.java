@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import me.jcala.xmarket.server.conf.ApiConf;
 import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.HybridService;
@@ -30,14 +31,14 @@ public class HybridController {
     }
 
     @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
-    @PostMapping(value = "/api/v1/teams/create",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = ApiConf.create_team,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> createTeam(Team team){
-
+        // TODO: 16-12-10  没有设置userId
         return hybridService.createTeam(team);
     }
 
     @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/api/v1/teams/{schoolName}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = ApiConf.get_school_teams,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTeamList(@PathVariable("schoolName") String schoolName){
 
         return hybridService.getTeamListBySchoolName(schoolName);
@@ -45,7 +46,7 @@ public class HybridController {
 
 
     @ApiOperation(value = "获取学校名称列表",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "/api/v1/schools/names/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = ApiConf.get_school_list,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolList(){
         return hybridService.getSchoolList();
     }
@@ -54,9 +55,8 @@ public class HybridController {
     @ApiResponses({
             @ApiResponse(code=404,message="没有找到该图片")
     })
-
-    @GetMapping(value = "/api/v1/file/img/{dir}/{picName:.+}",produces = "image/jpeg;image/png;image/gif")
-    public ResponseEntity<byte[]> gainUserAvatar(@PathVariable("dir")String dir, @PathVariable("picName") String picName)
+    @GetMapping(value = ApiConf.get_img,produces = "image/jpeg;image/png;image/gif")
+    public ResponseEntity<byte[]> gainImg(@PathVariable("dir")String dir, @PathVariable("picName") String picName)
             throws RuntimeException {
         return hybridService.gainPic(dir,picName);
     }
