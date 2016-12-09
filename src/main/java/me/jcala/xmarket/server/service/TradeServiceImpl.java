@@ -8,7 +8,7 @@ import me.jcala.xmarket.server.admin.entity.TradeTag;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.SystemGetRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
-import me.jcala.xmarket.server.service.inter.TradeTagService;
+import me.jcala.xmarket.server.service.inter.TradeService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TradeTagServiceImpl implements TradeTagService {
+public class TradeServiceImpl implements TradeService {
 
     private SystemGetRepository systemCrudRepository;
 
     private TradeRepository tradeRepository;
 
     @Autowired
-    public TradeTagServiceImpl(SystemGetRepository systemCrudRepository, TradeRepository tradeRepository) {
+    public TradeServiceImpl(SystemGetRepository systemCrudRepository, TradeRepository tradeRepository) {
         this.systemCrudRepository = systemCrudRepository;
         this.tradeRepository = tradeRepository;
     }
@@ -71,6 +70,20 @@ public class TradeTagServiceImpl implements TradeTagService {
         List<Trade> trades=tradeRepository.findByTagId(sortId);
         result.setData(trades);
 
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getTradeDetailById(String tradeId) {
+        if (CustomValidator.hasEmpty(tradeId)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+       Trade trade= tradeRepository.findById(tradeId);
+       if (trade==null){
+           return RespFactory.INSTANCE().paramsError();
+       }
+        Result<Trade> result=new Result<Trade>().api(Api.SUCCESS);
+        result.setData(trade);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
