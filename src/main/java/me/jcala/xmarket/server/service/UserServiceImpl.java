@@ -6,12 +6,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.configuration.TradeType;
+import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
+import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.repository.UserRepository;
-import me.jcala.xmarket.server.service.inter.UserInfoService;
+import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
 import me.jcala.xmarket.server.utils.FileTool;
@@ -24,12 +27,13 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserInfoServiceImpl implements UserInfoService {
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
@@ -37,12 +41,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private ApplicationInfo info;
 
+    private TradeRepository tradeRepository;
+
     @Autowired
-    public UserInfoServiceImpl(UserRepository userRepository,
-                               CustomRepositoryImpl customRepository, ApplicationInfo info) {
+    public UserServiceImpl(UserRepository userRepository, CustomRepositoryImpl customRepository,
+                           ApplicationInfo info, TradeRepository tradeRepository) {
         this.userRepository = userRepository;
         this.customRepository = customRepository;
         this.info = info;
+        this.tradeRepository = tradeRepository;
     }
 
     @Override
@@ -173,4 +180,47 @@ public class UserInfoServiceImpl implements UserInfoService {
         return RespFactory.INSTANCE().ok();
     }
 
+    @Override
+    public ResponseEntity<?> getTrades(TradeType type, String userId) {
+        if (CustomValidator.hasEmpty(userId)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        User user=userRepository.findOne(userId);
+        if (user==null){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
+        }
+        Iterable<Trade> trades=new ArrayList<>();
+        switch (type){
+            case SELL:
+                if (user.getSellTrades()!=null){
+                    trades=tradeRepository.findAll(user.getSellTrades());
+                }
+                break;
+            case SOLD:
+                if (user.getSoldTrades()!=null){
+                    trades=tradeRepository.findAll(user.getSoldTrades());
+                }
+                break;
+            case BOUGHT:
+                if (user.getBoughtTrades()!=null){
+                    trades=tradeRepository.findAll(user.getBoughtTrades());
+                }
+                break;
+            case DONATE:
+                if (user.getDonateTrades()!=null){
+                    trades=tradeRepository.findAll(user.getDonateTrades());
+                }
+                break;
+            case TO_BE_CONFIRMED:
+                if (user.getToBeConfirmTrades()!=null){
+                    trades=tradeRepository.findAll(user.getToBeConfirmTrades());
+                }
+                break;
+            default:break;
+        }
+        Result<Iterable<Trade>> result=new Result<Iterable<Trade>>().api(Api.SUCCESS);
+        result.setData(trades);
+
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }

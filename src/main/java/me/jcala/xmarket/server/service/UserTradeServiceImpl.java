@@ -70,48 +70,4 @@ public class UserTradeServiceImpl implements UserTradeService {
         }
         return RespFactory.INSTANCE().paramsError();
     }
-
-    @Override
-    public ResponseEntity<?> getTrades(TradeType type, String userId) {
-        if (CustomValidator.hasEmpty(userId)){
-            return RespFactory.INSTANCE().paramsError();
-        }
-        User user=userRepository.findOne(userId);
-        if (user==null){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
-        }
-        Iterable<Trade> trades=new ArrayList<>();
-        switch (type){
-            case SELL:
-                if (user.getSellTrades()!=null){
-                    trades=tradeRepository.findAll(user.getSellTrades());
-                }
-                break;
-            case SOLD:
-                if (user.getSoldTrades()!=null){
-                    trades=tradeRepository.findAll(user.getSoldTrades());
-                }
-                break;
-            case BOUGHT:
-                if (user.getBoughtTrades()!=null){
-                    trades=tradeRepository.findAll(user.getBoughtTrades());
-                }
-                break;
-            case DONATE:
-                if (user.getDonateTrades()!=null){
-                    trades=tradeRepository.findAll(user.getDonateTrades());
-                }
-                break;
-            case TOBECONFIRM:
-                if (user.getToBeConfirmTrades()!=null){
-                    trades=tradeRepository.findAll(user.getToBeConfirmTrades());
-                }
-                break;
-            default:break;
-        }
-        Result<Iterable<Trade>> result=new Result<Iterable<Trade>>().api(Api.SUCCESS);
-        result.setData(trades);
-
-        return new ResponseEntity<>(result,HttpStatus.OK);
-    }
 }

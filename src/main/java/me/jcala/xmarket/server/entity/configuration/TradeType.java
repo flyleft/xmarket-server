@@ -5,5 +5,5 @@ public enum TradeType {
     SOLD,
     DONATE,
     BOUGHT,
-    TOBECONFIRM
+    TO_BE_CONFIRMED;
 }

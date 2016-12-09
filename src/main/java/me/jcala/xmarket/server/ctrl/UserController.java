@@ -1,29 +1,31 @@
 package me.jcala.xmarket.server.ctrl;
 
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import me.jcala.xmarket.server.entity.configuration.TradeType;
 import me.jcala.xmarket.server.entity.dto.Result;
-import me.jcala.xmarket.server.service.inter.FileService;
-import me.jcala.xmarket.server.service.inter.UserInfoService;
+import me.jcala.xmarket.server.service.inter.UserService;
+import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Api("跟用户信息有关的api")
 @RestController
 @RequestMapping("/api/v1")
-public class UserInfoController {
+public class UserController {
 
-    private UserInfoService userInfoService;
-
-    private FileService fileService;
+    private UserService userService;
 
 
     @Autowired
-    public UserInfoController(UserInfoService userInfoService, FileService fileService) {
-        this.userInfoService = userInfoService;
-        this.fileService = fileService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @ApiOperation(value = "用户登录并获取token",response = Result.class,produces = "application/json;charset=UTF-8")
@@ -34,19 +36,19 @@ public class UserInfoController {
     })
     @PostMapping(value = "/auth",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> authenticate(String username,String password){
-        return userInfoService.loginAndGetToken(username,password);
+        return userService.loginAndGetToken(username,password);
     }
 
     @ApiOperation(value = "用户注册",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = "/users/register",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> register(String username,String password){
-     return userInfoService.register(username,password);
+     return userService.register(username,password);
    }
 
     @ApiOperation(value = "设置用户学校和电话号码",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/users/{userId}/phoneSchool/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> registerNext(@PathVariable("userId") String id,String phone,String school){
-        return userInfoService.updatePhoneSchool(id,phone,school);
+        return userService.updatePhoneSchool(id,phone,school);
     }
 
 
@@ -54,13 +56,13 @@ public class UserInfoController {
     @PutMapping(value = "/users/{userId}/pass/update", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserPassword(@PathVariable("userId")String id,String oldPass,String newPass)
             throws RuntimeException{
-        return userInfoService.updatePassword(id,oldPass,newPass);
+        return userService.updatePassword(id,oldPass,newPass);
     }
     @ApiOperation(value = "修改用户头像",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = "/users/{userId}/avatar/update",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> updateUserAvatar(@PathVariable("userId")String id, HttpServletRequest request)
             throws Exception{
-      return userInfoService.updateAvatar(id,request);
+      return userService.updateAvatar(id,request);
     }
 
     @ApiOperation(value = "获取用户志愿队信息",response = Result.class,produces = "application/json;charset=UTF-8")
@@ -69,5 +71,20 @@ public class UserInfoController {
         return null;
     }
 
+    @ApiOperation(value = "获取商品列表;根据kind的值获取不同类型列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/users/{userId}/trades/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getTrades(@PathVariable("userId") String userId,int kind){
+        if (kind==0){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        switch (kind){
+            case 1:return userService.getTrades(TradeType.DONATE,userId);
+            case 2:return userService.getTrades(TradeType.SOLD,userId);
+            case 3:return userService.getTrades(TradeType.BOUGHT,userId);
+            case 4:return userService.getTrades(TradeType.SELL,userId);
+            case 5:return userService.getTrades(TradeType.TO_BE_CONFIRMED, userId);
+            default:return RespFactory.INSTANCE().paramsError();
+        }
+    }
 
 }
