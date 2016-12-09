@@ -26,7 +26,7 @@ public class TradeController {
 
 
     @ApiOperation(value = "获取指定分类下的商品",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = "tags/{tagId}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/tag/{tagId}/get",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeListByTag(@PathVariable("tagId") String tagId){
 
         return tradeService.getTradeListBySort(tagId);
