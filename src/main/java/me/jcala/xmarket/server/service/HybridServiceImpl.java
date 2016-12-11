@@ -6,14 +6,14 @@ import me.jcala.xmarket.server.admin.entity.TradeTag;
 import me.jcala.xmarket.server.admin.init.SysColName;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.document.Message;
 import me.jcala.xmarket.server.entity.document.Team;
+import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
-import me.jcala.xmarket.server.repository.CustomRepository;
-import me.jcala.xmarket.server.repository.SystemGetRepository;
-import me.jcala.xmarket.server.repository.TeamRepository;
-import me.jcala.xmarket.server.repository.TradeRepository;
+import me.jcala.xmarket.server.repository.*;
 import me.jcala.xmarket.server.service.inter.HybridService;
+import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.FileTools;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +30,21 @@ import java.util.stream.Collectors;
 public class HybridServiceImpl implements HybridService{
 
     private SystemGetRepository systemCrudRepository;
-    private TradeRepository tradeRepository;
     private TeamRepository teamRepository;
     private CustomRepository customRepository;
+    private MessageRepository messageRepository;
+    private TradeRepository tradeRepository;
     private ApplicationInfo info;
 
     @Autowired
-    public HybridServiceImpl(SystemGetRepository systemCrudRepository,
-                             TradeRepository tradeRepository, TeamRepository teamRepository,
-                             CustomRepository customRepository, ApplicationInfo info) {
+    public HybridServiceImpl(SystemGetRepository systemCrudRepository, TeamRepository teamRepository,
+                             CustomRepository customRepository, MessageRepository messageRepository,
+                             TradeRepository tradeRepository, ApplicationInfo info) {
         this.systemCrudRepository = systemCrudRepository;
-        this.tradeRepository = tradeRepository;
         this.teamRepository = teamRepository;
         this.customRepository = customRepository;
+        this.messageRepository = messageRepository;
+        this.tradeRepository = tradeRepository;
         this.info = info;
     }
 
@@ -106,6 +108,30 @@ public class HybridServiceImpl implements HybridService{
         Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
         result.setData(bean.getSchools());
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> createDeal(String fromId,String fromName,String fromAvatar,String tradeId) {
+        if (CustomValidator.hasEmpty(fromId,fromName,fromAvatar,tradeId)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+
+        Trade trade=tradeRepository.findPartsById(tradeId);
+
+        if (trade==null){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        customRepository.updateUserTrades("toBeConfirmTrades",fromId,tradeId);
+        String belongId=trade.getAuthor().getId();
+        Message message=new Message();
+        message.setTradeId(tradeId);
+        message.setTradeImg(trade.getImgUrls().get(0));
+        message.setBelongId(belongId);
+        message.setUserId(fromId);
+        message.setUsername(fromName);
+        message.setUserAvatar(fromAvatar);
+        messageRepository.save(message);
+        return RespFactory.INSTANCE().ok();
     }
 
     @Override

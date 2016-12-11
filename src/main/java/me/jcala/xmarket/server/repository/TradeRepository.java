@@ -22,4 +22,7 @@ public interface TradeRepository extends MongoRepository<Trade,String>{
 
     Trade findById(String id);
 
+    @Query(value = "{ 'id' : ?0 }", fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    Trade findPartsById(String id);
+
 }

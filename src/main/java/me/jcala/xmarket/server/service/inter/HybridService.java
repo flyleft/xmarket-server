@@ -19,6 +19,6 @@ public interface HybridService {
     ResponseEntity<byte[]> gainPic(String dir, String picName);
 
     //-----------------------------------交易相关---------------------------------
-    ResponseEntity<?> createDeal();//发起交易
+    ResponseEntity<?> createDeal(String fromId,String fromName,String fromAvatar,String tradeId);//发起交易
 
 }
