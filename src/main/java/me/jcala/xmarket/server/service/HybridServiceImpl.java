@@ -14,7 +14,7 @@ import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.repository.*;
 import me.jcala.xmarket.server.service.inter.HybridService;
 import me.jcala.xmarket.server.utils.CustomValidator;
-import me.jcala.xmarket.server.utils.FileTools;
+import me.jcala.xmarket.server.utils.FileTool;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -139,7 +139,7 @@ public class HybridServiceImpl implements HybridService{
         File file=new File(info.getPicHome()+File.separatorChar+dir+File.separatorChar+picName);
         byte[] bytes;
         try {
-            bytes= FileTools.readFileToByteArray(file);
+            bytes= FileTool.readFileToByteArray(file);
         } catch (Exception e) {
             log.warn(e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
