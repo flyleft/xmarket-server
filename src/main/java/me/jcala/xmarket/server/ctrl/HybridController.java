@@ -70,13 +70,10 @@ public class HybridController {
     }
 
     @ApiOperation(value = "创建交易",response = Result.class,produces = "application/json;charset=UTF-8")
-    @GetMapping(value = ApiConf.create_deal,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = ApiConf.create_deal,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> createDeal(@RequestParam String fromId,@RequestParam String fromName,
                                         @RequestParam String fromAvatar,@RequestParam String tradeId){
-        // TODO: 16-12-09  没有实现发起交易
-
-
-        return null;
+        return hybridService.createDeal(fromId,fromName,fromAvatar,tradeId);
     }
 
 }

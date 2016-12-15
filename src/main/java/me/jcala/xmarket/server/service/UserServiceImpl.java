@@ -7,11 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
+import me.jcala.xmarket.server.entity.document.Message;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
+import me.jcala.xmarket.server.entity.dto.MsgDto;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
+import me.jcala.xmarket.server.repository.MessageRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.repository.UserRepository;
 import me.jcala.xmarket.server.service.inter.UserService;
@@ -19,6 +22,8 @@ import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
 import me.jcala.xmarket.server.utils.FileTool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -39,17 +44,21 @@ public class UserServiceImpl implements UserService {
 
     private CustomRepositoryImpl customRepository;
 
-    private ApplicationInfo info;
+    private MessageRepository messageRepository;
 
     private TradeRepository tradeRepository;
 
+    private ApplicationInfo info;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository, CustomRepositoryImpl customRepository,
-                           ApplicationInfo info, TradeRepository tradeRepository) {
+                           MessageRepository messageRepository, TradeRepository tradeRepository,
+                           ApplicationInfo info) {
         this.userRepository = userRepository;
         this.customRepository = customRepository;
-        this.info = info;
+        this.messageRepository = messageRepository;
         this.tradeRepository = tradeRepository;
+        this.info = info;
     }
 
     @Override
@@ -225,8 +234,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getMessages(String userId, int msgNum) {
-
-        return null;
+    public ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page) {
+        int num=(int) messageRepository.count();
+        Result<MsgDto> result=new Result<MsgDto>().api(Api.SUCCESS);
+        MsgDto dto=new MsgDto();
+        dto.setAllNum(num);
+        if (msgNum >= num){
+            result.setData(dto);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }
+        Page<Message> messagePage= messageRepository.findAll(page);
+        dto.setMsgs(messagePage.getContent());
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

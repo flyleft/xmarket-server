@@ -20,5 +20,4 @@ public interface HybridService {
 
     //-----------------------------------交易相关---------------------------------
     ResponseEntity<?> createDeal(String fromId,String fromName,String fromAvatar,String tradeId);//发起交易
-
 }

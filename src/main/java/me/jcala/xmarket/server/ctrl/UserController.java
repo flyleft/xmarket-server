@@ -10,6 +10,7 @@ import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,9 +91,8 @@ public class UserController {
 
     @ApiOperation(value = "获取消息列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_user_messages,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getMessages(@PathVariable("userId") String userId,@RequestParam int msgNum){
-        // TODO: 16-12-15  没有实现获取用户消息的代码
-        return userService.getMessages(userId,msgNum);
+    public ResponseEntity<?> getMessages(@PathVariable("userId") String userId, @RequestParam int msgNum, Pageable page){
+        return userService.getMessages(userId,msgNum,page);
     }
 
 }

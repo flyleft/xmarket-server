@@ -2,10 +2,10 @@ package me.jcala.xmarket.server.service.inter;
 
 
 import me.jcala.xmarket.server.entity.configuration.TradeType;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
-
 public interface UserService {
 
 
@@ -21,6 +21,6 @@ public interface UserService {
 
     ResponseEntity<?> getTrades(TradeType type, String userId);//获取用户在售，已卖，已买，捐赠，待确认的商品列表
 
-    ResponseEntity<?> getMessages(String userId,int msgNum);
+    ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page);
 
 }
