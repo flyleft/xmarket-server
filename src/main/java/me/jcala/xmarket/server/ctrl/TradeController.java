@@ -29,9 +29,8 @@ public class TradeController {
 
     @ApiOperation(value = "获取指定分类下的商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_tag_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTradeListByTag(@PathVariable("tagId") String tagId){
-        // TODO: 16-12-10  没有将tagId修正为tagName
-        return tradeService.getTradeListBySort(tagId);
+    public ResponseEntity<?> gainTradeListByTag(@PathVariable("tagName") String tagName){
+        return tradeService.getTradeListByTagName(tagName);
     }
 
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")

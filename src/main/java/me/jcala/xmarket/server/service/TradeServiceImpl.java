@@ -40,13 +40,13 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public ResponseEntity<?> getTradeListBySort(String sortId) {
-        if (CustomValidator.hasEmpty(sortId)){
+    public ResponseEntity<?> getTradeListByTagName(String tagName) {
+        if (CustomValidator.hasEmpty(tagName)){
             return RespFactory.INSTANCE().paramsError();
         }
 
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
-        List<Trade> trades=tradeRepository.findByTagId(sortId);
+        List<Trade> trades=tradeRepository.findByTagName(tagName);
         result.setData(trades);
 
         return new ResponseEntity<>(result,HttpStatus.OK);
