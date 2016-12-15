@@ -53,8 +53,7 @@ public class HybridController {
             @ApiResponse(code=404,message="没有找到该图片")
     })
     @GetMapping(value = ApiConf.get_img,produces = "image/jpeg;image/png;image/gif")
-    public ResponseEntity<byte[]> gainImg(@PathVariable("dir")String dir, @PathVariable("picName") String picName)
-            throws RuntimeException {
+    public ResponseEntity<byte[]> gainImg(@PathVariable("dir")String dir, @PathVariable("picName") String picName) {
         return hybridService.gainPic(dir,picName);
     }
 
