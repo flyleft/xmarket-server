@@ -43,8 +43,7 @@ public class TradeController {
     @ApiOperation(value = "通过id获取商品的详细信息",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeDetailById(@PathVariable("tradeId") String tradeId){
-       // TODO: 16-12-10  没有实现商品详细信息的获取
-        return null;
+        return tradeService.getTradeDetailById(tradeId);
     }
 
 
