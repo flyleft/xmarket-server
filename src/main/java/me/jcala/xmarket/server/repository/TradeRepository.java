@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface TradeRepository extends MongoRepository<Trade,String>{
 
 
-    @Query(value = "{ 'schoolName' : ?0 }")
     List<Trade> findBySchoolName(String schoolName);
 
 

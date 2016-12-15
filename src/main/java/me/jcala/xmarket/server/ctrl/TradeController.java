@@ -37,7 +37,6 @@ public class TradeController {
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_school_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName,Pageable page){
-        log.info("学校名称:"+schoolName+" page:"+page.toString());
         return tradeService.getTradeListBySchoolName(schoolName,page);
     }
 
@@ -51,7 +50,7 @@ public class TradeController {
 
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = ApiConf.create_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> create(@RequestParam String userId,@RequestParam String trade,@RequestParam HttpServletRequest request){
+    public ResponseEntity<?> create(@PathVariable("userId") String userId,@RequestParam String trade,HttpServletRequest request){
         return tradeService.createTrade(userId,trade,request);
     }
 
