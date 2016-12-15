@@ -223,4 +223,10 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<?> getMessages(String userId, int msgNum) {
+
+        return null;
+    }
 }

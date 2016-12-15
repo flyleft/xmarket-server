@@ -88,4 +88,11 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "获取消息列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = ApiConf.get_user_messages,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getMessages(@PathVariable("userId") String userId,@RequestParam int msgNum){
+
+        return userService.getMessages(userId,msgNum);
+    }
+
 }
