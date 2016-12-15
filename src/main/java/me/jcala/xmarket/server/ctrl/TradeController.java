@@ -2,6 +2,7 @@ package me.jcala.xmarket.server.ctrl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.conf.ApiConf;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.TradeService;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Api("跟学校有关的api")
 @RestController
+@Slf4j
 public class TradeController {
 
     private TradeService tradeService;
@@ -35,6 +37,7 @@ public class TradeController {
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_school_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName,Pageable page){
+        log.info("学校名称:"+schoolName+" page:"+page.toString());
         return tradeService.getTradeListBySchoolName(schoolName,page);
     }
 
