@@ -3,7 +3,7 @@ package me.jcala.xmarket.server.admin.ctrl;
 import io.swagger.annotations.Api;
 import me.jcala.xmarket.server.admin.entity.TradeTag;
 import me.jcala.xmarket.server.admin.service.inter.AuthorityService;
-import me.jcala.xmarket.server.admin.service.inter.TradeService;
+import me.jcala.xmarket.server.admin.service.inter.AdminTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,19 +20,19 @@ public class AdminController {
 
     private AuthorityService systemService;
 
-    private TradeService tradeService;
+    private AdminTradeService adminTradeService;
 
 
     @Autowired
-    public AdminController(AuthorityService systemService, TradeService tradeService) {
+    public AdminController(AuthorityService systemService, AdminTradeService adminTradeService) {
         this.systemService = systemService;
-        this.tradeService = tradeService;
+        this.adminTradeService = adminTradeService;
     }
 
     @GetMapping(value = "/tags/add/update")
     ResponseEntity<?> addTag(TradeTag tag){
 
-        return tradeService.addTradeTag(tag);
+        return adminTradeService.addTradeTag(tag);
     }
 
 

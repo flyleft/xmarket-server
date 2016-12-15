@@ -11,10 +11,7 @@ import me.jcala.xmarket.server.service.inter.HybridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 与学校相关的控制器
@@ -63,7 +60,7 @@ public class HybridController {
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTradeTagList(int kind){
+    public ResponseEntity<?> gainTradeTagList(@RequestParam int kind){
 
         if (kind==1){
             return hybridService.getTradeTagList();//kind为1返回TradeTag列表
@@ -72,15 +69,11 @@ public class HybridController {
         }
 
     }
-    /*
-     @Field("fromId") String fromId,
-            @Field("fromName") String fromName,
-            @Field("fromAvatar") String fromAvatar,
-     */
 
     @ApiOperation(value = "创建交易",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.create_deal,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> createDeal(String fromId,String fromName,String fromAvatar,String tradeId){
+    public ResponseEntity<?> createDeal(@RequestParam String fromId,@RequestParam String fromName,
+                                        @RequestParam String fromAvatar,@RequestParam String tradeId){
         // TODO: 16-12-09  没有实现发起交易
 
 

@@ -6,6 +6,7 @@ import me.jcala.xmarket.server.conf.ApiConf;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +34,8 @@ public class TradeController {
 
     @ApiOperation(value = "获取学校商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_school_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName){
-
-        return tradeService.getTradeListBySchoolName(schoolName);
+    public ResponseEntity<?> gainSchoolTradeList(@PathVariable("schoolName") String schoolName,Pageable page){
+        return tradeService.getTradeListBySchoolName(schoolName,page);
     }
 
     @ApiOperation(value = "通过id获取商品的详细信息",response = Result.class,produces = "application/json;charset=UTF-8")
@@ -48,7 +48,7 @@ public class TradeController {
 
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = ApiConf.create_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> create(String userId, String trade, HttpServletRequest request){
+    public ResponseEntity<?> create(@RequestParam String userId,@RequestParam String trade,@RequestParam HttpServletRequest request){
         return tradeService.createTrade(userId,trade,request);
     }
 

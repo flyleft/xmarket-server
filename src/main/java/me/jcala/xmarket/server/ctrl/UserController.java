@@ -35,26 +35,26 @@ public class UserController {
             @ApiResponse(code=400,message="请求参数不合法")
     })
     @PostMapping(value = ApiConf.auth,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> authenticate(String username,String password){
+    public ResponseEntity<?> authenticate(@RequestParam String username,@RequestParam String password){
         return userService.loginAndGetToken(username,password);
     }
 
     @ApiOperation(value = "用户注册",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = ApiConf.register,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> register(String username,String password){
+    public ResponseEntity<?> register(@RequestParam String username,@RequestParam String password){
      return userService.register(username,password);
    }
 
     @ApiOperation(value = "设置用户学校和电话号码",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = ApiConf.register_next,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> registerNext(@PathVariable("userId") String id,String phone,String school){
+    public ResponseEntity<?> registerNext(@PathVariable("userId") String id,@RequestParam String phone,@RequestParam String school){
         return userService.updatePhoneSchool(id,phone,school);
     }
 
 
     @ApiOperation(value = "修改用户密码",response = Result.class,produces = "application/json;charset=UTF-8")
     @PutMapping(value = ApiConf.update_user_pass, produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUserPassword(@PathVariable("userId")String id,String oldPass,String newPass)
+    public ResponseEntity<?> updateUserPassword(@PathVariable("userId")String id,@RequestParam String oldPass,@RequestParam String newPass)
             throws RuntimeException{
         return userService.updatePassword(id,oldPass,newPass);
     }
@@ -74,7 +74,7 @@ public class UserController {
 
     @ApiOperation(value = "获取商品列表;根据kind的值获取不同类型列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_user_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getTrades(@PathVariable("userId") String userId,int kind){
+    public ResponseEntity<?> getTrades(@PathVariable("userId") String userId,@RequestParam int kind){
         if (kind==0){
             return RespFactory.INSTANCE().paramsError();
         }

@@ -13,6 +13,7 @@ import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.FileTool;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -66,7 +67,7 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public ResponseEntity<?> getTradeListBySchoolName(String schoolName) {
+    public ResponseEntity<?> getTradeListBySchoolName(String schoolName, Pageable page) {
         if (CustomValidator.hasEmpty(schoolName)){
             return RespFactory.INSTANCE().paramsError();
         }
