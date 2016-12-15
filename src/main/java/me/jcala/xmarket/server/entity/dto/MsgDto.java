@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.entity.dto;
 
-import lombok.Setter;
+import lombok.Data;
 import me.jcala.xmarket.server.entity.document.Message;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 仅用消息传输
  * 对应Result的Data值
  */
-@Setter
+@Data
 public class MsgDto {
     /**
      * 用户所有消息的总量。

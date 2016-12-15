@@ -245,6 +245,7 @@ public class UserServiceImpl implements UserService {
         }
         Page<Message> messagePage= messageRepository.findAll(page);
         dto.setMsgs(messagePage.getContent());
+        result.setData(dto);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
