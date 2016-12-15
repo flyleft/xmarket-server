@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface TradeService {
 
-    ResponseEntity<?> getTradeListByTagName(String tagName);//根据分类id获取该分类下的商品列表
+    ResponseEntity<?> getTradeListByTagName(String tagName, Pageable page);//根据分类id获取该分类下的商品列表
 
     ResponseEntity<?> getTradeDetailById(String tradeId);//通过Id获取该商品所有信息
 

@@ -40,7 +40,7 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public ResponseEntity<?> getTradeListByTagName(String tagName) {
+    public ResponseEntity<?> getTradeListByTagName(String tagName, Pageable page) {
         if (CustomValidator.hasEmpty(tagName)){
             return RespFactory.INSTANCE().paramsError();
         }
