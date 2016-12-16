@@ -130,6 +130,7 @@ public class HybridServiceImpl implements HybridService{
         message.setTradeImg(trade.getImgUrls().get(0));
         message.setBelongId(belongId);
         message.setUserId(fromId);
+        message.setKind(1);
         message.setUsername(fromName);
         message.setUserAvatar(fromAvatar);
         messageRepository.save(message);

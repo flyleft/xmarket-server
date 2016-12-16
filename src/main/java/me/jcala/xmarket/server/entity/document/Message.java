@@ -25,6 +25,6 @@ public class Message {
     private String userPhone;//交易对方用户的手机号。如果kind为0则手机号可见；如果kind为1则手机号不可见，设置默认值""
     private String tradeId;//商品id
     private String tradeImg;//商品的封面
-    @Transient private int kind;//kind表示信息类型。0表示买到商品的消息；1表示收到购买请求的消息
+    @Transient private int kind;//kind表示信息类型。0表示买到商品的消息;1表示收到购买请求的消息;2表示已完成
 
 }
