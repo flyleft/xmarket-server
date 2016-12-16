@@ -243,7 +243,7 @@ public class UserServiceImpl implements UserService {
             result.setData(dto);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
-        Page<Message> messagePage= messageRepository.findAll(page);
+        Page<Message> messagePage= messageRepository.findByBelongId(userId,page);
         dto.setMsgs(messagePage.getContent());
         result.setData(dto);
         return new ResponseEntity<>(result,HttpStatus.OK);
