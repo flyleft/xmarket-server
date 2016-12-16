@@ -47,7 +47,7 @@ public class FileTool {
         File targetFile = new File(picHome+File.separatorChar + yearMonth + File.separatorChar + fileName);
         //保存图片
         multipartFile.transferTo(targetFile);
-        return getServerRoot(request) + RestConfig.picUrlPath + yearMonth + "/" + fileName;
+        return RestConfig.picUrlPath + yearMonth + "/" + fileName;
     }
 
     public static List<String> uploadMultiFiles(String picHome,HttpServletRequest request) throws IOException{
@@ -63,7 +63,7 @@ public class FileTool {
 
         File path = new File(picDir);
 
-        String imgUrl=getServerRoot(request)+ RestConfig.picUrlPath + yearMonth + "/";
+        String imgUrl=RestConfig.picUrlPath + yearMonth + "/";
 
         if (!path.exists()) {
             path.mkdirs();
@@ -83,7 +83,7 @@ public class FileTool {
     /**
      * 获取web服务器访问url根路径
      */
-    private static String getServerRoot(HttpServletRequest request){
+    /*private static String getServerRoot(HttpServletRequest request){
         String serverRoot = "";
         try {
             serverRoot=new URL(request.getScheme(), request.getServerName(), request.getServerPort(),
@@ -92,7 +92,7 @@ public class FileTool {
             log.warn(e.getLocalizedMessage());
         }
         return serverRoot;
-    }
+    }*/
     /**
      * 获取文件后缀
      */
