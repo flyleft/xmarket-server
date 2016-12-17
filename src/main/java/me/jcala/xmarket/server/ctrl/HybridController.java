@@ -5,13 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import me.jcala.xmarket.server.conf.ApiConf;
-import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.HybridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 与学校相关的控制器
@@ -29,9 +30,8 @@ public class HybridController {
 
     @ApiOperation(value = "创建一个新的志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = ApiConf.create_team,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> createTeam(Team team){
-        // TODO: 16-12-10  没有设置userId
-        return hybridService.createTeam(team);
+    public ResponseEntity<?> createTeam(@RequestParam String team,HttpServletRequest request){
+        return hybridService.createTeam(team,request);
     }
 
     @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")

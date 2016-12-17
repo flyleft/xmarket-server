@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.admin.entity.SystemBean;
 import me.jcala.xmarket.server.admin.entity.TradeTag;
@@ -23,7 +24,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,15 +88,26 @@ public class HybridServiceImpl implements HybridService{
     }
 
     @Override
-    public ResponseEntity<?> createTeam(Team team) {
-        if (team==null){
+    public ResponseEntity<?> createTeam(String teamStr, HttpServletRequest request) {
+        if (CustomValidator.hasEmpty(teamStr)){
             return RespFactory.INSTANCE().paramsError();
         }
-        Team teamData=teamRepository.save(team);
-        if (teamData==null){
-            throw new RuntimeException("添加Team数据时发生了异常!");
+        Team team=null;
+        try {
+            ObjectMapper mapper=new ObjectMapper();
+            Team teamBean=mapper.readValue(teamStr,Team.class);
+            List<String> imgUrls= FileTool.uploadMultiFiles(ApplicationInfo.getPicHome(),request);
+            teamBean.setStatus(false);
+            teamBean.setImg(imgUrls.get(0));
+            teamBean.setIdImg(imgUrls.get(1));
+            team=teamRepository.save(teamBean);
+        } catch (IOException e) {
+            log.info("发起志愿队时序列化或者图片存储出错:"+e.getMessage());
         }
-        customRepository.updateUserTeams(team.getSponsor().getId(),teamData.getId());
+        if (team==null){
+            return RespFactory.INSTANCE().serverError();
+        }
+        customRepository.updateUserTeams(team.getAuthorId(),team.getId());
 
         return RespFactory.INSTANCE().ok();
     }

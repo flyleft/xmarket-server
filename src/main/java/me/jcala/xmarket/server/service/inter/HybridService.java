@@ -1,7 +1,8 @@
 package me.jcala.xmarket.server.service.inter;
 
-import me.jcala.xmarket.server.entity.document.Team;
 import org.springframework.http.ResponseEntity;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface HybridService {
     //----------------------------------分类相关--------------------------------
@@ -10,7 +11,7 @@ public interface HybridService {
 
     //----------------------------------志愿队相关-------------------------------
     ResponseEntity<?> getTeamListBySchoolName(String schoolName);//获取志愿队列表
-    ResponseEntity<?> createTeam(Team team);//添加志愿队
+    ResponseEntity<?> createTeam(String team, HttpServletRequest request);//添加志愿队
 
     //-----------------------------------学校相关--------------------------------
     ResponseEntity<?> getSchoolList();//获取学校列表

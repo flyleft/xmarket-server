@@ -20,4 +20,7 @@ public class Team {
     private List<String> trades;
     private String schoolName;
     private String authorId;
+    private String img;
+    private String idImg;
+    private boolean status;
 }
