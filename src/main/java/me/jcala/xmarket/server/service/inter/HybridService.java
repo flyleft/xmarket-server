@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.service.inter;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ public interface HybridService {
     ResponseEntity<?> getTradeTagNameList();//获取商品分类名字列表(List<String>)
 
     //----------------------------------志愿队相关-------------------------------
-    ResponseEntity<?> getTeamListBySchoolName(String schoolName);//获取志愿队列表
+    ResponseEntity<?> getTeamListBySchoolName(String schoolName,Pageable page);//获取志愿队列表
     ResponseEntity<?> createTeam(String team, HttpServletRequest request);//添加志愿队
 
     //-----------------------------------学校相关--------------------------------

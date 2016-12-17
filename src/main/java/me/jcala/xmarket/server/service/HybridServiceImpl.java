@@ -18,6 +18,8 @@ import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.FileTool;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -80,10 +82,10 @@ public class HybridServiceImpl implements HybridService{
     }
 
     @Override
-    public ResponseEntity<?> getTeamListBySchoolName(String schoolName) {
-        List<Team> teamList=teamRepository.findAllBySchoolName(schoolName);
+    public ResponseEntity<?> getTeamListBySchoolName(String schoolName,Pageable page) {
+        Page<Team> teamList=teamRepository.findAllBySchoolAndStatus(schoolName,true,page);
         Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
-        result.setData(teamList);
+        result.setData(teamList.getContent());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

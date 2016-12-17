@@ -8,6 +8,7 @@ import me.jcala.xmarket.server.conf.ApiConf;
 import me.jcala.xmarket.server.entity.dto.Result;
 import me.jcala.xmarket.server.service.inter.HybridService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +37,8 @@ public class HybridController {
 
     @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_school_teams,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTeamList(@PathVariable("schoolName") String schoolName){
-
-        return hybridService.getTeamListBySchoolName(schoolName);
+    public ResponseEntity<?> gainTeamList(@PathVariable("schoolName") String schoolName, Pageable page){
+        return hybridService.getTeamListBySchoolName(schoolName,page);
     }
 
 
