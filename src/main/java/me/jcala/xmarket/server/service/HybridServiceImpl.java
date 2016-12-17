@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -83,6 +84,9 @@ public class HybridServiceImpl implements HybridService{
 
     @Override
     public ResponseEntity<?> getTeamListBySchoolName(String schoolName,Pageable page) {
+        if (CustomValidator.hasEmpty(schoolName)){
+            return RespFactory.INSTANCE().paramsError();
+        }
         Page<Team> teamList=teamRepository.findAllBySchoolAndStatus(schoolName,true,page);
         Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
         result.setData(teamList.getContent());
