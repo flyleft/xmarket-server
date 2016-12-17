@@ -48,17 +48,13 @@ public class UserServiceImpl implements UserService {
 
     private TradeRepository tradeRepository;
 
-    private ApplicationInfo info;
-
     @Autowired
     public UserServiceImpl(UserRepository userRepository, CustomRepositoryImpl customRepository,
-                           MessageRepository messageRepository, TradeRepository tradeRepository,
-                           ApplicationInfo info) {
+                           MessageRepository messageRepository, TradeRepository tradeRepository) {
         this.userRepository = userRepository;
         this.customRepository = customRepository;
         this.messageRepository = messageRepository;
         this.tradeRepository = tradeRepository;
-        this.info = info;
     }
 
     @Override
@@ -74,7 +70,7 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.OK);
         }else {
             User userData=user.get();
-            String token=createJWT("xmarket","jcala",userData.getId(),info.getJwtLife());
+            String token=createJWT("xmarket","jcala",userData.getId(),ApplicationInfo.getJwtLife());
             Result<User> result=new Result<>();
             result.api(Api.SUCCESS);
             userData.setToken(token);
@@ -97,7 +93,7 @@ public class UserServiceImpl implements UserService {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(info.getJwtKey());
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(ApplicationInfo.getJwtKey());
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder builder = Jwts.builder().setId(id)
@@ -153,7 +149,7 @@ public class UserServiceImpl implements UserService {
         }
         customRepository.updateUserPhoneSchool(id,phone,school);
         Result<User> userResult=new Result<User>().api(Api.SUCCESS);
-        String token=createJWT("xmarket","jcala",user.getId(),info.getJwtLife());
+        String token=createJWT("xmarket","jcala",user.getId(),ApplicationInfo.getJwtLife());
         user.setToken(token);
         user.setSchool(school);
         user.setPhone(phone);
@@ -184,7 +180,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.countById(id)<1){
             return RespFactory.INSTANCE().notFoundError();
         }
-        String url= FileTool.uploadFile(info.getPicHome(),request);
+        String url= FileTool.uploadFile(ApplicationInfo.getPicHome(),request);
         customRepository.updateUserAvatar(id,url);
         return RespFactory.INSTANCE().ok();
     }

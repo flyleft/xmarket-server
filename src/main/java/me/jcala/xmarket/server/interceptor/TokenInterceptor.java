@@ -19,12 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class TokenInterceptor implements HandlerInterceptor {
 
-    private ApplicationInfo info;
-
-    @Autowired
-    public TokenInterceptor(ApplicationInfo info) {
-        this.info = info;
-    }
 
     public TokenInterceptor() {
         super();
@@ -39,7 +33,7 @@ public class TokenInterceptor implements HandlerInterceptor {
              return false;
          }
 
-         TokenVerifyResult result=CustomValidator.JwtVerify(info.getJwtKey(),jwt);
+         TokenVerifyResult result=CustomValidator.JwtVerify(ApplicationInfo.getJwtKey(),jwt);
          if (result==TokenVerifyResult.success){
              return true;
          }else if (result==TokenVerifyResult.expired){

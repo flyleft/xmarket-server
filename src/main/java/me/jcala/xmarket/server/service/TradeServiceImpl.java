@@ -29,14 +29,12 @@ public class TradeServiceImpl implements TradeService {
 
     private TradeRepository tradeRepository;
     private CustomRepository customRepository;
-    private ApplicationInfo info;
 
     @Autowired
     public TradeServiceImpl(TradeRepository tradeRepository,
-                            CustomRepository customRepository, ApplicationInfo info) {
+                            CustomRepository customRepository) {
         this.tradeRepository = tradeRepository;
         this.customRepository = customRepository;
-        this.info = info;
     }
 
     @Override
@@ -88,7 +86,7 @@ public class TradeServiceImpl implements TradeService {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Trade tradeBean = mapper.readValue(trade, Trade.class);
-            List<String> imgUrls= FileTool.uploadMultiFiles(info.getPicHome(),request);
+            List<String> imgUrls= FileTool.uploadMultiFiles(ApplicationInfo.getPicHome(),request);
             if (imgUrls.size() < 1){
                 return RespFactory.INSTANCE().paramsError();
             }

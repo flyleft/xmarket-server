@@ -41,6 +41,9 @@ public class RestConfig extends WebMvcConfigurerAdapter {
     @Value("${xmarket.pic_home}")
     private String picHome;
 
+    @Value("${xmarket.address")
+    private String address;
+
     @Value("${xmarket.jwt.key}")
     private String jwtKey;
 
@@ -115,21 +118,20 @@ public class RestConfig extends WebMvcConfigurerAdapter {
         validatorFactoryBean.setProviderClass(HibernateValidator.class);
         return validatorFactoryBean;
     }*/
-
-   @Bean
-   public ApplicationInfo applicationInfo(){
-       long life= 3600000;
-       try {
-           life = Long.parseLong(jwtLife);
-       } catch (Exception e) {
-           log.error("jwt life必须为数字!系统将采用默认值3600000毫秒");
-       }
-
-       return ApplicationInfo.builder()
-                             .picHome(picHome)
-                             .jwtKey(jwtKey)
-                             .jwtLife(life)
-                             .build();
-   }
+    @Bean
+    public boolean applicationInfoInit(){
+        log.info("初始化访问地址，jwt，图片位置等系统变量");
+        long life= 3600000;
+        try {
+            life = Long.parseLong(jwtLife);
+        } catch (Exception e) {
+            log.error("jwt life必须为数字!系统将采用默认值3600000毫秒");
+        }
+        ApplicationInfo.setAddress(address);
+        ApplicationInfo.setPicHome(picHome);
+        ApplicationInfo.setJwtKey(jwtKey);
+        ApplicationInfo.setJwtLife(life);
+        return true;
+    }
 
 }

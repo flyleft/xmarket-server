@@ -21,10 +21,12 @@ public class InitServiceImpl implements InitService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InitService.class);
     private SystemCrudRepository systemCrudRepository;
+    private boolean applicationInfoInit;
 
     @Autowired
-    public InitServiceImpl(SystemCrudRepository systemCrudRepository) {
+    public InitServiceImpl(SystemCrudRepository systemCrudRepository, boolean applicationInfoInit) {
         this.systemCrudRepository = systemCrudRepository;
+        this.applicationInfoInit = applicationInfoInit;
     }
 
     @PostConstruct

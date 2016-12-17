@@ -36,18 +36,16 @@ public class HybridServiceImpl implements HybridService{
     private CustomRepository customRepository;
     private MessageRepository messageRepository;
     private TradeRepository tradeRepository;
-    private ApplicationInfo info;
 
     @Autowired
     public HybridServiceImpl(SystemGetRepository systemCrudRepository, TeamRepository teamRepository,
                              CustomRepository customRepository, MessageRepository messageRepository,
-                             TradeRepository tradeRepository, ApplicationInfo info) {
+                             TradeRepository tradeRepository) {
         this.systemCrudRepository = systemCrudRepository;
         this.teamRepository = teamRepository;
         this.customRepository = customRepository;
         this.messageRepository = messageRepository;
         this.tradeRepository = tradeRepository;
-        this.info = info;
     }
 
     @Override
@@ -139,7 +137,7 @@ public class HybridServiceImpl implements HybridService{
 
     @Override
     public ResponseEntity<byte[]> gainPic(String dir, String picName) {
-        File file=new File(info.getPicHome()+File.separatorChar+dir+File.separatorChar+picName);
+        File file=new File(ApplicationInfo.getPicHome()+File.separatorChar+dir+File.separatorChar+picName);
         byte[] bytes;
         try {
             bytes= FileTool.readFileToByteArray(file);
