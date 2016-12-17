@@ -48,8 +48,8 @@ public class TradeController {
 
     @ApiOperation(value = "发布商品",response = Result.class,produces = "application/json;charset=UTF-8")
     @PostMapping(value = ApiConf.create_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> create(@PathVariable("userId") String userId,@RequestParam String trade,HttpServletRequest request){
-        return tradeService.createTrade(userId,trade,request);
+    public ResponseEntity<?> create(@RequestParam String trade,HttpServletRequest request){
+        return tradeService.createTrade(trade,request);
     }
 
 

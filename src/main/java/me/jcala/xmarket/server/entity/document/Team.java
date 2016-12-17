@@ -17,7 +17,7 @@ public class Team {
     private String id;
     private String name;
     private String description;
-    private User sponsor;
     private List<String> trades;
     private String schoolName;
+    private String authorId;
 }

@@ -78,8 +78,8 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public ResponseEntity<?> createTrade(String userId, String trade, HttpServletRequest request) {
-        if (CustomValidator.hasEmpty(userId,trade)){
+    public ResponseEntity<?> createTrade(String trade, HttpServletRequest request) {
+        if (CustomValidator.hasEmpty(trade)){
             return RespFactory.INSTANCE().paramsError();
         }
         Trade tradeData=null;
@@ -96,7 +96,7 @@ public class TradeServiceImpl implements TradeService {
             log.info("发布商品序列化或者图片存储出错:"+e.getMessage());
         }
         if (tradeData!=null){
-            customRepository.updateUserTrades("sell_trades",userId,tradeData.getId());
+            customRepository.updateUserTrades("sell_trades",tradeData.getAuthor().getId(),tradeData.getId());
             return RespFactory.INSTANCE().ok();
         }
         return RespFactory.INSTANCE().paramsError();
