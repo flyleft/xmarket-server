@@ -18,6 +18,8 @@ public class Message {
 
     @Id
     private String id;
+    @Transient
+    private String reqMsgId;
     private String belongId;//消息所属者的id
     private String userId;//交易对方用户的id
     private String username;//交易对方用户的用户名

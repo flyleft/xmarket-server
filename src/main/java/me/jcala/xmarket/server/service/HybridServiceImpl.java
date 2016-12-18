@@ -140,7 +140,7 @@ public class HybridServiceImpl implements HybridService{
         if (trade==null){
             return RespFactory.INSTANCE().paramsError();
         }
-        customRepository.updateUserTrades("toBeConfirmTrades",fromId,tradeId);
+        customRepository.addToUserTrades("toBeConfirmTrades",fromId,tradeId);
         String belongId=trade.getAuthor().getId();
         Message message=new Message();
         message.setTradeId(tradeId);
@@ -168,5 +168,29 @@ public class HybridServiceImpl implements HybridService{
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", picName);
         return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> confirmDeal(Message message) {
+
+        if (!CustomValidator.checkConfirmMessage(message)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+
+        String reqMsgId=message.getReqMsgId();
+        Message reqMsg=messageRepository.findOne(reqMsgId);
+        if (reqMsg==null){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        reqMsg.setKind(2);
+        String tradeId=message.getTradeId();
+        customRepository.deleteFromUserTrades("sellTrades",message.getUserId(),tradeId);
+        customRepository.addToUserTrades("soldTrades",message.getUserId(),tradeId);
+        customRepository.deleteFromUserTrades("toBeConfirmTrades",message.getBelongId(),tradeId);
+        customRepository.addToUserTrades("boughtTrades",message.getBelongId(),tradeId);
+        customRepository.updateTradeStatus(tradeId,1);
+        messageRepository.save(reqMsg);
+        messageRepository.save(message);
+        return RespFactory.INSTANCE().ok();
     }
 }

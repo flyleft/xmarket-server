@@ -1,6 +1,5 @@
 package me.jcala.xmarket.server;
 
-import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

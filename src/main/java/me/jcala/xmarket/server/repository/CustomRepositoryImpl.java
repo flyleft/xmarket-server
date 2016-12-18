@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.repository;
 
+import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -39,14 +40,26 @@ public class CustomRepositoryImpl implements CustomRepository{
     }
 
     @Override
-    public void updateUserTrades(String which_col,String userId, String trade_id) {
+    public void addToUserTrades(String which_col, String userId, String trade_id) {
         template.updateFirst(new Query(where("_id").is(userId)),
                 new Update().push(which_col,trade_id), User.class);
+    }
+
+    @Override
+    public void deleteFromUserTrades(String whichCol, String userId, String tradeId) {
+        template.updateFirst(new Query(where("_id").is(userId)),
+                new Update().pull(whichCol,tradeId), User.class);
     }
 
     @Override
     public void updateUserTeams(String userId, String teamId) {
         template.updateFirst(new Query(where("_id").is(userId)),
                 new Update().push("teams",teamId), User.class);
+    }
+
+    @Override
+    public void updateTradeStatus(String tradeId, int status) {
+        template.updateFirst(new Query(where("_id").is(tradeId)),
+                new Update().set("status",status), Trade.class);
     }
 }

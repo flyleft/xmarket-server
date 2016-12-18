@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import me.jcala.xmarket.server.conf.ApiConf;
+import me.jcala.xmarket.server.entity.document.Message;
 import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.service.inter.HybridService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,12 @@ public class HybridController {
     public ResponseEntity<?> createDeal(@RequestParam String fromId,@RequestParam String fromName,
                                         @RequestParam String fromAvatar,@RequestParam String tradeId){
         return hybridService.createDeal(fromId,fromName,fromAvatar,tradeId);
+    }
+
+    @ApiOperation(value = "确认交易",response = Result.class,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = ApiConf.confirm_deal,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> confirmDeal(@RequestParam Message message){
+      return hybridService.confirmDeal(message);
     }
 
 }

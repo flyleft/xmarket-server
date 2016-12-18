@@ -1,8 +1,11 @@
 package me.jcala.xmarket.server.utils;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
+import me.jcala.xmarket.server.entity.document.Message;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -36,5 +39,13 @@ public class CustomValidator {
             return TokenVerifyResult.illegalSignature;
         }
         return TokenVerifyResult.success;
+    }
+
+    public static boolean checkConfirmMessage(Message message){
+        // TODO: 16-12-18  没有实现验证确认交易的Message方法
+        if (message==null){
+            return false;
+        }
+        return true;
     }
 }
