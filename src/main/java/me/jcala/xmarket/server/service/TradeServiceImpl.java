@@ -44,7 +44,7 @@ public class TradeServiceImpl implements TradeService {
         }
 
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
-        List<Trade> trades=tradeRepository.findByTagName(tagName);
+        List<Trade> trades=tradeRepository.findByTagNameAndStatus(tagName,0);
         result.setData(trades);
 
         return new ResponseEntity<>(result,HttpStatus.OK);
@@ -71,7 +71,7 @@ public class TradeServiceImpl implements TradeService {
         }
 
         Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
-        List<Trade> trades=tradeRepository.findBySchoolName(schoolName);
+        List<Trade> trades=tradeRepository.findBySchoolNameAndStatus(schoolName,0);
         result.setData(trades);
 
         return new ResponseEntity<>(result,HttpStatus.OK);

@@ -12,12 +12,12 @@ import java.util.Optional;
 @Repository
 public interface TradeRepository extends MongoRepository<Trade,String>{
 
+    @Query(fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    List<Trade> findBySchoolNameAndStatus(String schoolName,int status);
 
-    List<Trade> findBySchoolName(String schoolName);
 
-
-    @Query(value = "{ 'tagName' : ?0 }")
-    List<Trade> findByTagName(String tagName);
+    @Query(fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    List<Trade> findByTagNameAndStatus(String tagName,int status);
 
     Trade findById(String id);
 
