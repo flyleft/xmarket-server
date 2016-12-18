@@ -1,4 +1,4 @@
-package me.jcala.xmarket.server.entity.dto;
+package me.jcala.xmarket.server.entity.pojo;
 
 import lombok.*;
 import me.jcala.xmarket.server.entity.configuration.Api;

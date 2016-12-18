@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.conf.ApiConf;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.service.inter.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

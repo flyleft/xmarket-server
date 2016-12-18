@@ -1,7 +1,7 @@
 package me.jcala.xmarket.server.utils;
 
 import me.jcala.xmarket.server.entity.configuration.Api;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

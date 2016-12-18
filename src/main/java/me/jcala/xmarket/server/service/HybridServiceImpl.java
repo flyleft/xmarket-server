@@ -10,7 +10,7 @@ import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.document.Message;
 import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.entity.document.Trade;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.exception.SysDataException;
 import me.jcala.xmarket.server.repository.*;
 import me.jcala.xmarket.server.service.inter.HybridService;
@@ -25,7 +25,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.document.Trade;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.repository.CustomRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.service.inter.TradeService;

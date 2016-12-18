@@ -1,6 +1,6 @@
 package me.jcala.xmarket.server.ctrl;
 
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

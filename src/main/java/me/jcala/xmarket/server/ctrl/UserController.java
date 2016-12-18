@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import me.jcala.xmarket.server.conf.ApiConf;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;

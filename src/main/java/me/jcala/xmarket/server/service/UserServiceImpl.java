@@ -11,8 +11,7 @@ import me.jcala.xmarket.server.entity.document.Message;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
 import me.jcala.xmarket.server.entity.document.UserBuilder;
-import me.jcala.xmarket.server.entity.dto.MsgDto;
-import me.jcala.xmarket.server.entity.dto.Result;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
 import me.jcala.xmarket.server.repository.MessageRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
@@ -34,6 +33,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -232,16 +232,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page) {
         int num=(int) messageRepository.count();
-        Result<MsgDto> result=new Result<MsgDto>().api(Api.SUCCESS);
-        MsgDto dto=new MsgDto();
-        dto.setAllNum(num);
         if (msgNum >= num){
-            result.setData(dto);
-            return new ResponseEntity<>(result,HttpStatus.OK);
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_MSG_LATEST),HttpStatus.OK);
         }
         Page<Message> messagePage= messageRepository.findByBelongId(userId,page);
-        dto.setMsgs(messagePage.getContent());
-        result.setData(dto);
+        Result<List<Message>> result=new Result<List<Message>>().api(Api.SUCCESS);
+        result.setData(messagePage.getContent());
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

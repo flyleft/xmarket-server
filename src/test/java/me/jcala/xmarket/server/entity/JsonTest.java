@@ -2,8 +2,7 @@ package me.jcala.xmarket.server.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.jcala.xmarket.server.entity.configuration.Api;
-import me.jcala.xmarket.server.entity.dto.Result;
-import org.junit.After;
+import me.jcala.xmarket.server.entity.pojo.Result;
 import org.junit.Before;
 import org.junit.Test;
 
