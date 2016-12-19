@@ -68,9 +68,8 @@ public class UserController {
 
     @ApiOperation(value = "获取用户志愿队信息",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_user_team,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainUserTeam(@PathVariable("userId")String id) throws RuntimeException{
-        // TODO: 16-12-09  没有实现用户的志愿队列表获取代码
-        return null;
+    public ResponseEntity<?> gainUserTeam(@PathVariable("userId")String userId) throws RuntimeException{
+        return userService.getTeams(userId);
     }
 
     @ApiOperation(value = "获取商品列表;根据kind的值获取不同类型列表",response = Result.class,produces = "application/json;charset=UTF-8")

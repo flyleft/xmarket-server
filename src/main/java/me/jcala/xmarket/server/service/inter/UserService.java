@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 public interface UserService {
 
-
     ResponseEntity<?> loginAndGetToken(String username,String password);
 
     ResponseEntity<?> register(String username,String password);//用户注册
@@ -24,5 +23,7 @@ public interface UserService {
     ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page);//获取消息
 
     ResponseEntity<?> donateTrade(String userId,String tradeId,String team);//捐赠商品给本校志愿队
+
+    ResponseEntity<?> getTeams(String userId);//获取自己发起的志愿队列表
 
 }

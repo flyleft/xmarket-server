@@ -7,15 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
 import me.jcala.xmarket.server.entity.configuration.TradeType;
-import me.jcala.xmarket.server.entity.document.Message;
-import me.jcala.xmarket.server.entity.document.Trade;
-import me.jcala.xmarket.server.entity.document.User;
-import me.jcala.xmarket.server.entity.document.UserBuilder;
+import me.jcala.xmarket.server.entity.document.*;
 import me.jcala.xmarket.server.entity.pojo.Result;
-import me.jcala.xmarket.server.repository.CustomRepositoryImpl;
-import me.jcala.xmarket.server.repository.MessageRepository;
-import me.jcala.xmarket.server.repository.TradeRepository;
-import me.jcala.xmarket.server.repository.UserRepository;
+import me.jcala.xmarket.server.repository.*;
 import me.jcala.xmarket.server.service.inter.UserService;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
@@ -48,13 +42,17 @@ public class UserServiceImpl implements UserService {
 
     private TradeRepository tradeRepository;
 
+    private TeamRepository teamRepository;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository, CustomRepositoryImpl customRepository,
-                           MessageRepository messageRepository, TradeRepository tradeRepository) {
+                           MessageRepository messageRepository, TradeRepository tradeRepository,
+                           TeamRepository teamRepository) {
         this.userRepository = userRepository;
         this.customRepository = customRepository;
         this.messageRepository = messageRepository;
         this.tradeRepository = tradeRepository;
+        this.teamRepository = teamRepository;
     }
 
     @Override
@@ -223,9 +221,11 @@ public class UserServiceImpl implements UserService {
                 break;
             default:break;
         }
-        Result<Iterable<Trade>> result=new Result<Iterable<Trade>>().api(Api.SUCCESS);
-        result.setData(trades);
 
+        Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
+        List<Trade> tradeList=new ArrayList<>();
+        trades.forEach(tradeList::add);
+        result.setData(tradeList);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
@@ -255,5 +255,23 @@ public class UserServiceImpl implements UserService {
         //3.志愿队的商品列表加入tradeId
         customRepository.addToTeamTrades(team,tradeId);
         return RespFactory.INSTANCE().ok();
+    }
+
+    @Override
+    public ResponseEntity<?> getTeams(String userId) {
+        if (CustomValidator.hasEmpty(userId)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        User user=userRepository.findOne(userId);
+        if (user==null){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
+        }
+        Iterable<Team> teams=teamRepository.findAll(user.getTeams());
+        List<Team> teamList=new ArrayList<>();
+        teams.forEach(teamList::add);
+
+        Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
+        result.setData(teamList);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
