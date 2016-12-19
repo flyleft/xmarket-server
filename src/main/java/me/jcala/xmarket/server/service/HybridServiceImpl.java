@@ -82,13 +82,22 @@ public class HybridServiceImpl implements HybridService{
     }
 
     @Override
-    public ResponseEntity<?> getTeamListBySchoolName(String schoolName,Pageable page) {
+    public ResponseEntity<?> getTeamListBySchoolName(String schoolName,int type,Pageable page) {
         if (CustomValidator.hasEmpty(schoolName)){
             return RespFactory.INSTANCE().paramsError();
         }
-        Page<Team> teamList=teamRepository.findAllBySchoolAndStatus(schoolName,true,page);
-        Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
-        result.setData(teamList.getContent());
+        List<Team> teamList=teamRepository.findAllBySchoolAndStatus(schoolName,true,page);
+        if (type==0){
+            Result<List<Team>> result=new Result<List<Team>>().api(Api.SUCCESS);
+            result.setData(teamList);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        List<String> teamNameList=  teamList.stream()
+                                            .map(Team::getName)
+                                            .collect(Collectors.toList());
+
+        Result<List<String>> result=new Result<List<String>>().api(Api.SUCCESS);
+        result.setData(teamNameList);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

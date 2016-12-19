@@ -38,8 +38,8 @@ public class HybridController {
 
     @ApiOperation(value = "获取本校所有志愿队列表",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_school_teams,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTeamList(@PathVariable("schoolName") String schoolName, Pageable page){
-        return hybridService.getTeamListBySchoolName(schoolName,page);
+    public ResponseEntity<?> gainTeamList(@PathVariable("schoolName") String schoolName, int type, Pageable page){
+        return hybridService.getTeamListBySchoolName(schoolName,type,page);
     }
 
 
@@ -60,9 +60,9 @@ public class HybridController {
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTradeTagList(@RequestParam int kind){
+    public ResponseEntity<?> gainTradeTagList(@RequestParam int type){
 
-        if (kind==1){
+        if (type==1){
             return hybridService.getTradeTagList();//kind为1返回TradeTag列表
         }else{
             return hybridService.getTradeTagNameList();//kind为2返回String列表
