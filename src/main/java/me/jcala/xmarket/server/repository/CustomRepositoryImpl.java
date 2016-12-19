@@ -1,5 +1,6 @@
 package me.jcala.xmarket.server.repository;
 
+import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.document.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,11 @@ public class CustomRepositoryImpl implements CustomRepository{
     public void updateTradeStatus(String tradeId, int status) {
         template.updateFirst(new Query(where("_id").is(tradeId)),
                 new Update().set("status",status), Trade.class);
+    }
+
+    @Override
+    public void addToTeamTrades(String team, String tradeId) {
+        template.updateFirst(new Query(where("name").is(team)),
+                new Update().push("trades",tradeId), Team.class);
     }
 }

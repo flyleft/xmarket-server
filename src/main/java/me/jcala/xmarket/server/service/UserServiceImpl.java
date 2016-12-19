@@ -240,4 +240,20 @@ public class UserServiceImpl implements UserService {
         result.setData(messagePage.getContent());
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<?> donateTrade(String userId,String tradeId,String team) {
+        if (CustomValidator.hasEmpty(userId,tradeId,team)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+
+        //1.修改商品status
+        customRepository.updateTradeStatus(tradeId,2);
+        //2.用户商品去除在售，加入捐赠
+        customRepository.deleteFromUserTrades("sellTrades",userId,tradeId);
+        customRepository.addToUserTrades("donateTrades",userId,tradeId);
+        //3.志愿队的商品列表加入tradeId
+        customRepository.addToTeamTrades(team,tradeId);
+        return RespFactory.INSTANCE().ok();
+    }
 }

@@ -21,6 +21,8 @@ public interface UserService {
 
     ResponseEntity<?> getTrades(TradeType type, String userId);//获取用户在售，已卖，已买，捐赠，待确认的商品列表
 
-    ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page);
+    ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page);//获取消息
+
+    ResponseEntity<?> donateTrade(String userId,String tradeId,String team);//捐赠商品给本校志愿队
 
 }

@@ -92,4 +92,11 @@ public class UserController {
         return userService.getMessages(userId,msgNum,page);
     }
 
+
+    @ApiOperation(value = "捐赠商品给本校志愿队",response = Result.class,produces = "application/json;charset=UTF-8")
+    @PutMapping(value = ApiConf.donate_user_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> donateTrade(@PathVariable("userId") String userId, @RequestParam String tradeId,@RequestParam String team){
+        return userService.donateTrade(userId,tradeId,team);
+    }
+
 }
