@@ -242,11 +242,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> donateTrade(String userId,String tradeId,String team) {
-        if (CustomValidator.hasEmpty(userId,tradeId,team)){
+    public ResponseEntity<?> donateTrade(String userId,String tradeId,String tradeImg,String team) {
+        if (CustomValidator.hasEmpty(userId,tradeId,tradeImg,team)){
             return RespFactory.INSTANCE().paramsError();
         }
-
+        User user=userRepository.findOne(userId);
+        Team teamBean=teamRepository.findByName(team);
+        if (user==null||teamBean==null){
+            return RespFactory.INSTANCE().notFoundError();
+        }
         //1.修改商品status
         customRepository.updateTradeStatus(tradeId,2);
         //2.用户商品去除在售，加入捐赠
@@ -254,6 +258,17 @@ public class UserServiceImpl implements UserService {
         customRepository.addToUserTrades("donateTrades",userId,tradeId);
         //3.志愿队的商品列表加入tradeId
         customRepository.addToTeamTrades(team,tradeId);
+        //4.生成志愿队发起人的消息
+        Message message=new Message();
+        message.setBelongId(teamBean.getAuthorId());
+        message.setKind(3);
+        message.setUserId(user.getId());
+        message.setUserAvatar(user.getAvatarUrl());
+        message.setUsername(user.getUsername());
+        message.setUserPhone(user.getPhone());
+        message.setTradeId(tradeId);
+        message.setTradeImg(tradeImg);
+        messageRepository.save(message);
         return RespFactory.INSTANCE().ok();
     }
 

@@ -22,7 +22,7 @@ public interface UserService {
 
     ResponseEntity<?> getMessages(String userId, int msgNum, Pageable page);//获取消息
 
-    ResponseEntity<?> donateTrade(String userId,String tradeId,String team);//捐赠商品给本校志愿队
+    ResponseEntity<?> donateTrade(String userId,String tradeId,String tradeImg,String team);//捐赠商品给本校志愿队
 
     ResponseEntity<?> getTeams(String userId);//获取自己发起的志愿队列表
 
