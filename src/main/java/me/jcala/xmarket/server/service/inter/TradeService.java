@@ -13,6 +13,8 @@ public interface TradeService {
 
     ResponseEntity<?> getTradeListBySchoolName(String schoolName, Pageable page);//根据学校名称获取该学校下商品
 
+    ResponseEntity<?> getTradeListByTeamName(String team,Pageable page);//获取该志愿队下受赠商品列表
+
     ResponseEntity<?> createTrade(String trade,HttpServletRequest request);//发布商品
 
 }

@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import me.jcala.xmarket.server.entity.configuration.Api;
 import me.jcala.xmarket.server.entity.configuration.ApplicationInfo;
+import me.jcala.xmarket.server.entity.document.Team;
 import me.jcala.xmarket.server.entity.document.Trade;
 import me.jcala.xmarket.server.entity.pojo.Result;
 import me.jcala.xmarket.server.repository.CustomRepository;
+import me.jcala.xmarket.server.repository.TeamRepository;
 import me.jcala.xmarket.server.repository.TradeRepository;
 import me.jcala.xmarket.server.service.inter.TradeService;
 import me.jcala.xmarket.server.utils.CustomValidator;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,12 +32,14 @@ public class TradeServiceImpl implements TradeService {
 
     private TradeRepository tradeRepository;
     private CustomRepository customRepository;
+    private TeamRepository teamRepository;
 
     @Autowired
-    public TradeServiceImpl(TradeRepository tradeRepository,
-                            CustomRepository customRepository) {
+    public TradeServiceImpl(TradeRepository tradeRepository, CustomRepository customRepository,
+                            TeamRepository teamRepository) {
         this.tradeRepository = tradeRepository;
         this.customRepository = customRepository;
+        this.teamRepository = teamRepository;
     }
 
     @Override
@@ -74,6 +79,27 @@ public class TradeServiceImpl implements TradeService {
         List<Trade> trades=tradeRepository.findBySchoolNameAndStatus(schoolName,0,page);
         result.setData(trades);
 
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getTradeListByTeamName(String team, Pageable page) {
+
+        if (CustomValidator.hasEmpty(team)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        Team teamBean=teamRepository.findByName(team);
+        if (teamBean==null){
+            return RespFactory.INSTANCE().notFoundError();
+        }
+        Result<List<Trade>> result=new Result<List<Trade>>().api(Api.SUCCESS);
+        List<Trade> tradeList=new ArrayList<>();
+
+        if (teamBean.getTrades()!=null && teamBean.getTrades().size()>0){
+               Iterable<Trade> tradeIterable= tradeRepository.findAll(teamBean.getTrades());
+            tradeIterable.forEach(tradeList::add);
+        }
+        result.setData(tradeList);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 

@@ -39,6 +39,12 @@ public class TradeController {
         return tradeService.getTradeListBySchoolName(schoolName,page);
     }
 
+    @ApiOperation(value = "获取该志愿队受赠商品列表",response = Result.class,produces = "application/json;charset=UTF-8")
+    @GetMapping(value = ApiConf.get_team_trades,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> gainTeamTradeList(@PathVariable("teamName") String team,Pageable page){
+       return tradeService.getTradeListByTeamName(team,page);
+    }
+
     @ApiOperation(value = "通过id获取商品的详细信息",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_trade,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> gainTradeDetailById(@PathVariable("tradeId") String tradeId){

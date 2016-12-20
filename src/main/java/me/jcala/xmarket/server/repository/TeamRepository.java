@@ -13,4 +13,6 @@ import java.util.List;
 public interface TeamRepository extends MongoRepository<Team,String>{
 
     List<Team> findAllBySchoolAndStatus(String school, boolean status, Pageable pageable) ;
+
+    Team findByName(String name);
 }
