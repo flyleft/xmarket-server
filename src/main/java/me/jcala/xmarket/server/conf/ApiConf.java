@@ -4,14 +4,14 @@ public interface ApiConf {
 
     //-----------------------------用户相关---------------------------
     String auth="api/v1/auth";//用户登录+
-    String register="api/v1/users/register";//用户注册+
-    String register_next="api/v1/users/{userId}/phoneSchool/update";//用户注册下一步，设置学校，手机号+
+    String register="api/v1/register";//用户注册+
+    String register_next="api/v1/{userId}/phoneSchool/update";//用户注册下一步，设置学校，手机号+
     String update_user_pass="api/v1/users/{userId}/avatar/update";//修改用户密码
     String update_user_avatar="api/v1/users/{userId}/pass/update";//修改用户头像
     String get_user_team="api/v1/users/{userId}/teams/get";//获取用户志愿队
     String get_user_trades="api/v1/users/{userId}/trades/get";//获取用户在售，已卖，已买，捐赠，待确认的商品列表
     String get_user_messages="api/v1/users/{userId}/messages/get";//获取用户交易信息
-    String donate_user_trade="api/v1/users/{userId}/trades/donate";
+    String donate_user_trade="api/v1/users/{userId}/trades/donate";//捐赠商品给志愿队
 
     //----------------------------商品相关----------------------------
     String get_tag_trades="api/v1/trades/tag/{tagName}/get";//获取该分类下所有商品列表
