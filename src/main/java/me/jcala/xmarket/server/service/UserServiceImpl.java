@@ -251,6 +251,7 @@ public class UserServiceImpl implements UserService {
         if (user==null||teamBean==null){
             return RespFactory.INSTANCE().notFoundError();
         }
+
         //1.修改商品status
         customRepository.updateTradeStatus(tradeId,2);
         //2.用户商品去除在售，加入捐赠
