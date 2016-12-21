@@ -60,7 +60,7 @@ public class HybridController {
 
     @ApiOperation(value = "获取所有的商品分类",response = Result.class,produces = "application/json;charset=UTF-8")
     @GetMapping(value = ApiConf.get_tags,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> gainTradeTagList(@RequestParam int type){
+    public ResponseEntity<?> gainTradeTagList(@RequestParam("type") int type){
 
         if (type==1){
             return hybridService.getTradeTagList();//kind为1返回TradeTag列表

@@ -12,11 +12,12 @@ server:
             enabled: true
             dir: /home/jcala/xmarket/log/server_log
             pattern: combined
-#    ssl:
-#        key-store: classpath:sample.jks
-#        key-store-password: secret
-#        key-password: password
-#        enabled: true
+    ssl:
+        key-store: classpath:xmarket.keystore
+        key-store-password: 546sdhjdf
+        key-password: sdjkasl465sd
+        keyAlias: xmarketkey
+        enabled: true
 logging:
     config: classpath:logback-spring.xml
     path: /home/jcala/xmarket/log/spring_log
@@ -26,7 +27,7 @@ spring:
         encoding.force: false
         multipart:
           max-file-size: 3MB
-          max-request-size: 10MB
+          max-request-size: 25MB
     data:
         mongodb:
             database: xmarket
@@ -34,6 +35,7 @@ spring:
             port: 27017
 xmarket:
     pic_home: G:\home\jcala\xmarket\pic
+    address: https://192.168.10.4:80/
     jwt:
         key: shaku$#&!><?SD*o349()?/,<>+
         life: 7200000

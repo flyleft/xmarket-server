@@ -13,16 +13,16 @@ import java.util.Optional;
 @Repository
 public interface TradeRepository extends MongoRepository<Trade,String>{
 
-    @Query(fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    @Query(fields = "{ 'id': 1,'title':1,'price':1,'imgUrls': 1,'author':1}")
     List<Trade> findBySchoolNameAndStatus(String schoolName,int status,Pageable pageable);
 
 
-    @Query(fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    @Query(fields = "{ 'id': 1,'title':1,'price':1,'imgUrls': 1,'author':1}")
     List<Trade> findByTagNameAndStatus(String tagName, int status, Pageable pageable);
 
     Trade findById(String id);
 
-    @Query(value = "{ 'id' : ?0 }", fields = "{ 'id': 1, 'imgUrls': 1,'author':1}")
+    @Query(value = "{ 'id' : ?0 }", fields = "{ 'id': 1,'title':1,'price':1,'imgUrls': 1,'author':1}")
     Trade findPartsById(String id);
 
 }
