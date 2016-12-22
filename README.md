@@ -1,11 +1,40 @@
 ## xmarket APP的后端
 
-####[APP端 https://github.com/jcalaz/xmarket](https://github.com/jcalaz/xmarket)
+#### swagger API文档
+![user](screenshot/api.png)
 
-正在开发中。。。
+---
+####[APP端地址(https://github.com/jcalaz/xmarket)
+> 基于MVP+RxJava+Retrofit+Dagger2+Realm的校园交易市场APP
+---
+
+### Server代码中的小实现
+- [spring data mongo使用MongoTemplate实现复杂数据操作](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/repository/CustomRepositoryImpl.java)
+- [Multipart接收多多图片存储，并生成图片获取链接](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/utils/FileTool.java)
+- [使用SpringMVC拦截器验证Token是否过期和合法](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/interceptor/TokenInterceptor.java)
+- [swagger配置，自动根据springmvc的控制器注解生成API文档](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/conf/RestConfig.java)
+- [MongoRepository设置从mongo读取列](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/repository/TradeRepository.java)
+- [jwt token的创建](https://github.com/jcalaz/xmarket-server/blob/master/src/main/java/me/jcala/xmarket/server/repository/TradeRepository.java)
+- [spring boot配置https](https://github.com/jcalaz/xmarket-server/blob/master/src/main/resources/application-dev.yml)
+
+### APP代码中的小实现
+- [fresco自定义ImagePipeline，使用OkHttp加载图片,并加入SSL访问证书](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/app/App.java)
+- [retrofit通过okHttp拦截器实现token验证，过期自动获取新token](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/network/TokenInterceptor.java)
+- [retrofit支持https访问](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/network/ReqExecutor.java)
+- [RecyclerView万能适配器](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/view/RecyclerCommonAdapter.java)
+- [retrofit http日志打印](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/network/ReqExecutor.java)
+- [结合RxJava实现的后台轮询](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/mvp/message/MessageService.java)
+- [MVP模式的实现](https://github.com/jcalaz/xmarket/tree/master/app/src/main/java/me/jcala/xmarket/mvp/school)
+- [Dagger2实现简单依赖注入](https://github.com/jcalaz/xmarket/tree/master/app/src/main/java/me/jcala/xmarket/di)
+- [Realm数据库实现页面数据存储](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/mvp/sort/TradeTagPresenterImpl.java)
+- [fresco加载gif，实现启动动画](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/mvp/splash/SplashActivity.java)
+- [fresco实现圆形头像](https://github.com/jcalaz/xmarket/blob/master/app/src/main/res/layout/main_slide.xml)
+- [RxJava+retrofit实现HTTP访问](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/mvp/school/SchoolModelImpl.java)
+- [retrofit实现多图片和javabean同时上传](https://github.com/jcalaz/xmarket/blob/master/app/src/main/java/me/jcala/xmarket/mvp/trade/add/TradeAddModelImpl.java)
+
+
 
 ### 所用技术
-
 - springboot
 - springmvc: restful
 - spring data mongo: mongo框架
@@ -14,29 +43,73 @@
 - react.js: 后台管理ui
 - shiro: 权限引擎
 
-#### swagger API文档
-![user](screenshot/api1.jpg)
+### 注意事项
+- APP使用Androidtudio开发，后端采用idea。由于都使用了lombok，两个ide都需要安装lombok插件。
+- fresco自定义了ImagePipeline，并且访问时加上了证书，所以只能加载本服务器的图片。
 
-![login](screenshot/api2.jpg)
+### 其他配置
 
+- 服务器端访问路径
+  1. APP，在AppConf中配置BASE_URL为服务器访问路径
+  2. server，在application.yml中配置xmarket.address为服务器访问路径
+- 默认采用HTTPS协议，如果想使用http协议
+  1. APP，将AppConf的enabled_ssl设置为false
+  2. server，application.yml中将server.ssl.enabled设置为false
 
-#### 特点
+- 服务器图片存储物理路径：
+- APP轮询频率：设置AppConf中的Message_Interval
 
-1. 符合restful风格,url基本符合HTTP的幂等性。只有注册等几个对幂等性要求不高的少数功能不符合
-2. Token验证。
-3. 用JWT作Token，无需session缓存token，降低服务器压力。
-4. 支持HTTPS。
-5. 后台使用react.js做单页面应用。
-6. 返回状态码独立与HTTP状态码，针对不同情况返回不同自定义状态码和HTTP状态码。例如更新用户密码
+- APP每页商品加载的条数：设置AppConf中的size
+
+- 服务器图片存储路径： application.yml中设置xmarket.pic_home
+
+### https证书使用keytool生成,生成命令
+```
+keytool -genkey -alias xmarketkey -keyalg RSA -keysize 1024 -keypass sdjkasl465sd -validity 365 -keystore g:\home\xmarket.keystore -storepass 546sdhjdf  //生成证书
+
+keytool -list  -v -keystore g:\home\xmarket.keystore -storepass 546sdhjdf //查看证书
+
+keytool -export -alias xmarketkey -keystore g:\home\xmarket.keystore -file g:\home\xmarket.crt -storepass 546sdhjdf //导出证书
+
+keytool -printcert -file g:\home\xmarket.crt //查看证书
 
 ```
-PUT /users/user_id/update_pass               更新用户密码
-更新成功:       自定义状态码100  HttpStatus200 content不包含内容
-原密码错误:     自定义状态码204  HttpStatus200
-jwt过期:        自定义状态码101  HttpStatus200
-用户名不存在:   HttpStatus404
-无操作权限:     HttpStatus403
-操作异常:       HttpStatus500
-参数错误:       HttpStatus400
-jwt不合法:      HttpStatus401
+
+### API路径
+```java
+public interface ApiConf {
+    //-----------------------------用户相关---------------------------
+    String login="api/v1/login";//用户登录+
+    String auth="api/v1/auth";//用户获取token
+    String register="api/v1/register";//用户注册+
+    String register_next="api/v1/{userId}/phoneSchool/update";//用户注册下一步，设置学校，手机号+
+    String update_user_pass="api/v1/users/{userId}/avatar/update";//修改用户密码
+    String update_user_avatar="api/v1/users/{userId}/pass/update";//修改用户头像
+    String get_user_team="api/v1/users/{userId}/teams/get";//获取用户志愿队
+    String get_user_trades="api/v1/users/{userId}/trades/get";//获取用户在售，已卖，已买，捐赠，待确认的商品列表
+    String get_user_messages="api/v1/users/{userId}/messages/get";//获取用户交易信息
+    String donate_user_trade="api/v1/users/{userId}/trades/donate";//捐赠商品
+
+
+    //----------------------------商品相关----------------------------
+    String get_tag_trades="api/v1/trades/tag/{tagName}/get";//获取该分类下所有商品列表
+    String get_school_trades="api/v1/trades/school/{schoolName}/get";//获取该学校的商品列表
+    String get_team_trades="api/v1/trades/team/{teamName}/get";
+    String get_trade="api/v1/trades/{tradeId}/get";//通过id获取商品的详细信息
+    String create_trade="api/v1/trades/create";//发布商品
+
+
+    //------------------------Hybrid 志愿队相关------------------------
+    String create_team="api/v1/teams/create";//创建志愿队
+    String get_school_teams="/api/v1/teams/{schoolName}/get";//？type=0获取该学校下的所有志愿队.0获取志愿队列表，1获取志愿队名称列表
+    //------------------------Hybrid 学校相关--------------------------
+    String get_schools="api/v1/schools/names/get";//获取学校名称列表
+    //------------------------Hybrid 文件相关--------------------------
+    String get_img="api/v1/file/img/{dir}/{picName:.+}";//获取图片资源
+    //------------------------Hybrid 分类相关--------------------------
+    String get_tags="api/v1/tags/get";//获取商品分类列表
+    //------------------------Hybrid 交易相关--------------------------
+    String create_deal="api/v1/deals/create";//创建交易
+    String confirm_deal="api/v1/deals/{messageId}/update";//确认进行交易
+}
 ```
