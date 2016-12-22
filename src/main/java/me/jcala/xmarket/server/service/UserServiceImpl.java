@@ -157,6 +157,9 @@ public class UserServiceImpl implements UserService {
         if (user==null){
             return RespFactory.INSTANCE().notFoundError();
         }
+        if (userRepository.countByPhone(phone) > 0){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_PHONE_EXIST),HttpStatus.OK);
+        }
         customRepository.updateUserPhoneSchool(id,phone,school);
         Result<User> userResult=new Result<User>().api(Api.SUCCESS);
         user.setSchool(school);
