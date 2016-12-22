@@ -35,7 +35,7 @@ public class UserController {
             @ApiResponse(code=500,message="服务器异常"),
             @ApiResponse(code=400,message="请求参数不合法")
     })
-    @PostMapping(value = ApiConf.auth,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = ApiConf.login,produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> authenticate(@RequestParam String username,@RequestParam String password){
         return userService.loginAndGetToken(username,password);
     }

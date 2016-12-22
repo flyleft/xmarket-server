@@ -3,7 +3,8 @@ package me.jcala.xmarket.server.conf;
 public interface ApiConf {
 
     //-----------------------------用户相关---------------------------
-    String auth="api/v1/auth";//用户登录+
+    String login="api/v1/login";//用户登录+
+    String auth="api/v1/auth";//获取token
     String register="api/v1/register";//用户注册+
     String register_next="api/v1/{userId}/phoneSchool/update";//用户注册下一步，设置学校，手机号+
     String update_user_pass="api/v1/users/{userId}/avatar/update";//修改用户密码

@@ -5,6 +5,7 @@ import me.jcala.xmarket.server.entity.configuration.TokenVerifyResult;
 import me.jcala.xmarket.server.utils.CustomValidator;
 import me.jcala.xmarket.server.utils.RespFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,9 +38,7 @@ public class TokenInterceptor implements HandlerInterceptor {
          if (result==TokenVerifyResult.success){
              return true;
          }else if (result==TokenVerifyResult.expired){
-             response.setContentType("application/json;charset=UTF-8");
-             response.setStatus(200);
-             response.getWriter().write("{\"code\":101,\"msg\":\"token过期\",\"data\":null}");
+             response.setStatus(210);
             return false;
         }else {
              response.setStatus(401);
