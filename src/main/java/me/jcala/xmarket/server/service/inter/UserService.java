@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 public interface UserService {
 
-    ResponseEntity<?> loginAndGetToken(String username,String password);
+    ResponseEntity<?> login(String username,String password);//用户登录
+
+    ResponseEntity<?> auth(String username,String password);//获取token
 
     ResponseEntity<?> register(String username,String password);//用户注册
 

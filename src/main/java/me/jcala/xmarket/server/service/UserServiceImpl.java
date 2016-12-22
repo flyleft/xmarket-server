@@ -56,26 +56,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> loginAndGetToken(String username, String password) {
+    public ResponseEntity<?> login(String username, String password) {
         if (CustomValidator.hasEmpty(username,password)){
             return RespFactory.INSTANCE().paramsError();
         }
-        if (userRepository.countByUsername(username)<1){
-            return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.OK);
-        }
         Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
         if (!user.isPresent()){
+            if (userRepository.countByUsername(username)<1){
+                return new ResponseEntity<>(new Result<String>().api(Api.USER_NOT_EXIST), HttpStatus.OK);
+            }
             return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.OK);
         }else {
             User userData=user.get();
-            String token=createJWT("xmarket","jcala",userData.getId(),ApplicationInfo.getJwtLife());
             Result<User> result=new Result<>();
             result.api(Api.SUCCESS);
-            userData.setToken(token);
             result.setData(userData);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
+
+    @Override
+    public ResponseEntity<?> auth(String username, String password) {
+        if (CustomValidator.hasEmpty(username,password)){
+            return RespFactory.INSTANCE().paramsError();
+        }
+        Optional<User> user=userRepository.findByUsernameAndPassword(username,password);
+        if (!user.isPresent()){
+            return new ResponseEntity<>(new Result<String>().api(Api.USER_PASS_ERR),HttpStatus.OK);
+        }
+        String token=createJWT("xmarket","jcala",user.get().getId(),ApplicationInfo.getJwtLife());
+        return new ResponseEntity<>(token,HttpStatus.OK);
+    }
+
     /**
      *
      * @param id         密钥 ID
@@ -147,8 +159,6 @@ public class UserServiceImpl implements UserService {
         }
         customRepository.updateUserPhoneSchool(id,phone,school);
         Result<User> userResult=new Result<User>().api(Api.SUCCESS);
-        String token=createJWT("xmarket","jcala",user.getId(),ApplicationInfo.getJwtLife());
-        user.setToken(token);
         user.setSchool(school);
         user.setPhone(phone);
         userResult.setData(user);
