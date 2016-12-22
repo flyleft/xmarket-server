@@ -43,9 +43,10 @@
 - react.js: 后台管理ui
 - shiro: 权限引擎
 
-### 注意事项
+## 注意事项
 - APP使用Androidtudio开发，后端采用idea。由于都使用了lombok，两个ide都需要安装lombok插件。
 - fresco自定义了ImagePipeline，并且访问时加上了证书，所以只能加载本服务器的图片。
+- 目前server的admin后台管理还没有完成，还没有进行mongo建立索引等优化。有时间会陆续加上。
 
 ### 其他配置
 
