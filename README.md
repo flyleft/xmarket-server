@@ -4,7 +4,7 @@
 ![user](screenshot/api.png)
 
 ---
-####[APP端地址(https://github.com/jcalaz/xmarket)
+#### [APP端地址(https://github.com/jcalaz/xmarket)
 > 基于MVP+RxJava+Retrofit+Dagger2+Realm的校园交易市场APP
 ---
 
